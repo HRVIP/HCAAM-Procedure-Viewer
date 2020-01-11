@@ -1,0 +1,55 @@
+ul#expList>li {
+    display: list-item;
+}
+
+li {
+    list-style-type: none;
+    border: 2px black solid;
+    padding: 10px;
+    padding-bottom: 0px;
+    display: flex;
+}
+
+ul {
+    padding-left: 0px;
+}
+
+img, video {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+div.caution {
+    background-color: yellow;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+}
+
+#listContainer {
+    width: 100%;
+    margin: auto;
+    max-width: 800px;
+    padding: 10px;
+}
+
+.info {
+    margin-bottom: 10px;
+}
+
+li>div {
+    flex: 2;
+    /* width: 60%; */
+}
+
+li>img {
+    flex: 1;
+}
+
+li>video {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 300px;
+    max-height: 300px;
+}

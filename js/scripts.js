@@ -1,8 +1,8 @@
-/** *******************************************************************/
-/* Prepares the procedure to be dynamically expandable/collapsible   */
-/** *******************************************************************/
-function prepareList(procedure) {
-  experimentStarted = false;
+/**
+* Prepares the procedure to be dynamically expandable/collapsible   *
+*/
+function prepareList() {
+  experimentStarted = true;
 
   const UPKEY = 'w';
   const DOWNKEY = 's';
@@ -11,13 +11,17 @@ function prepareList(procedure) {
   const EXPANDKEY = 'd';
   const COLLAPSEKEY = 'a';
   const PLAYKEY = 't';
-  let canExpand = true;
+  const canExpand = true;
 
-  function data_log() {
+  /**
+   * Logs data to console.
+   */
+  function dataLog(...args) {
     if (experimentStarted) {
-      args = Array.prototype.slice.call(arguments);
+      args = Array.prototype.slice.call(args);
       data = args.join();
-      client.publish('action', data);
+      // client.publish('action', data);
+      console.log(data);
     }
   }
 
@@ -28,54 +32,56 @@ function prepareList(procedure) {
       .children('ul')
       .hide();
 
-  // Create the button funtionality
-  $('#expandList')
-      .unbind('click')
-      .click(function() {
-        data_log(new Date().getTime(), 'expand all');
-        $('.collapsed').addClass('expanded');
-        $('.collapsed')
-            .children()
-            .show('fast');
-      });
-  $('#collapseList')
-      .unbind('click')
-      .click(function() {
-        data_log(new Date().getTime(), 'collapse all');
-        $('.collapsed').removeClass('expanded');
-        $('.collapsed')
-            .children('ul')
-            .hide('fast');
-      });
-  $('#start')
-      .unbind('click')
-      .click(function() {
-        beginExperiment();
-      });
+  // // Create the button funtionality
+  // $('#expandList')
+  //     .unbind('click')
+  //     .click(function() {
+  //       dataLog(new Date().getTime(), 'expand all');
+  //       $('.collapsed').addClass('expanded');
+  //       $('.collapsed')
+  //           .children()
+  //           .show('fast');
+  //     });
+  // $('#collapseList')
+  //     .unbind('click')
+  //     .click(function() {
+  //       dataLog(new Date().getTime(), 'collapse all');
+  //       $('.collapsed').removeClass('expanded');
+  //       $('.collapsed')
+  //           .children('ul')
+  //           .hide('fast');
+  //     });
+  // $('#start')
+  //     .unbind('click')
+  //     .click(function() {
+  //       beginExperiment();
+  //     });
 
   // Set up this marker moving technology
   $currentElement = $('li:visible').first();
-  $currentElement.find('> .info').css('border', '2px solid limegreen');
+  $currentElement.css('border', '2px solid limegreen');
 
   const down = function() {
     $('.info').css('border', '');
     $allElements = $('li:visible');
 
     if ($currentElement[0] == $allElements.last()[0]) {
-      $nextElement = $('li:visible').first();
+      // $nextElement = $('li:visible').first();
+      $nextElement = $currentElement;
     } else {
       $nextElement = $($allElements[$.inArray($currentElement[0], $allElements) + 1]);
     }
 
-    data_log(
+    dataLog(
         new Date().getTime(),
         'down from',
         $currentElement.attr('id'),
         'to',
         $nextElement.attr('id'),
     );
+    $currentElement.css('border', '');
     $currentElement = $nextElement;
-    $currentElement.find('> .info').css('border', '2px solid limegreen');
+    $currentElement.css('border', '2px solid limegreen');
 
     $('body, html').animate(
         {
@@ -90,20 +96,22 @@ function prepareList(procedure) {
     $allElements = $('li:visible');
 
     if ($currentElement[0] == $allElements.first()[0]) {
-      $nextElement = $('li:visible').last();
+      // $nextElement = $('li:visible').last();
+      $nextElement = $currentElement;
     } else {
       $nextElement = $($allElements[$.inArray($currentElement[0], $allElements) - 1]);
     }
 
-    data_log(
+    dataLog(
         new Date().getTime(),
         'up from',
         $currentElement.attr('id'),
         'to',
         $nextElement.attr('id'),
     );
+    $currentElement.css('border', '');
     $currentElement = $nextElement;
-    $currentElement.find('> .info').css('border', '2px solid limegreen');
+    $currentElement.css('border', '2px solid limegreen');
 
     $('body, html').animate(
         {
@@ -121,10 +129,10 @@ function prepareList(procedure) {
           .toggle('fast');
 
       if ($(that).hasClass('expanded')) {
-        data_log(new Date().getTime(), that.id, 'expanded');
+        dataLog(new Date().getTime(), that.id, 'expanded');
         down();
       } else {
-        data_log(new Date().getTime(), that.id, 'collapsed');
+        dataLog(new Date().getTime(), that.id, 'collapsed');
       }
     }
     return false;
@@ -139,7 +147,7 @@ function prepareList(procedure) {
     }
   };
 
-  var play = function() {
+  const play = function() {
     if ($currentElement.children('video').length) {
       video = $currentElement.children('video')[0];
       if (video.paused) {
@@ -151,80 +159,66 @@ function prepareList(procedure) {
     }
   };
 
-  var beginExperiment = function() {
-    filename = 'subject_' + $('#subjectid').val();
-    // If the subject number begins with the number 2 then they can't expand or collapse
-    if (filename[8] == '2') {
-      $('#expandList').click();
-      canExpand = false;
-    }
-    client.publish('filename', filename);
+  // const beginExperiment = function() {
+  //   filename = 'subject_' + $('#subjectid').val();
+  //   // // If the subject number begins with the number 2 then they can't expand or collapse
+  //   // if (filename[8] == '2') {
+  //   //   $('#expandList').click();
+  //   //   canExpand = false;
+  //   // }
+  //   client.publish('filename', filename);
 
-    $('.listControl').hide();
-    experimentStarted = true;
-    data_log(new Date().getTime(), 'loaded procedure ' + procedure);
-    data_log(new Date().getTime(), 'experiment started');
-  };
+  //   $('.listControl').hide();
+  //   experimentStarted = true;
+  //   dataLog(new Date().getTime(), 'loaded procedure');
+  //   dataLog(new Date().getTime(), 'experiment started');
+  // };
 
-  const endExperiment = function() {
-    data_log(new Date().getTime(), 'experiment ended');
-    $('*').hide();
-  };
+  // const endExperiment = function() {
+  //   dataLog(new Date().getTime(), 'experiment ended');
+  //   $('*').hide();
+  // };
 
   $(window).keyup(function(e) {
     if (event.key == DOWNKEY) {
-      data_log(new Date().getTime(), 'pressed DOWNKEY');
+      dataLog(new Date().getTime(), 'pressed DOWNKEY');
       down();
     }
     if (event.key == UPKEY) {
-      data_log(new Date().getTime(), 'pressed UPKEY');
+      dataLog(new Date().getTime(), 'pressed UPKEY');
       up();
     }
     // if (event.key == BEGINEXPERIMENTKEY) {
-    //   data_log(new Date().getTime(), 'pressed BEGINEXPERIMENTKEY')
+    //   dataLog(new Date().getTime(), 'pressed BEGINEXPERIMENTKEY')
     //   beginExperiment();
     // }
     if (event.key == ENDEXPERIMENTKEY) {
-      data_log(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
+      dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
       endExperiment();
     }
     if (event.key == PLAYKEY) {
-      data_log(new Date().getTime(), 'pressed PLAYKEY');
+      dataLog(new Date().getTime(), 'pressed PLAYKEY');
       play();
     }
     if (event.key == EXPANDKEY) {
-      data_log(new Date().getTime(), 'pressed EXPANDKEY');
+      dataLog(new Date().getTime(), 'pressed EXPANDKEY');
       toggleThat();
     }
     if (event.key == COLLAPSEKEY) {
-      data_log(new Date().getTime(), 'pressed COLLAPSEKEY');
+      dataLog(new Date().getTime(), 'pressed COLLAPSEKEY');
       toggleThat();
     }
 
     e.preventDefault();
   });
-
-  $('#down')
-      .unbind('click')
-      .click(down);
-  $('#up')
-      .unbind('click')
-      .click(up);
 }
 
 /** ************************************************************/
 /* Functions to execute on loading the document               */
 /** ************************************************************/
 $(document).ready(function() {
-  // Load the selected procedure
-  $('#load')
-      .unbind('click')
-      .click(function() {
-        $.getScript('js/procedure.js', function() {
-          $('#procedure').hide();
-          $('#load').hide();
-
-          prepareList(procedure);
-        });
-      });
+  // Load the procedure
+  $.getScript('js/procedure.js', function() {
+    prepareList();
+  });
 });
