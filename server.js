@@ -1,17 +1,21 @@
-// Load HTTP module
+const express = require('express');
 const http = require('http');
-const hostname = '127.0.0.1';
-const port = 3000;
+// const path = require('path');
 
-// Create HTTP server and listen on port 3000 for requests
-const server = http.createServer((req, res) => {
-  // Set the response HTTP header with HTTP status and Content type
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+const app = express();
+const srv = http.createServer(app);
+
+// Serve the assets
+// app.use(express.static(path.dirname(require.resolve('jquery'))));
+
+// app.use('/css', express.static('css'));
+// app.use('/img', express.static('img'));
+app.use('/js', express.static('js'));
+// app.use('/vid', express.static('vid'));
+
+// Serve the procedure viewer at the root directory
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/index.html');
 });
 
-// listen for request on port 3000, and as a callback function have the port listened on logged
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+srv.listen(3000);
