@@ -7,7 +7,6 @@ const srv = http.createServer(app);
 
 // Serve the assets
 app.use(express.static(path.dirname(require.resolve('jquery'))));
-// app.use(express.static(path.dirname(require.resolve('bootstrap'))));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 app.use('/css', express.static('css'));

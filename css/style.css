@@ -1,13 +1,24 @@
 ul#expList>li {
     display: list-item;
+    border: 3px gray solid;
+    margin-bottom: 10px;
+}
+
+ul#expList>li>div::before {
+    content: "⊕ ";
+}
+
+ul#expList>li.expanded>div::before {
+    content: "⊖ ";
 }
 
 li {
     list-style-type: none;
-    border: 2px black solid;
+    border-left: 3px transparent solid;
     padding: 10px;
     padding-bottom: 0px;
     display: flex;
+    background-color: white;
 }
 
 ul {
@@ -17,6 +28,8 @@ ul {
 img, video {
     max-width: 300px;
     max-height: 300px;
+    width: 100%;
+    height: auto;
 }
 
 div.caution {
@@ -40,10 +53,9 @@ div.caution {
 
 li>div {
     flex: 2;
-    /* width: 60%; */
 }
 
-li>img {
+li>div.image {
     flex: 1;
 }
 
@@ -52,4 +64,9 @@ li>video {
     margin-right: auto;
     max-width: 300px;
     max-height: 300px;
+}
+
+.selected {
+    border-left: 3px solid #11244B !important;
+    background-color: #F6F6F6
 }

@@ -541,11 +541,11 @@ function buildProcedure(steps, parent, depth) {
     const procID = parent + '_' + index;
 
     if (step.type == 'image') {
-      $('<li id="' + procID + '"><img class="proc_image info" src="' + step.text.substr(1) + '"></li>').appendTo('ul#' + parent);
+      $('<li id="' + procID + '"><div class="image"><img class="info" src="' + step.text.substr(1) + '"></div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'image_and_text') {
-      $('<li id="' + procID + '"><div class="info">' + step.caption + '</div><img class="proc_image info" src="' + step.text.substr(1) + '"></li>').appendTo('ul#' + parent);
+      $('<li id="' + procID + '"><div class="info">' + step.caption + '</div><div class="image"><img class="info" src="' + step.text.substr(1) + '"></div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'image_and_text_and_caution') {
-      $('<li id="' + procID + '"><div class="info">' + step.caption + '</div><div class="caution"><div class="info">' + step.caution + '</div></div><img class="proc_image info" src="' + step.text.substr(1) + '"></li>').appendTo('ul#' + parent);
+      $('<li id="' + procID + '"><div class="info">' + step.caption + '</div><div class="caution"><div class="info">' + step.caution + '</div></div><div class="image"><img class="info" src="' + step.text.substr(1) + '"></div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'video') {
       $('<li id="' + procID + '"><video class="info" src="' + step.text.substr(1) + '"controls></video></li>').appendTo('ul#' + parent);
     } else if (step.type == 'caution') {

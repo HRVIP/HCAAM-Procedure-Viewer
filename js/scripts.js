@@ -28,7 +28,6 @@ function prepareList() {
   // Add the classes for collapsing/expanding
   $('#expList')
       .find('li:has(ul)')
-      .addClass('collapsed')
       .children('ul')
       .hide();
 
@@ -59,7 +58,7 @@ function prepareList() {
 
   // Set up this marker moving technology
   $currentElement = $('li:visible').first();
-  $currentElement.css('border', '2px solid limegreen');
+  $currentElement.toggleClass('selected');
 
   const down = function() {
     $('.info').css('border', '');
@@ -79,16 +78,17 @@ function prepareList() {
         'to',
         $nextElement.attr('id'),
     );
-    $currentElement.css('border', '');
+    $currentElement.toggleClass('selected');
     $currentElement = $nextElement;
-    $currentElement.css('border', '2px solid limegreen');
+    $currentElement.toggleClass('selected');
 
-    $('body, html').animate(
-        {
-          scrollTop: $currentElement.position().top - 100,
-        },
-        100,
-    );
+    // Keep the marker at the top of the screen
+    // $('body, html').animate(
+    //     {
+    //       scrollTop: $currentElement.position().top - 100,
+    //     },
+    //     100,
+    // );
   };
 
   const up = function() {
@@ -109,16 +109,17 @@ function prepareList() {
         'to',
         $nextElement.attr('id'),
     );
-    $currentElement.css('border', '');
+    $currentElement.toggleClass('selected');
     $currentElement = $nextElement;
-    $currentElement.css('border', '2px solid limegreen');
+    $currentElement.toggleClass('selected');
 
-    $('body, html').animate(
-        {
-          scrollTop: $currentElement.position().top - 100,
-        },
-        100,
-    );
+    // Keep the marker at the top of the screen
+    // $('body, html').animate(
+    //     {
+    //       scrollTop: $currentElement.position().top - 100,
+    //     },
+    //     100,
+    // );
   };
 
   const toggle = function(that) {
