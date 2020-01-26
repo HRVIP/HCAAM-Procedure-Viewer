@@ -13,6 +13,24 @@ function prepareList() {
   const PLAYKEY = 't';
   const canExpand = true;
 
+  // Retrieves sensor data from server
+  var xhttp = new XMLHttpRequest();
+
+  function getData() {
+    xhttp.open("GET", "http://localhost:3000/getData", true);
+    xhttp.send();
+  }
+
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      dataLog(new Date().getTime(), xhttp.responseText);
+    }
+  }
+  // Retrieve data every set interval (ms)
+  setInterval(() => {
+    getData();
+  }, 1000);
+
   /**
    * Logs data to console.
    */
@@ -24,7 +42,7 @@ function prepareList() {
       console.log(data);
     }
   }
-
+  
   // Add the classes for collapsing/expanding
   $('#expList')
       .find('li:has(ul)')
