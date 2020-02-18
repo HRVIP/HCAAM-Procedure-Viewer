@@ -20,6 +20,25 @@ function prepareList() {
     xhttp.open("GET", "http://localhost:3000/getData", true);
     xhttp.send();
   }
+  
+  // Send laser state change requests
+  var laserStates = {
+    "laser1": "1",
+    "laser2": "0",
+    "laser3": "0"
+  }
+
+  var laserurl = "http://localhost:3000/laserRequest"
+  function showMe() {
+    $.ajax({
+      type: "POST",
+      url: laserurl,
+      data: JSON.stringify(laserStates),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    });
+    dataLog("Request sent");
+  }
 
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
