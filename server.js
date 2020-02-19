@@ -1,11 +1,9 @@
-
 const express = require('express');
 const http = require('http');
 const path = require('path');
-
 const bodyParser = require('body-parser');
-
 const app = express();
+
 const srv = http.createServer(app);
 
 // Serve the assets
@@ -39,9 +37,9 @@ app.post('/postData', (req, res) => {
 // Serve the sensor data to the client
 app.get('/getData', (req, res) => {
   var data = { // this is the data you're sending back during the GET request
-      light1: light1,
-      light2: light2,
-      light3: light3,
+    light1: light1,
+    light2: light2,
+    light3: light3,
   }
   data = JSON.stringify(data);
   res.status(200).json(data);
@@ -74,7 +72,7 @@ app.get('/laserOrder', (req, res) => {
 
 
 // Serve the procedure viewer at the root directory
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 

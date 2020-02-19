@@ -20,7 +20,7 @@ function prepareList() {
     xhttp.open("GET", "http://localhost:3000/getData", true);
     xhttp.send();
   }
-  
+
   // Send laser state change requests
   var laserStates = {
     "laser1": "1",
@@ -61,43 +61,18 @@ function prepareList() {
       console.log(data);
     }
   }
-  
+
   // Add the classes for collapsing/expanding
   $('#expList')
-      .find('li:has(ul)')
-      .children('ul')
-      .hide();
-
-  // // Create the button funtionality
-  // $('#expandList')
-  //     .unbind('click')
-  //     .click(function() {
-  //       dataLog(new Date().getTime(), 'expand all');
-  //       $('.collapsed').addClass('expanded');
-  //       $('.collapsed')
-  //           .children()
-  //           .show('fast');
-  //     });
-  // $('#collapseList')
-  //     .unbind('click')
-  //     .click(function() {
-  //       dataLog(new Date().getTime(), 'collapse all');
-  //       $('.collapsed').removeClass('expanded');
-  //       $('.collapsed')
-  //           .children('ul')
-  //           .hide('fast');
-  //     });
-  // $('#start')
-  //     .unbind('click')
-  //     .click(function() {
-  //       beginExperiment();
-  //     });
+    .find('li:has(ul)')
+    .children('ul')
+    .hide();
 
   // Set up this marker moving technology
   $currentElement = $('li:visible').first();
   $currentElement.toggleClass('selected');
 
-  const down = function() {
+  const down = function () {
     $('.info').css('border', '');
     $allElements = $('li:visible');
 
@@ -109,26 +84,26 @@ function prepareList() {
     }
 
     dataLog(
-        new Date().getTime(),
-        'down from',
-        $currentElement.attr('id'),
-        'to',
-        $nextElement.attr('id'),
+      new Date().getTime(),
+      'down from',
+      $currentElement.attr('id'),
+      'to',
+      $nextElement.attr('id'),
     );
     $currentElement.toggleClass('selected');
     $currentElement = $nextElement;
     $currentElement.toggleClass('selected');
 
     // Keep the marker at the top of the screen
-    // $('body, html').animate(
-    //     {
-    //       scrollTop: $currentElement.position().top - 100,
-    //     },
-    //     100,
-    // );
+    $('body, html').animate(
+      {
+        scrollTop: $currentElement.position().top - 100,
+      },
+      100,
+    );
   };
 
-  const up = function() {
+  const up = function () {
     $('.info').css('border', '');
     $allElements = $('li:visible');
 
@@ -140,31 +115,31 @@ function prepareList() {
     }
 
     dataLog(
-        new Date().getTime(),
-        'up from',
-        $currentElement.attr('id'),
-        'to',
-        $nextElement.attr('id'),
+      new Date().getTime(),
+      'up from',
+      $currentElement.attr('id'),
+      'to',
+      $nextElement.attr('id'),
     );
     $currentElement.toggleClass('selected');
     $currentElement = $nextElement;
     $currentElement.toggleClass('selected');
 
     // Keep the marker at the top of the screen
-    // $('body, html').animate(
-    //     {
-    //       scrollTop: $currentElement.position().top - 100,
-    //     },
-    //     100,
-    // );
+    $('body, html').animate(
+      {
+        scrollTop: $currentElement.position().top - 100,
+      },
+      100,
+    );
   };
 
-  const toggle = function(that) {
+  const toggle = function (that) {
     if (that == event.target || event.key == EXPANDKEY || event.key == COLLAPSEKEY) {
       $(that).toggleClass('expanded');
       $(that)
-          .children('ul')
-          .toggle('fast');
+        .children('ul')
+        .toggle('fast');
 
       if ($(that).hasClass('expanded')) {
         dataLog(new Date().getTime(), that.id, 'expanded');
@@ -176,7 +151,7 @@ function prepareList() {
     return false;
   };
 
-  const toggleThat = function() {
+  const toggleThat = function () {
     if (canExpand) {
       if ($currentElement.children('ul').length) {
         toggle($currentElement[0]);
@@ -185,7 +160,7 @@ function prepareList() {
     }
   };
 
-  const play = function() {
+  const play = function () {
     if ($currentElement.children('video').length) {
       video = $currentElement.children('video')[0];
       if (video.paused) {
@@ -217,7 +192,7 @@ function prepareList() {
   //   $('*').hide();
   // };
 
-  $(window).keyup(function(e) {
+  $(window).keyup(function (e) {
     if (event.key == DOWNKEY) {
       dataLog(new Date().getTime(), 'pressed DOWNKEY');
       down();
@@ -254,9 +229,9 @@ function prepareList() {
 /** ************************************************************/
 /* Functions to execute on loading the document               */
 /** ************************************************************/
-$(document).ready(function() {
+$(document).ready(function () {
   // Load the procedure
-  $.getScript('js/procedure.js', function() {
+  $.getScript('js/procedure.js', function () {
     prepareList();
   });
 });
