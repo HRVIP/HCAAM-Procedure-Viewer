@@ -7,7 +7,7 @@ function prepareList() {
   const UPKEY = 'w';
   const DOWNKEY = 's';
   // const BEGINEXPERIMENTKEY = 'o';
-  const ENDEXPERIMENTKEY = 'p';
+  // const ENDEXPERIMENTKEY = 'p';
   const EXPANDKEY = 'd';
   const COLLAPSEKEY = 'a';
   const PLAYKEY = 't';
@@ -18,13 +18,7 @@ function prepareList() {
   const canExpand = true;
 
   // Retrieves sensor data from server
-  var xhttp = new XMLHttpRequest();
-
   var dataurl = "http://localhost:3000/data";
-  // function getData() {
-  //   xhttp.open("GET", dataurl, true);
-  //   xhttp.send();
-  // }
   function getData() {
     $.ajax({
       type: "GET",
@@ -70,12 +64,6 @@ function prepareList() {
     dataLog("Request sent");
   }
 
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      dataLog(new Date().getTime(), xhttp.responseText);
-    }
-  }
-
   // Retrieve data every set interval (ms)
   setInterval(() => {
     getData();
@@ -88,7 +76,6 @@ function prepareList() {
     if (experimentStarted) {
       args = Array.prototype.slice.call(args);
       data = args.join();
-      // client.publish('action', data);
       console.log(data);
     }
   }
@@ -236,10 +223,10 @@ function prepareList() {
     //   dataLog(new Date().getTime(), 'pressed BEGINEXPERIMENTKEY')
     //   beginExperiment();
     // }
-    if (event.key == ENDEXPERIMENTKEY) {
-      dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
-      endExperiment();
-    }
+    // if (event.key == ENDEXPERIMENTKEY) {
+    //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
+    //   endExperiment();
+    // }
     if (event.key == PLAYKEY) {
       dataLog(new Date().getTime(), 'pressed PLAYKEY');
       play();

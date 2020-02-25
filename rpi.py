@@ -144,13 +144,13 @@ def getLasers():
 
 # Main
 stop = False
+x0, y0, z0, = accelStart()
 while not stop:
     # stopwatch functionality
     deltaTime = time.time() - temp
     temp = time.time()
     
     # read accelerometer
-    x0, y0, z0, = accelStart()
     upsideDown = accel(x0, y0, z0)
     # upsideDown = accel(accelStart())
     print(upsideDown)

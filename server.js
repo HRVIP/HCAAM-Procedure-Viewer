@@ -2,14 +2,13 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
-const app = express();
 
+const app = express();
 const srv = http.createServer(app);
 
 // Serve the assets
 app.use(express.static(path.dirname(require.resolve('jquery'))));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
-
 app.use('/css', express.static('css'));
 app.use('/img', express.static('img'));
 app.use('/js', express.static('js'));
@@ -37,7 +36,6 @@ app.route('/data')
   // Serve the sensor data to the client
   .get(function (req, res) {
     var data = [parseInt(light1), parseInt(light2), parseInt(light3)];
-    // data = JSON.stringify(data);
     res.send(data);
   })
 
@@ -75,15 +73,9 @@ app.route('/lasers')
     if (parseInt(req.body.laser4) == 1) {
       laser4 = parseInt(req.body.laser4);
     }
-    console.log(laser1);
-    console.log(laser2);
-    console.log(laser3);
-    console.log(laser4);
-
   })
 
 // Send event data to the rpi for data logging
-
 var event;
 app.route('/event')
   .post(function (req, res) {
