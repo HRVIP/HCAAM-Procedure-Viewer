@@ -11,32 +11,62 @@ function prepareList() {
   const EXPANDKEY = 'd';
   const COLLAPSEKEY = 'a';
   const PLAYKEY = 't';
+  const LASER1KEY = '1';
+  const LASER2KEY = '2';
+  const LASER3KEY = '3';
+  const LASER4KEY = '4';
   const canExpand = true;
 
   // Retrieves sensor data from server
   var xhttp = new XMLHttpRequest();
 
+  var dataurl = "http://localhost:3000/data";
+  // function getData() {
+  //   xhttp.open("GET", dataurl, true);
+  //   xhttp.send();
+  // }
   function getData() {
-    xhttp.open("GET", "http://localhost:3000/getData", true);
-    xhttp.send();
+    $.ajax({
+      type: "GET",
+      url: dataurl,
+      dataType: 'json'
+    })
+      .done(function (data) {
+        console.log(data);
+    })
   }
 
   // Send laser state change requests
-  var laserStates = {
-    "laser1": "1",
-    "laser2": "0",
-    "laser3": "0"
-  }
-
-  var laserurl = "http://localhost:3000/laserRequest"
-  function showMe() {
-    $.ajax({
-      type: "POST",
-      url: laserurl,
-      data: JSON.stringify(laserStates),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-    });
+  var laserurl = "http://localhost:3000/lasers";
+  function showMe(laser) {
+    if (laser == 1) {
+      $.ajax({
+        type: "POST",
+        url: laserurl,
+        data: { laser1: '1', laser2: '0', laser3: '0', laser4: '0' }
+      });
+    }
+    if (laser == 2) {
+      $.ajax({
+        type: "POST",
+        url: laserurl,
+        data: { laser1: '0', laser2: '1', laser3: '0', laser4: '0' }
+      }); 
+    }
+    if (laser == 3) {
+      $.ajax({
+        type: "POST",
+        url: laserurl,
+        data: { laser1: '0', laser2: '0', laser3: '1', laser4: '0' },
+      });   
+    }
+    if (laser == 4) {
+      $.ajax({
+        type: "POST",
+        url: laserurl,
+        data: { laser1: '0', laser2: '0', laser3: '0', laser4: '1' },
+      });   
+    }
     dataLog("Request sent");
   }
 
@@ -45,6 +75,7 @@ function prepareList() {
       dataLog(new Date().getTime(), xhttp.responseText);
     }
   }
+
   // Retrieve data every set interval (ms)
   setInterval(() => {
     getData();
@@ -221,7 +252,22 @@ function prepareList() {
       dataLog(new Date().getTime(), 'pressed COLLAPSEKEY');
       toggleThat();
     }
-
+    if (event.key == LASER1KEY) {
+      dataLog(new Date().getTime(), 'pressed LASER1KEY');
+      showMe(1);
+    }
+    if (event.key == LASER2KEY) {
+      dataLog(new Date().getTime(), 'pressed LASER2KEY');
+      showMe(2);
+    }
+    if (event.key == LASER3KEY) {
+      dataLog(new Date().getTime(), 'pressed LASER3KEY');
+      showMe(3);
+    }
+    if (event.key == LASER4KEY) {
+      dataLog(new Date().getTime(), 'pressed LASER4KEY');
+      showMe(4);
+    }
     e.preventDefault();
   });
 }
