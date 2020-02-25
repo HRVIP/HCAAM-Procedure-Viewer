@@ -5,6 +5,11 @@ const proc = {
       'caption': '1.1.    Turn Engine Switch → OFF (Audible Call Out)',
       'text': '/img/figures/EngineSwitch.PNG',
       'type': 'image_and_text',
+      // flange nut left, lange nut right, air cleaner cover screw, center bolt
+      // 'lasers': [0, 0, 0, 0],
+      // light 1 (front cover), light 2 (spark plug cover), light 3 (spark plug cap), hall effect (air cleaner case), accelerometer (float chamber)
+      // sensor states are nan, 0, 1
+      // 'sensors': [0, 0, 0, 0, 0]
     },
     {
       'text': '1.1.1.  Once the OFF position is engaged, confirm it by clearly stating \'Engine Switch off\'.',
