@@ -33,7 +33,7 @@ function prepareList() {
     })
       .done(function (data) {
         console.log(data);
-    })
+      })
   }
 
   // Send laser state change requests
@@ -51,21 +51,21 @@ function prepareList() {
         type: "POST",
         url: laserurl,
         data: { laser1: '0', laser2: '1', laser3: '0', laser4: '0' }
-      }); 
+      });
     }
     if (laser == 3) {
       $.ajax({
         type: "POST",
         url: laserurl,
         data: { laser1: '0', laser2: '0', laser3: '1', laser4: '0' },
-      });   
+      });
     }
     if (laser == 4) {
       $.ajax({
         type: "POST",
         url: laserurl,
         data: { laser1: '0', laser2: '0', laser3: '0', laser4: '1' },
-      });   
+      });
     }
     dataLog("Request sent");
   }

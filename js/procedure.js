@@ -537,7 +537,7 @@ const proc = {
  * @param {int} depth The nested depth of the step.
  */
 function buildProcedure(steps, parent, depth) {
-  steps.forEach(function(step, index) {
+  steps.forEach(function (step, index) {
     const procID = parent + '_' + index;
 
     if (step.type == 'image') {

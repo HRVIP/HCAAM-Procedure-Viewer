@@ -25,7 +25,7 @@ var light3 = 0;
 
 app.route('/data')
   // Retrieve light sensor data from RPi
-  .post(function(req, res) {
+  .post(function (req, res) {
     light1 = req.body.light1;
     light2 = req.body.light2;
     light3 = req.body.light3;
@@ -48,8 +48,8 @@ var laser3 = 0;
 var laser4 = 0;
 
 app.route('/lasers')
-// Send the current laser state requests to the pi to turn the 
-// appropriate lasers on or off
+  // Send the current laser state requests to the pi to turn the 
+  // appropriate lasers on or off
   .get(function (req, res) {
     var states = [laser1, laser2, laser3, laser4];
     res.json(states);
