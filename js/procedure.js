@@ -599,6 +599,11 @@ function buildProcedure(steps, parent, depth) {
       $('<li id="' + procID + '"><div class="caution">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else {
       step.image = (step.image === undefined) ? '' : step.image;
+      hasLasers = step.lasers !== undefined;
+
+      if (hasLasers) {
+        step.text += '<br /><br /> <b>For help, please activate laser guidance with the "L" key.</b>';
+      }
       $('<li id="' + procID + '"><div class="number">' + step.number + '</div><div class="info">' + step.text + '</div><div class="image"><img class="info" src="' + step.image.substr(1) + '"></div></li>').appendTo('ul#' + parent);
     }
 
