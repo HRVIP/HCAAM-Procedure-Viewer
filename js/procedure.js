@@ -9,7 +9,7 @@ const proc = {
       // flange nut left, lange nut right, air cleaner cover screw, center bolt
       // 'lasers': [0, 0, 0, 0],
       // light 1 (front cover), light 2 (spark plug cover), light 3 (spark plug cap), hall effect (air cleaner case), accelerometer (float chamber)
-      // sensor states are nan, 0, 1
+      // sensor states are NaN, 0, 1
       // 'sensors': [0, 0, 0, 0, 0]
     },
     {
@@ -580,6 +580,34 @@ const proc = {
   ],
 };
 
+const sensorDict = {
+  0: {
+    'text': 'Front cover should be ',
+    0: 'closed.',
+    1: 'open.'
+  },
+  1: {
+    'text': 'Spark plug cover should be ',
+    0: 'closed.',
+    1: 'open.'
+  },
+  2: {
+    'text': 'Spark plug cap should be ',
+    0: 'closed.',
+    1: 'open.'
+  },
+  3: {
+    'text': 'Air cleaner case should be ',
+    0: 'closed.',
+    1: 'open.'
+  },
+  4: {
+    'text': 'Float champer should be ',
+    0: 'upright.',
+    1: 'upside down.'
+  },
+}
+
 /**
  * Recursive function to build procedure steps.
  * @param {object} steps The step object, containing the step's information and any nested steps.
@@ -592,15 +620,24 @@ function buildProcedure(steps, parent, depth) {
 
     if (step.type == 'header') {
       $('<li id="' + procID + '"><div class="info">' + step.text + '</div></li>').appendTo('ul#' + parent);
-    }
-    else if (step.type == 'video') {
+    } else if (step.type == 'video') {
       $('<li id="' + procID + '"><video class="info" src="' + step.text.substr(1) + '"controls></video></li>').appendTo('ul#' + parent);
     } else if (step.type == 'caution') {
       $('<li id="' + procID + '"><div class="caution">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else {
       step.image = (step.image === undefined) ? '' : step.image;
-      hasLasers = step.lasers !== undefined;
 
+      hasSensors = step.sensors !== undefined;
+      if (hasSensors) {
+        step.text += '<br /><br />'
+        step.sensors.forEach(function (sensorTarget, sensorIndex) {
+          if (!Number.isNaN(sensorTarget)) {
+            step.text += '<p sensor=' + sensorIndex + ' sensorTarget=' + sensorTarget + ' sensorValue=0>' + sensorDict[sensorIndex]['text'] + sensorDict[sensorIndex][sensorTarget] + '</p>';
+          }
+        });
+      }
+
+      hasLasers = step.lasers !== undefined;
       if (hasLasers) {
         step.text += '<br /><br /> <b>For help, please activate laser guidance with the "L" key.</b>';
       }

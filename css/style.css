@@ -74,3 +74,11 @@ li>video {
     border-left: 3px solid #11244B !important;
     background-color: #F6F6F6
 }
+
+p[sensortargetreached="1"] {
+    color: green;
+}
+
+p[sensortargetreached="0"] {
+    color: red;
+}

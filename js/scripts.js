@@ -26,8 +26,17 @@ function prepareList() {
       dataType: 'json'
     })
       .done(function (data) {
-        console.log(data);
-      })
+        // console.log(data);
+
+        // Update interface based on sensor data
+        $('p[sensor]').each(function (index, element) {
+          if ($(element).attr('sensortarget') == $(element).attr('sensorvalue')) {
+            $(element).attr('sensortargetreached', 1)
+          } else {
+            $(element).attr('sensortargetreached', 0)
+          }
+        });
+      });
   }
 
   // Send laser state change requests
