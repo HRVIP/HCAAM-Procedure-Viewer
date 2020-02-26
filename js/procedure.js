@@ -43,11 +43,13 @@ const proc = {
       'number': '1.4.1.',
       'text': 'Remove the Spark Plug Cover in order to access the Spark Plug Cap.',
       'image': '/img/figures/SparkCover_Removal.PNG',
+      'sensors': [0, 1, 0, 0, 0],
     },
     {
       'number': '1.4.2.',
       'text': 'Remove the Spark Plug Cap.',
       'image': '/img/figures/SparkCap_Removal.PNG',
+      'sensors': [0, 1, 1, 0, 0],
     },
     {
       'number': '1.4.3.',
@@ -77,6 +79,7 @@ const proc = {
       'number': '2.1.2.',
       'text': 'Remove the Maintenance Cover.',
       'image': '/img/figures/MaintenanceCover_Removal.PNG',
+      'sensors': [1, 1, 1, 0, 0]
     },
     {
       'number': '2.2.',
@@ -87,6 +90,7 @@ const proc = {
       'number': '2.2.1.',
       'text': 'Remove the Air Cleaner Cover Screw.',
       'image': '/img/figures/AirScrew_Location.PNG',
+      'lasers': [0, 0, 1, 0],
     },
     {
       'number': '2.2.1.1.',
@@ -131,6 +135,7 @@ const proc = {
       'number': '2.4.1.',
       'text': 'Remove the 8mm Center Bolt and Flange Nuts securing the Air Cleaner Case to the Generator.',
       'image': '/img/figures/AirCaseNutsBolts_Location.PNG',
+      'lasers': [1, 1, 0, 1]
     },
     {
       'number': '2.4.1.1.',
@@ -140,6 +145,7 @@ const proc = {
       'number': '2.4.2.',
       'text': 'Slide the Air Cleaner Case off of the bolts attached to the Generator.',
       'image': '/img/figures/AirCase_Removal.PNG',
+      'sensors': [1, 1, 1, 1, 0],
     },
     {
       'number': '2.4.3.',
@@ -275,6 +281,7 @@ const proc = {
       'number': '3.6.2.',
       'text': 'The Carburetor is attached to the Generator through a wire and should be rested next to the Generator as shown in the figure below.',
       'image': '/img/figures/Carb_Placement.PNG',
+      'sensors': [1, 1, 1, 1, 1],
     }],
   },
 
@@ -401,6 +408,7 @@ const proc = {
       'number': '6.1.1.',
       'text': 'Slide the Carburetor onto the bolts attached to the Generator.',
       'image': '/img/figures/Carb_Replace.PNG',
+      'sensors': [1, 1, 1, 1, 0],
     },
     {
       'number': '6.1.2.',
@@ -504,11 +512,13 @@ const proc = {
       'number': '7.1.2.',
       'text': 'Slide the Air Cleaner Case onto the bolts attached to the Generator.',
       'image': '/img/figures/AirCase_Replace.PNG',
+      'sensors': [1, 1, 1, 0, 0]
     },
     {
       'number': '7.1.3.',
       'text': 'Replace the 8mm Center Bolt and Flange Nuts securing the Air Cleaner Case to the Generator.',
       'image': '/img/figures/AirCaseNutsBolts_Replace.PNG',
+      'lasers': [1, 1, 0, 1]
     },
     {
       'number': '7.1.3.1.',
@@ -542,6 +552,7 @@ const proc = {
       'number': '7.2.4.',
       'text': 'Tighten the Air Cleaner Cover Screw.',
       'image': '/img/figures/AirScrew_Location.PNG',
+      'lasers': [0, 0, 1, 0],
     },
     {
       'number': '7.2.4.1.',
@@ -551,6 +562,7 @@ const proc = {
       'number': '7.3.',
       'text': 'Replace the Maintenance Cover.',
       'image': '/img/figures/MaintenanceCover_Replace.PNG',
+      'sensors': [0, 1, 1],
     },
     {
       'number': '7.3.1.',
@@ -570,11 +582,13 @@ const proc = {
       'number': '7.4.1.',
       'text': 'Replace the Spark Plug Cap.',
       'image': '/img/figures/SparkCap_Replace.PNG',
+      'sensors': [0, 1, 0],
     },
     {
       'number': '7.4.2.',
       'text': 'Replace the Spark Plug Cover.',
       'image': '/img/figures/SparkCover_Replace.PNG',
+      'sensors': [0, 0, 0],
     }],
   },
   ],
