@@ -51,7 +51,11 @@ div.caution {
     margin-bottom: 10px;
 }
 
-li>div {
+li>div.number {
+    flex: 0.25;
+}
+
+li>div.info {
     flex: 2;
 }
 
