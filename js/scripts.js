@@ -39,6 +39,15 @@ function prepareList() {
       });
   }
 
+  var eventurl = "http://localhost:3000/event"
+  function postEvent(event, currentStep) {
+    $.ajax({
+      type: "POST",
+      url: eventurl,
+      data: { event: toString(event), currentStep: toString(currentStep)}
+    });
+  }
+
   // Send laser state change requests
   var laserurl = "http://localhost:3000/lasers";
   function showMe(laser) {

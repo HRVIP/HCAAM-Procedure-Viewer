@@ -22,7 +22,7 @@ var light1 = 0;
 var light2 = 0;
 var light3 = 0;
 var hall1 = 0;
-var accel = 0;
+var accel1 = 0;
 
 app.route('/data')
   // Retrieve sensor data from RPi
@@ -55,16 +55,6 @@ var laser4 = 0;
 app.route('/lasers')
   // Send the current laser state requests to the pi to turn the 
   // appropriate lasers on or off
-  .get(function (req, res) {
-    var states = [laser1, laser2, laser3, laser4];
-    res.json(states);
-    console.log(states);
-    // reset laser states after sending them to pi
-    laser1 = 0;
-    laser2 = 0;
-    laser3 = 0;
-    laser4 = 0;
-  })
   .post(function (req, res) {
     res.setHeader('Content-type', 'text/plain');
     res.send('Request received');
@@ -81,18 +71,32 @@ app.route('/lasers')
       laser4 = parseInt(req.body.laser4);
     }
   })
+  .get(function (req, res) {
+    var states = [laser1, laser2, laser3, laser4];
+    res.json(states);
+    console.log(states);
+    // reset laser states after sending them to pi
+    laser1 = 0;
+    laser2 = 0;
+    laser3 = 0;
+    laser4 = 0;
+  })
 
 // Send event data to the rpi for data logging
 var event;
+var currentStep;
 app.route('/event')
   .post(function (req, res) {
     res.setHeader('Content-type', 'text/plain');
     res.send('Event logged');
-    console.log(req.body);
-    event = req.body;
+    console.log(req.body.event);
+    console.log(req.body.currentStep);
+    event = req.body.event;
+    currentStep = req.body.currentStep;
   })
   .get(function (req, res) {
-    res.status(200).json(event)
+    var data = [event, currentStep];
+    res.json(data)
   })
 
 // Serve the procedure viewer at the root directory
