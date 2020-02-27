@@ -35,6 +35,13 @@ i2c = busio.I2C(board.SCL, board.SDA)
 # LA3 = 35
 # LA4 = 37
 
+# hall
+# H1 = 32
+
+# accel
+# sda = 3
+# scl = 5
+
 # hall effect sensor
 H1 = digitalio.DigitalInOut(board.D12)
 H1.direction = digitalio.Direction.INPUT
@@ -85,7 +92,7 @@ fn = str(max(files)+1)
 fn = fn + '.csv'
 print("Trial number", fn) 
 file = open((directory+fn), 'w+')
-file.write("Time", "Time since last event", "Event", "Comments")
+file.write('Time, Time since last event, Event')
 # file.close()
 
 def dataLog(t, dt, e):
@@ -151,9 +158,9 @@ while not stop:
     temp = time.time()
     
     # read accelerometer
-    upsideDown = accel(x0, y0, z0)
+    accel1 = accel(x0, y0, z0)
     # upsideDown = accel(accelStart())
-    print(upsideDown)
+    print(accel1)
     
     # need to implement accelerometer thresholding logic here
     # accel = False
@@ -162,19 +169,21 @@ while not stop:
     # else:
     #  accel = False
     ### send current sensor boolean readouts
-    lightData = {'light1': int(LI1.value), 'light2': int(LI2.value),
-            'light3': int(LI3.value)}
+    data = {'light1': int(LI1.value), 'light2': int(LI2.value),
+            'light3': int(LI3.value), 'hall1': int(H1.value), 'accel1': int(accel1)}
     print("Lights:")
-    print(LI1.value)
-    print(LI2.value)
-    print(LI3.value)
+    print(LI1.value, int(LI1.value))
+    print(LI2.value, int(LI2.value))
+    print(LI3.value, int(LI3.value))
+    print("Hall: " + H1.value)
+    print("Accel: " + accel1)
     print("")
     
-    post = requests.post(ip+ '/data', lightData)
+    post = requests.post(ip+ '/data', data)
     print(post.text)
     
     lasers = getLasers()
     print(lasers)
-    time.sleep(.5)
+    time.sleep(.1)
     if input() == 'stop':
         stop = True

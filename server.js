@@ -17,25 +17,32 @@ app.use('/vid', express.static('vid'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Store light sensor data received from post requests
+// Store sensor data received from post requests
 var light1 = 0;
 var light2 = 0;
 var light3 = 0;
+var hall1 = 0;
+var accel = 0;
 
 app.route('/data')
-  // Retrieve light sensor data from RPi
+  // Retrieve sensor data from RPi
   .post(function (req, res) {
     light1 = req.body.light1;
     light2 = req.body.light2;
     light3 = req.body.light3;
+    hall1 = req.body.hall1;
+    accel1 = req.body.accel1;
     console.log(light1);
     console.log(light2);
     console.log(light3);
-    res.send('Lights updated');
+    console.log(hall1);
+    console.log(accel1);
+    res.send('Sensors updated');
   })
   // Serve the sensor data to the client
   .get(function (req, res) {
-    var data = [parseInt(light1), parseInt(light2), parseInt(light3)];
+    var data = [parseInt(light1), parseInt(light2), parseInt(light3), +
+                parseInt(hall1), parseInt(accel1)];
     res.send(data);
   })
 
@@ -60,7 +67,7 @@ app.route('/lasers')
   })
   .post(function (req, res) {
     res.setHeader('Content-type', 'text/plain');
-    res.send("Request received")
+    res.send('Request received');
     if (parseInt(req.body.laser1) == 1) {
       laser1 = parseInt(req.body.laser1);
     }
@@ -79,7 +86,8 @@ app.route('/lasers')
 var event;
 app.route('/event')
   .post(function (req, res) {
-    res.setHeader('Content-type', 'application/json');
+    res.setHeader('Content-type', 'text/plain');
+    res.send('Event logged');
     console.log(req.body);
     event = req.body;
   })
