@@ -1,5 +1,5 @@
 # Kelden Ben-Ora
-# 2.21.20
+# 2.27.2020
 
 import RPi.GPIO as gpio
 import time
@@ -12,6 +12,7 @@ import adafruit_lis3dh
 import digitalio
 import smbus
 import socket
+import datetime
 
 # current ip address
 ip = 'http://' + (socket.gethostbyaddr(socket.gethostname())[2])[0] + ':3000'
@@ -91,12 +92,26 @@ if not files:
 fn = str(max(files)+1)
 fn = fn + '.csv'
 print("Trial number", fn) 
-file = open((directory+fn), 'w+')
-file.write('Time, Time since last event, Event')
-# file.close()
+file = open((directory+fn), 'w')
+file.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer\n')
 
-def dataLog(t, dt, e):
-    file.write(t, dt, e)
+def getTime():
+    d = datetime.datetime.today()
+    h = str(d.hour)
+    m = str(d.minute)
+    s = str(d.second)
+    if (len(h)==1):
+        h = '0'+h
+    if (len(m)==1):
+        m = '0'+m
+    if (len(s)==1):
+        s = '0'+s
+    t = h+':'+m+':'+s
+    return t
+
+def dataLog(dt, event, step, lasers, hall, lights, accel):
+    file.write(str(getTime()) + ', ' + str(dt) + ', ' + str(event) + ', ' + str(step) + ', ' +
+               str(lasers) + ',' + str(hall) + ', ' + str(lights) + ', ' + str(accel) + '\n')
 
 # base reading for orientation to calibrate future readings
 xinit = 0
@@ -139,28 +154,48 @@ def accel(x, y, z):
     if zAccel > 32767 :
 	    zAccel -= 65536
     zAccel = zAccel - z
-    if zAccel < -6000:
+    if zAccel < -5000:
         return True
     else:
         return False
-    
+
+def readData():
+    data = {'light1': int(LI1.value), 'light2': int(LI2.value),
+            'light3': int(LI3.value), 'hall1': int(H1.value), 'accel1': int(accel(x0, y0, z0))}
+    return data
+
 def getLasers():
     r = requests.get(ip + '/lasers')
     data = r.json()
     return data
 
+def getEvent():
+    r = requests.get(ip + '/event')
+    event = r.json()
+    return event
+
 # Main
 stop = False
 x0, y0, z0, = accelStart()
+sensors = readData()
+dataLog(0, '', 1, [0, 0, 0, 0], 
+        sensors['hall'], 
+        [sensors['light1'], sensors['light2'], sensors['light3']], 
+        sensors['accel1'])
 while not stop:
+    d = datetime.datetime.today()
+    
     # stopwatch functionality
     deltaTime = time.time() - temp
     temp = time.time()
     
     # read accelerometer
-    accel1 = accel(x0, y0, z0)
-    # upsideDown = accel(accelStart())
-    print(accel1)
+    # accel1 = accel(x0, y0, z0)
+    # print(accel1)
+    
+    # check change in sensor values
+    if sensors != readData():
+        sensors = readData()
     
     # need to implement accelerometer thresholding logic here
     # accel = False
@@ -168,22 +203,28 @@ while not stop:
     #  accel = True
     # else:
     #  accel = False
-    ### send current sensor boolean readouts
-    data = {'light1': int(LI1.value), 'light2': int(LI2.value),
-            'light3': int(LI3.value), 'hall1': int(H1.value), 'accel1': int(accel1)}
+    
     print("Lights:")
     print(LI1.value, int(LI1.value))
     print(LI2.value, int(LI2.value))
     print(LI3.value, int(LI3.value))
     print("Hall: " + H1.value)
-    print("Accel: " + accel1)
+    print("Accel: " + sensors['accel1'])
     print("")
     
+    # Read sensor data and send it to the server
+    data = readData()
     post = requests.post(ip+ '/data', data)
     print(post.text)
     
+    # Retrieve laser requests from server
     lasers = getLasers()
     print(lasers)
+    
+    # Retrieve event updates from server
+    event = getEvent()
+    print(event)
+    
     time.sleep(.1)
     if input() == 'stop':
         stop = True
