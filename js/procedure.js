@@ -43,13 +43,13 @@ const proc = {
       'number': '1.4.1.',
       'text': 'Remove the Spark Plug Cover in order to access the Spark Plug Cap.',
       'image': '/img/figures/SparkCover_Removal.PNG',
-      'sensors': [0, 1, 0, 0, 0],
+      'sensors': [NaN, 1, NaN, NaN, NaN],
     },
     {
       'number': '1.4.2.',
       'text': 'Remove the Spark Plug Cap.',
       'image': '/img/figures/SparkCap_Removal.PNG',
-      'sensors': [0, 1, 1, 0, 0],
+      'sensors': [NaN, NaN, 1, NaN, NaN],
     },
     {
       'number': '1.4.3.',
@@ -79,7 +79,7 @@ const proc = {
       'number': '2.1.2.',
       'text': 'Remove the Maintenance Cover.',
       'image': '/img/figures/MaintenanceCover_Removal.PNG',
-      'sensors': [1, 1, 1, 0, 0],
+      'sensors': [1, NaN, NaN, NaN, NaN],
     },
     {
       'number': '2.2.',
@@ -145,7 +145,7 @@ const proc = {
       'number': '2.4.2.',
       'text': 'Slide the Air Cleaner Case off of the bolts attached to the Generator.',
       'image': '/img/figures/AirCase_Removal.PNG',
-      'sensors': [1, 1, 1, 1, 0],
+      'sensors': [NaN, NaN, NaN, 1, NaN],
     },
     {
       'number': '2.4.3.',
@@ -281,7 +281,7 @@ const proc = {
       'number': '3.6.2.',
       'text': 'The Carburetor is attached to the Generator through a wire and should be rested next to the Generator as shown in the figure below.',
       'image': '/img/figures/Carb_Placement.PNG',
-      'sensors': [1, 1, 1, 1, 1],
+      'sensors': [NaN, NaN, NaN, NaN, 1],
     }],
   },
 
@@ -408,7 +408,7 @@ const proc = {
       'number': '6.1.1.',
       'text': 'Slide the Carburetor onto the bolts attached to the Generator.',
       'image': '/img/figures/Carb_Replace.PNG',
-      'sensors': [1, 1, 1, 1, 0],
+      'sensors': [NaN, NaN, NaN, NaN, 0],
     },
     {
       'number': '6.1.2.',
@@ -512,7 +512,7 @@ const proc = {
       'number': '7.1.2.',
       'text': 'Slide the Air Cleaner Case onto the bolts attached to the Generator.',
       'image': '/img/figures/AirCase_Replace.PNG',
-      'sensors': [1, 1, 1, 0, 0],
+      'sensors': [NaN, NaN, NaN, 0, NaN],
     },
     {
       'number': '7.1.3.',
@@ -562,7 +562,7 @@ const proc = {
       'number': '7.3.',
       'text': 'Replace the Maintenance Cover.',
       'image': '/img/figures/MaintenanceCover_Replace.PNG',
-      'sensors': [0, 1, 1],
+      'sensors': [0, NaN, NaN, NaN, NaN],
     },
     {
       'number': '7.3.1.',
@@ -582,13 +582,13 @@ const proc = {
       'number': '7.4.1.',
       'text': 'Replace the Spark Plug Cap.',
       'image': '/img/figures/SparkCap_Replace.PNG',
-      'sensors': [0, 1, 0],
+      'sensors': [NaN, NaN, 0, NaN, NaN],
     },
     {
       'number': '7.4.2.',
       'text': 'Replace the Spark Plug Cover.',
       'image': '/img/figures/SparkCover_Replace.PNG',
-      'sensors': [0, 0, 0],
+      'sensors': [NaN, 0, NaN, NaN, NaN],
     }],
   },
   ],
