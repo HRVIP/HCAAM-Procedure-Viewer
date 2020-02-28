@@ -244,7 +244,7 @@ function prepareList() {
     if (event.key == ENDEXPERIMENTKEY) {
     //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
     //   endExperiment();
-      postEvent('End', ' ');
+      postEvent('End', '');
     }
     if (event.key == PLAYKEY) {
       dataLog(new Date().getTime(), 'pressed PLAYKEY');
@@ -266,17 +266,17 @@ function prepareList() {
     if (event.key == LASER2KEY) {
       dataLog(new Date().getTime(), 'pressed LASER2KEY');
       showMe(2);
-      postEvent('Lasers requested', ' ');
+      postEvent('Lasers requested', '');
     }
     if (event.key == LASER3KEY) {
       dataLog(new Date().getTime(), 'pressed LASER3KEY');
       showMe(3);
-      postEvent('Lasers requested', ' ');
+      postEvent('Lasers requested', '');
     }
     if (event.key == LASER4KEY) {
       dataLog(new Date().getTime(), 'pressed LASER4KEY');
       showMe(4);
-      postEvent('Lasers requested', ' ');
+      postEvent('Lasers requested', '');
     }
     e.preventDefault();
   });
