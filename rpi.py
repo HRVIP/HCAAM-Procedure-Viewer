@@ -75,6 +75,11 @@ LA2.direction = digitalio.Direction.OUTPUT
 LA3.direction = digitalio.Direction.OUTPUT
 LA4.direction = digitalio.Direction.OUTPUT
 
+LA1.value = False
+LA2.value = False
+LA3.value = False
+LA4.value = False
+
 temp = time.time()
 files = []
 
@@ -158,6 +163,26 @@ def getLasers():
     data = r.json()
     return data
 
+def blinkLasers(lasers):
+    # blink 10 times in 10 seconds
+    for i in range(10):
+        # turn on for half a second if prompted
+        if lasers[0] == 1:
+            LA1.value = True
+        if lasers[1] == 1:
+            LA2.value = True
+        if lasers[2] == 1:
+            LA3.value = True
+        if lasers[3] == 1:
+            LA4.value = True
+        time.sleep(.5)
+        # turn off for half a second
+        LA1.value = False
+        LA2.value = False
+        LA3.value = False
+        LA4.value = False
+        time.sleep(.5)
+        
 def getEvent():
     r = requests.get(ip + '/event')
     event = r.json()
@@ -200,6 +225,8 @@ while not stop:
     # Retrieve laser requests from server
     lasers = getLasers()
     print(lasers)
+    if (lasers is not [0, 0, 0, 0]):
+        blinkLasers(lasers)
     
     # Retrieve event updates from server
     event = getEvent()
