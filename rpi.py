@@ -225,14 +225,14 @@ while True:
     # Retrieve laser requests from server
     lasers = getLasers()
     print(lasers)
-    if (lasers is not '[0, 0, 0, 0]'):
+    if (lasers != [0, 0, 0, 0]):
+        print('blinking')
         blinkLasers(lasers)
     
-    # Retrieve event updates from server
+    # Retrieve event updates from server and end if experiment ended
     event = getEvent()
     print(event)
-    
-    time.sleep(.1)
-    if event['event'] is 'End':
+    if str(event[0]) is 'End':
         break
+    time.sleep(1)
 f.close()
