@@ -44,7 +44,7 @@ function prepareList() {
     $.ajax({
       type: "POST",
       url: eventurl,
-      data: { event: toString(event), currentStep: toString(currentStep)}
+      data: { event: event.toString(), currentStep: currentStep.toString()}
     });
   }
 
