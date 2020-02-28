@@ -6,7 +6,7 @@ const proc = {
       'number': '1.1.',
       'text': 'Turn Engine Switch → OFF (Audible Call Out)',
       'image': '/img/figures/EngineSwitch.PNG',
-      // flange nut left, lange nut right, air cleaner cover screw, center bolt
+      // flange nut left, flange nut right, air cleaner cover screw, center bolt
       // 'lasers': [0, 0, 0, 0],
       // light 1 (front cover), light 2 (spark plug cover), light 3 (spark plug cap), hall effect (air cleaner case), accelerometer (float chamber)
       // sensor states are NaN, 0, 1
@@ -79,7 +79,7 @@ const proc = {
       'number': '2.1.2.',
       'text': 'Remove the Maintenance Cover.',
       'image': '/img/figures/MaintenanceCover_Removal.PNG',
-      'sensors': [1, 1, 1, 0, 0]
+      'sensors': [1, 1, 1, 0, 0],
     },
     {
       'number': '2.2.',
@@ -135,7 +135,7 @@ const proc = {
       'number': '2.4.1.',
       'text': 'Remove the 8mm Center Bolt and Flange Nuts securing the Air Cleaner Case to the Generator.',
       'image': '/img/figures/AirCaseNutsBolts_Location.PNG',
-      'lasers': [1, 1, 0, 1]
+      'lasers': [1, 1, 0, 1],
     },
     {
       'number': '2.4.1.1.',
@@ -512,13 +512,13 @@ const proc = {
       'number': '7.1.2.',
       'text': 'Slide the Air Cleaner Case onto the bolts attached to the Generator.',
       'image': '/img/figures/AirCase_Replace.PNG',
-      'sensors': [1, 1, 1, 0, 0]
+      'sensors': [1, 1, 1, 0, 0],
     },
     {
       'number': '7.1.3.',
       'text': 'Replace the 8mm Center Bolt and Flange Nuts securing the Air Cleaner Case to the Generator.',
       'image': '/img/figures/AirCaseNutsBolts_Replace.PNG',
-      'lasers': [1, 1, 0, 1]
+      'lasers': [1, 1, 0, 1],
     },
     {
       'number': '7.1.3.1.',
@@ -597,30 +597,30 @@ const proc = {
 const sensorDict = {
   0: {
     'text': 'Front cover should be ',
-    0: 'closed.',
-    1: 'open.'
+    '0': 'closed.',
+    '1': 'open.',
   },
   1: {
     'text': 'Spark plug cover should be ',
-    0: 'closed.',
-    1: 'open.'
+    '0': 'closed.',
+    '1': 'open.',
   },
   2: {
     'text': 'Spark plug cap should be ',
-    0: 'closed.',
-    1: 'open.'
+    '0': 'closed.',
+    '1': 'open.',
   },
   3: {
     'text': 'Air cleaner case should be ',
-    0: 'closed.',
-    1: 'open.'
+    '0': 'closed.',
+    '1': 'open.',
   },
   4: {
     'text': 'Float champer should be ',
-    0: 'upright.',
-    1: 'upside down.'
+    '0': 'upright.',
+    '1': 'upside down.',
   },
-}
+};
 
 /**
  * Recursive function to build procedure steps.
@@ -629,7 +629,7 @@ const sensorDict = {
  * @param {int} depth The nested depth of the step.
  */
 function buildProcedure(steps, parent, depth) {
-  steps.forEach(function (step, index) {
+  steps.forEach(function(step, index) {
     const procID = parent + '_' + index;
 
     if (step.type == 'header') {
@@ -643,8 +643,8 @@ function buildProcedure(steps, parent, depth) {
 
       hasSensors = step.sensors !== undefined;
       if (hasSensors) {
-        step.text += '<br /><br />'
-        step.sensors.forEach(function (sensorTarget, sensorIndex) {
+        step.text += '<br /><br />';
+        step.sensors.forEach(function(sensorTarget, sensorIndex) {
           if (!Number.isNaN(sensorTarget)) {
             step.text += '<p sensor=' + sensorIndex + ' sensorTarget=' + sensorTarget + ' sensorValue=0>' + sensorDict[sensorIndex]['text'] + sensorDict[sensorIndex][sensorTarget] + '</p>';
           }

@@ -7,7 +7,7 @@ function prepareList() {
   const UPKEY = 'w';
   const DOWNKEY = 's';
   // const BEGINEXPERIMENTKEY = 'o';
-  const ENDEXPERIMENTKEY = 'p'
+  const ENDEXPERIMENTKEY = 'p';
   const EXPANDKEY = 'd';
   const COLLAPSEKEY = 'a';
   const PLAYKEY = 't';
@@ -18,68 +18,68 @@ function prepareList() {
   const canExpand = true;
 
   // Retrieves sensor data from server
-  var dataurl = "http://192.168.0.110:3000/data";
+  const dataurl = 'http://192.168.0.110:3000/data';
   function getData() {
     $.ajax({
-      type: "GET",
+      type: 'GET',
       url: dataurl,
-      dataType: 'json'
+      dataType: 'json',
     })
-      .done(function (data) {
+        .done(function(data) {
         // console.log(data);
 
-        // Update interface based on sensor data
-        $('p[sensor]').each(function (index, element) {
-          if ($(element).attr('sensortarget') == $(element).attr('sensorvalue')) {
-            $(element).attr('sensortargetreached', 1)
-          } else {
-            $(element).attr('sensortargetreached', 0)
-          }
+          // Update interface based on sensor data
+          $('p[sensor]').each(function(index, element) {
+            if ($(element).attr('sensortarget') == $(element).attr('sensorvalue')) {
+              $(element).attr('sensortargetreached', 1);
+            } else {
+              $(element).attr('sensortargetreached', 0);
+            }
+          });
         });
-      });
   }
 
-  var eventurl = "http://192.168.0.110:3000/event"
+  const eventurl = 'http://192.168.0.110:3000/event';
   function postEvent(event, currentStep) {
     $.ajax({
-      type: "POST",
+      type: 'POST',
       url: eventurl,
-      data: { event: event.toString(), currentStep: currentStep.toString()}
+      data: {event: event.toString(), currentStep: currentStep.toString()},
     });
   }
 
   // Send laser state change requests
-  var laserurl = "http://192.168.0.110:3000/lasers";
+  const laserurl = 'http://192.168.0.110:3000/lasers';
   function showMe(laser) {
     if (laser == 1) {
       $.ajax({
-        type: "POST",
+        type: 'POST',
         url: laserurl,
-        data: { laser1: '1', laser2: '0', laser3: '0', laser4: '0' }
+        data: {laser1: '1', laser2: '0', laser3: '0', laser4: '0'},
       });
     }
     if (laser == 2) {
       $.ajax({
-        type: "POST",
+        type: 'POST',
         url: laserurl,
-        data: { laser1: '0', laser2: '1', laser3: '0', laser4: '0' }
+        data: {laser1: '0', laser2: '1', laser3: '0', laser4: '0'},
       });
     }
     if (laser == 3) {
       $.ajax({
-        type: "POST",
+        type: 'POST',
         url: laserurl,
-        data: { laser1: '0', laser2: '0', laser3: '1', laser4: '0' },
+        data: {laser1: '0', laser2: '0', laser3: '1', laser4: '0'},
       });
     }
     if (laser == 4) {
       $.ajax({
-        type: "POST",
+        type: 'POST',
         url: laserurl,
-        data: { laser1: '0', laser2: '0', laser3: '0', laser4: '1' },
+        data: {laser1: '0', laser2: '0', laser3: '0', laser4: '1'},
       });
     }
-    dataLog("Request sent");
+    dataLog('Request sent');
   }
 
   // Retrieve data every set interval (ms)
@@ -100,15 +100,15 @@ function prepareList() {
 
   // Add the classes for collapsing/expanding
   $('#expList')
-    .find('li:has(ul)')
-    .children('ul')
-    .hide();
+      .find('li:has(ul)')
+      .children('ul')
+      .hide();
 
   // Set up this marker moving technology
   $currentElement = $('li:visible').first();
   $currentElement.toggleClass('selected');
 
-  const down = function () {
+  const down = function() {
     $('.info').css('border', '');
     $allElements = $('li:visible');
 
@@ -120,11 +120,11 @@ function prepareList() {
     }
 
     dataLog(
-      new Date().getTime(),
-      'down from',
-      $currentElement.attr('id'),
-      'to',
-      $nextElement.attr('id'),
+        new Date().getTime(),
+        'down from',
+        $currentElement.attr('id'),
+        'to',
+        $nextElement.attr('id'),
     );
     $currentElement.toggleClass('selected');
     $currentElement = $nextElement;
@@ -132,14 +132,14 @@ function prepareList() {
 
     // Keep the marker at the top of the screen
     $('body, html').animate(
-      {
-        scrollTop: $currentElement.position().top - 100,
-      },
-      100,
+        {
+          scrollTop: $currentElement.position().top - 100,
+        },
+        100,
     );
   };
 
-  const up = function () {
+  const up = function() {
     $('.info').css('border', '');
     $allElements = $('li:visible');
 
@@ -151,11 +151,11 @@ function prepareList() {
     }
 
     dataLog(
-      new Date().getTime(),
-      'up from',
-      $currentElement.attr('id'),
-      'to',
-      $nextElement.attr('id'),
+        new Date().getTime(),
+        'up from',
+        $currentElement.attr('id'),
+        'to',
+        $nextElement.attr('id'),
     );
     $currentElement.toggleClass('selected');
     $currentElement = $nextElement;
@@ -163,19 +163,19 @@ function prepareList() {
 
     // Keep the marker at the top of the screen
     $('body, html').animate(
-      {
-        scrollTop: $currentElement.position().top - 100,
-      },
-      100,
+        {
+          scrollTop: $currentElement.position().top - 100,
+        },
+        100,
     );
   };
 
-  const toggle = function (that) {
+  const toggle = function(that) {
     if (that == event.target || event.key == EXPANDKEY || event.key == COLLAPSEKEY) {
       $(that).toggleClass('expanded');
       $(that)
-        .children('ul')
-        .toggle('fast');
+          .children('ul')
+          .toggle('fast');
 
       if ($(that).hasClass('expanded')) {
         dataLog(new Date().getTime(), that.id, 'expanded');
@@ -187,7 +187,7 @@ function prepareList() {
     return false;
   };
 
-  const toggleThat = function () {
+  const toggleThat = function() {
     if (canExpand) {
       if ($currentElement.children('ul').length) {
         toggle($currentElement[0]);
@@ -196,7 +196,7 @@ function prepareList() {
     }
   };
 
-  const play = function () {
+  const play = function() {
     if ($currentElement.children('video').length) {
       video = $currentElement.children('video')[0];
       if (video.paused) {
@@ -228,7 +228,7 @@ function prepareList() {
   //   $('*').hide();
   // };
 
-  $(window).keyup(function (e) {
+  $(window).keyup(function(e) {
     if (event.key == DOWNKEY) {
       dataLog(new Date().getTime(), 'pressed DOWNKEY');
       down();
@@ -242,8 +242,8 @@ function prepareList() {
     //   beginExperiment();
     // }
     if (event.key == ENDEXPERIMENTKEY) {
-    //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
-    //   endExperiment();
+      //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
+      //   endExperiment();
       postEvent('End', '');
     }
     if (event.key == PLAYKEY) {
@@ -285,9 +285,9 @@ function prepareList() {
 /** ************************************************************/
 /* Functions to execute on loading the document               */
 /** ************************************************************/
-$(document).ready(function () {
+$(document).ready(function() {
   // Load the procedure
-  $.getScript('js/procedure.js', function () {
+  $.getScript('js/procedure.js', function() {
     prepareList();
   });
 });
