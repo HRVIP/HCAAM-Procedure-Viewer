@@ -96,7 +96,8 @@ app.route('/event')
   })
   .get(function (req, res) {
     var data = [event, currentStep];
-    res.json(data)
+    res.json(data);
+    event = '';
   })
 
 // Serve the procedure viewer at the root directory
