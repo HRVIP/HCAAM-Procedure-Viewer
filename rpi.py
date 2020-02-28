@@ -89,7 +89,7 @@ if not files:
     files.append(0)
 fn = str(max(files)+1)
 fn = fn + '.csv'
-print("Trial number", fn) 
+# print("Trial number", fn) 
 f = open((directory+fn), 'w')
 f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer\n')
 
@@ -168,7 +168,7 @@ stop = False
 xinit, yinit, zinit = accelStart()
 sensors = readData()
 dataLog(0, '', 1, [0, 0, 0, 0], 
-        sensors['hall'], 
+        sensors['hall1'], 
         [sensors['light1'], sensors['light2'], sensors['light3']], 
         sensors['accel1'])
 while not stop:
@@ -193,8 +193,8 @@ while not stop:
     print(LI1.value, int(LI1.value))
     print(LI2.value, int(LI2.value))
     print(LI3.value, int(LI3.value))
-    print("Hall: " + str(H1.value))
-    print("Accel: " + sensors['accel1'])
+    print("Hall: " + str(int(not H1.value)))
+    print("Accel: " + str(sensors['accel1']))
     print("")
     
     # Retrieve laser requests from server
