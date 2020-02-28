@@ -92,25 +92,16 @@ if not files:
 fn = str(max(files)+1)
 fn = fn + '.csv'
 print("Trial number", fn) 
-file = open((directory+fn), 'w')
-file.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer\n')
+f = open((directory+fn), 'w')
+f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer\n')
 
 def getTime():
     d = datetime.datetime.today()
-    h = str(d.hour)
-    m = str(d.minute)
-    s = str(d.second)
-    if (len(h)==1):
-        h = '0'+h
-    if (len(m)==1):
-        m = '0'+m
-    if (len(s)==1):
-        s = '0'+s
-    t = h+':'+m+':'+s
+    t = d.strftime('%H:%M:%S')
     return t
 
 def dataLog(dt, event, step, lasers, hall, lights, accel):
-    file.write(str(getTime()) + ', ' + str(dt) + ', ' + str(event) + ', ' + str(step) + ', ' +
+    f.write(str(getTime()) + ', ' + str(dt) + ', ' + str(event) + ', ' + str(step) + ', ' +
                str(lasers) + ',' + str(hall) + ', ' + str(lights) + ', ' + str(accel) + '\n')
 
 # base reading for orientation to calibrate future readings
