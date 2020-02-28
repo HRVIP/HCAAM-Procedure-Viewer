@@ -1,14 +1,12 @@
 # Kelden Ben-Ora
 # 2.27.2020
 
-import RPi.GPIO as gpio
 import time
 import os
 import json
 import requests
 import busio
 import board
-import adafruit_lis3dh
 import digitalio
 import smbus
 import socket
@@ -152,7 +150,7 @@ def accel(x, y, z):
 
 def readData():
     data = {'light1': int(LI1.value), 'light2': int(LI2.value),
-            'light3': int(LI3.value), 'hall1': int(H1.value), 'accel1': int(accel(x0, y0, z0))}
+            'light3': int(LI3.value), 'hall1': int(not H1.value), 'accel1': int(accel(xinit, yinit, zinit))}
     return data
 
 def getLasers():
@@ -167,7 +165,7 @@ def getEvent():
 
 # Main
 stop = False
-x0, y0, z0, = accelStart()
+xinit, yinit, zinit = accelStart()
 sensors = readData()
 dataLog(0, '', 1, [0, 0, 0, 0], 
         sensors['hall'], 
@@ -186,27 +184,18 @@ while not stop:
     
     # check change in sensor values
     if sensors != readData():
+        # Read sensor data and send it to the server
         sensors = readData()
-    
-    # need to implement accelerometer thresholding logic here
-    # accel = False
-    # if x/y/z > threshold:
-    #  accel = True
-    # else:
-    #  accel = False
-    
+        post = requests.post(ip+ '/data', sensors)
+        print(post.text)
+        
     print("Lights:")
     print(LI1.value, int(LI1.value))
     print(LI2.value, int(LI2.value))
     print(LI3.value, int(LI3.value))
-    print("Hall: " + H1.value)
+    print("Hall: " + str(H1.value))
     print("Accel: " + sensors['accel1'])
     print("")
-    
-    # Read sensor data and send it to the server
-    data = readData()
-    post = requests.post(ip+ '/data', data)
-    print(post.text)
     
     # Retrieve laser requests from server
     lasers = getLasers()
@@ -219,3 +208,4 @@ while not stop:
     time.sleep(.1)
     if input() == 'stop':
         stop = True
+f.close()
