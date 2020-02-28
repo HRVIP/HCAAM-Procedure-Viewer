@@ -164,7 +164,7 @@ def getLasers():
     return data
 
 def blinkLasers(lasers):
-    # blink 10 times in 10 seconds
+    # blink 10 times in 6 seconds
     for i in range(10):
         # turn on for half a second if prompted
         if lasers[0] == 1:
@@ -175,13 +175,13 @@ def blinkLasers(lasers):
             LA3.value = True
         if lasers[3] == 1:
             LA4.value = True
-        time.sleep(.5)
+        time.sleep(.3)
         # turn off for half a second
         LA1.value = False
         LA2.value = False
         LA3.value = False
         LA4.value = False
-        time.sleep(.5)
+        time.sleep(.3)
         
 def getEvent():
     r = requests.get(ip + '/event')
@@ -225,7 +225,7 @@ while not stop:
     # Retrieve laser requests from server
     lasers = getLasers()
     print(lasers)
-    if (lasers is not [0, 0, 0, 0]):
+    if (lasers is not '[0, 0, 0, 0]'):
         blinkLasers(lasers)
     
     # Retrieve event updates from server
