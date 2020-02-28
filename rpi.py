@@ -196,7 +196,7 @@ dataLog(0, '', 1, [0, 0, 0, 0],
         sensors['hall1'], 
         [sensors['light1'], sensors['light2'], sensors['light3']], 
         sensors['accel1'])
-while not stop:
+while True:
     d = datetime.datetime.today()
     
     # stopwatch functionality
@@ -233,6 +233,6 @@ while not stop:
     print(event)
     
     time.sleep(.1)
-    if input() == 'stop':
-        stop = True
+    if event['event'] is 'End':
+        break
 f.close()
