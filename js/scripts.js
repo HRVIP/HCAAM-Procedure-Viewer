@@ -26,10 +26,13 @@ function prepareList() {
       dataType: 'json',
     })
         .done(function(data) {
-        // console.log(data);
+          // console.log(data);
 
           // Update interface based on sensor data
           $('p[sensor]').each(function(index, element) {
+            let sensorvalue = data[parseInt($(element).attr('sensor'))];
+            $(element).attr('sensorvalue', sensorvalue);
+
             if ($(element).attr('sensortarget') == $(element).attr('sensorvalue')) {
               $(element).attr('sensortargetreached', 1);
             } else {
