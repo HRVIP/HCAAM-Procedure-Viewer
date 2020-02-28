@@ -18,7 +18,7 @@ function prepareList() {
   const canExpand = true;
 
   // Retrieves sensor data from server
-  var dataurl = "http://localhost:3000/data";
+  var dataurl = "http://192.168.0.110:3000/data";
   function getData() {
     $.ajax({
       type: "GET",
@@ -39,7 +39,7 @@ function prepareList() {
       });
   }
 
-  var eventurl = "http://localhost:3000/event"
+  var eventurl = "http://192.168.0.110:3000/event"
   function postEvent(event, currentStep) {
     $.ajax({
       type: "POST",
@@ -49,7 +49,7 @@ function prepareList() {
   }
 
   // Send laser state change requests
-  var laserurl = "http://localhost:3000/lasers";
+  var laserurl = "http://192.168.0.110:3000/lasers";
   function showMe(laser) {
     if (laser == 1) {
       $.ajax({
