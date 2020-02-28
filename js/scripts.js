@@ -7,7 +7,7 @@ function prepareList() {
   const UPKEY = 'w';
   const DOWNKEY = 's';
   // const BEGINEXPERIMENTKEY = 'o';
-  // const ENDEXPERIMENTKEY = 'p';
+  const ENDEXPERIMENTKEY = 'p'
   const EXPANDKEY = 'd';
   const COLLAPSEKEY = 'a';
   const PLAYKEY = 't';
@@ -241,10 +241,11 @@ function prepareList() {
     //   dataLog(new Date().getTime(), 'pressed BEGINEXPERIMENTKEY')
     //   beginExperiment();
     // }
-    // if (event.key == ENDEXPERIMENTKEY) {
+    if (event.key == ENDEXPERIMENTKEY) {
     //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
     //   endExperiment();
-    // }
+      postEvent('End', ' ');
+    }
     if (event.key == PLAYKEY) {
       dataLog(new Date().getTime(), 'pressed PLAYKEY');
       play();
@@ -260,18 +261,22 @@ function prepareList() {
     if (event.key == LASER1KEY) {
       dataLog(new Date().getTime(), 'pressed LASER1KEY');
       showMe(1);
+      postEvent('Lasers requested', ' ');
     }
     if (event.key == LASER2KEY) {
       dataLog(new Date().getTime(), 'pressed LASER2KEY');
       showMe(2);
+      postEvent('Lasers requested', ' ');
     }
     if (event.key == LASER3KEY) {
       dataLog(new Date().getTime(), 'pressed LASER3KEY');
       showMe(3);
+      postEvent('Lasers requested', ' ');
     }
     if (event.key == LASER4KEY) {
       dataLog(new Date().getTime(), 'pressed LASER4KEY');
       showMe(4);
+      postEvent('Lasers requested', ' ');
     }
     e.preventDefault();
   });
