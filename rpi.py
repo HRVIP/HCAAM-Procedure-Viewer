@@ -21,7 +21,7 @@ bus.write_byte_data(0x18, 0x23, 0x00)
 i2c = busio.I2C(board.SCL, board.SDA)
 
 ######################
-# Global pin variables
+# Locations of sensors and lasers on rpi pins
 
 # photoresistors
 # LI1 = 36
@@ -47,10 +47,6 @@ H1.direction = digitalio.Direction.INPUT
 #######################
 
 # I/O from promicro
-# gpio.setup(LI1, gpio.IN, pull_up_down=gpio.PUD_DOWN)
-# gpio.setup(LI2, gpio.IN, pull_up_down=gpio.PUD_DOWN)
-# gpio.setup(LI3, gpio.IN, pull_up_down=gpio.PUD_DOWN)
-
 LI1 = digitalio.DigitalInOut(board.D16)
 LI2 = digitalio.DigitalInOut(board.D20)
 LI3 = digitalio.DigitalInOut(board.D21)
@@ -60,11 +56,6 @@ LI2.direction = digitalio.Direction.INPUT
 LI3.direction = digitalio.Direction.INPUT
 
 # Setup the lasers
-# gpio.setup(LA1, gpio.OUT)
-# gpio.setup(LA2, gpio.OUT)
-# gpio.setup(LA3, gpio.OUT)
-# gpio.setup(LA4, gpio.OUT)
-
 LA1 = digitalio.DigitalInOut(board.D6)
 LA2 = digitalio.DigitalInOut(board.D13)
 LA3 = digitalio.DigitalInOut(board.D19)
@@ -80,10 +71,8 @@ LA2.value = False
 LA3.value = False
 LA4.value = False
 
-temp = time.time()
-files = []
-
 # check current trial number and set up csv
+files = []
 directory = "trials/"
 for root, di, fils in os.walk(directory, topdown=False):
     for name in fils:
@@ -200,6 +189,7 @@ def getEvent():
 
 
 # Main
+temp = time.time()
 stop = False
 xinit, yinit, zinit = accelStart()
 sensors = readData()
@@ -207,43 +197,53 @@ dataLog(0, '', 1, [0, 0, 0, 0],
         sensors['hall1'],
         [sensors['light1'], sensors['light2'], sensors['light3']],
         sensors['accel1'])
+
+# The main loop where everything happens and updates
 while not stop:
+    
+    # stopwatch functionality
+    # dt = time.time() - temp   do not uncomment this
+    temp = time.time()
+    
     d = datetime.datetime.today()
 
-    # stopwatch functionality
-    deltaTime = time.time() - temp
-    temp = time.time()
+    # Retrieve laser requests from server and log requests
+    # Blink lasers if there is a new request
+    lasers = getLasers()
+    # print(lasers)
+    if (lasers != [0, 0, 0, 0]):
+        # print('blinking')
+        dt = time.time() - temp
+        temp = time.time()
+        dataLog(dt, 'Lasers Reqested', '', lasers, sensors['hall1'], [sensors['light1'], sensors['light2'], 
+                                                                      sensors['light3']], sensors['accel1'])
+        blinkLasers(lasers)
 
-    # read accelerometer
-    # accel1 = accel(x0, y0, z0)
-    # print(accel1)
 
     # check change in sensor values
     if sensors != readData():
-        # Read sensor data and send it to the server
+        # Read sensor data, log it, and send it to the server
         sensors = readData()
+        dt = time.time() - temp
+        dataLog(dt, 'Sensors updated', '', lasers, sensors['hall1'], [sensors['light1'], sensors['light2'], 
+                                                                      sensors['light3']], sensors['accel1'])
         post = requests.post(ip + '/data', sensors)
         print(post.text)
 
-    print("Lights:")
-    print(LI1.value, int(LI1.value))
-    print(LI2.value, int(LI2.value))
-    print(LI3.value, int(LI3.value))
-    print("Hall: " + str(int(not H1.value)))
-    print("Accel: " + str(sensors['accel1']))
-    print("")
-
-    # Retrieve laser requests from server
-    lasers = getLasers()
-    print(lasers)
-    if (lasers != [0, 0, 0, 0]):
-        print('blinking')
-        blinkLasers(lasers)
 
     # Retrieve event updates from server and end if experiment ended
     event = getEvent()
-    print(event)
+    print(event[0], event[1])
     if str(event[0]) is 'End':
         stop = True
     time.sleep(1)
+
+    # print("Lights:")
+    # print(LI1.value, int(LI1.value))
+    # print(LI2.value, int(LI2.value))
+    # print(LI3.value, int(LI3.value))
+    # print("Hall: " + str(int(not H1.value)))
+    # print("Accel: " + str(sensors['accel1']))
+    # print("")
+
 f.close()
