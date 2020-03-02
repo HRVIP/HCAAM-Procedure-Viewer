@@ -616,7 +616,7 @@ const sensorDict = {
     '1': 'open.',
   },
   4: {
-    'text': 'Float champer should be ',
+    'text': 'Float chamber should be ',
     '0': 'upright.',
     '1': 'upside down.',
   },
