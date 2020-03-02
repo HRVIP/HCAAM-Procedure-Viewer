@@ -198,6 +198,7 @@ def readData():
 # Main
 def startExperiment():
     temp = time.time()
+    global stop
     stop = False
     xinit, yinit, zinit = accelStart()
     global sensors
