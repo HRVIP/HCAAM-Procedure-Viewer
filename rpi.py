@@ -148,7 +148,7 @@ def dataLog(dt, event, step, lasers, hall, lights, accel):
 def getEvent():
     r = requests.get(ip + '/event')
     event_step = r.json()
-    return event_step[0], switch(event_step[1][8:len(event[1])])
+    return event_step[0], switch(event_step[1][8:len(event_step[1])])
 
 
 def getLasers():
