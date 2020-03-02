@@ -346,7 +346,7 @@ def switch(argument):
 
 # The main loop where everything happens and updates
 while True:
-    
+    stop = True
     event, __ = getEvent()
     if str(event) is 'Start':
         temp, stop, xinit, yinit, zinit, sensors = startExperiment()
