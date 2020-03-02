@@ -360,9 +360,16 @@ while True:
             dt = time.time() - temp
             temp = time.time()
             event, step = getEvent()
-            dataLog(dt, 'Lasers Reqested', step, lasers, sensors['hall1'], [sensors['light1'], sensors['light2'],
+            dataLog(dt, event, step, lasers, sensors['hall1'], [sensors['light1'], sensors['light2'],
                                                                       sensors['light3']], sensors['accel1'])
             blinkLasers(lasers)
+        elif (lasers == [0, 0, 0, 0] and getEvent()[0] is 'Lasers requested'):
+            if getEvent()[1] is '' or getEvent()[1] is '':
+                lasers = [0, 0, 1, 0]
+                blinkLasers(lasers)
+            elif getEvent()[1] is '' or getEvent()[1] is '':
+                lasers = [1, 1, 0, 1]
+                blinkLasers(lasers)
 
 
     # check change in sensor values
