@@ -15,10 +15,11 @@ function prepareList() {
   const LASER2KEY = '2';
   const LASER3KEY = '3';
   const LASER4KEY = '4';
+  const LASERKEY = 'l';
   // const canExpand = true;
 
   // Retrieves sensor data from server
-  const dataurl = 'http://localhost:3000/data';
+  const dataurl = 'http://192.168.0.110:3000/data';
   function getData() {
     $.ajax({
       type: 'GET',
@@ -42,7 +43,7 @@ function prepareList() {
         });
   }
 
-  const eventurl = 'http://localhost:3000/event';
+  const eventurl = 'http://192.168.0.110:3000/event';
   function postEvent(event, currentStep) {
     $.ajax({
       type: 'POST',
@@ -52,8 +53,15 @@ function prepareList() {
   }
 
   // Send laser state change requests
-  const laserurl = 'http://localhost:3000/lasers';
+  const laserurl = 'http://192.168.0.110:3000/lasers';
   function showMe(laser) {
+    if (laser == 0) {
+      $.ajax({
+        type: 'POST',
+        url: laserurl,
+        data: {laser1: '0', laser2: '0', laser3: '0', laser4: '0'},
+      });
+    }
     if (laser == 1) {
       $.ajax({
         type: 'POST',
@@ -280,25 +288,30 @@ function prepareList() {
     //   dataLog(new Date().getTime(), 'pressed COLLAPSEKEY');
     //   toggleThat();
     // }
+    if (event.key == LASERKEY) {
+      dataLog(new Date().getTime(), 'pressed LASERKEY');
+      showMe(0);
+      postEvent('Lasers requested', $currentElement.attr('id'));
+    }
     if (event.key == LASER1KEY) {
       dataLog(new Date().getTime(), 'pressed LASER1KEY');
       showMe(1);
-      postEvent('Lasers requested', $currentElement.attr('id'));
+      postEvent('Laser 1 requested', $currentElement.attr('id'));
     }
     if (event.key == LASER2KEY) {
       dataLog(new Date().getTime(), 'pressed LASER2KEY');
       showMe(2);
-      postEvent('Lasers requested', $currentElement.attr('id'));
+      postEvent('Laser 2 requested', $currentElement.attr('id'));
     }
     if (event.key == LASER3KEY) {
       dataLog(new Date().getTime(), 'pressed LASER3KEY');
       showMe(3);
-      postEvent('Lasers requested', $currentElement.attr('id'));
+      postEvent('Laser 3 requested', $currentElement.attr('id'));
     }
     if (event.key == LASER4KEY) {
       dataLog(new Date().getTime(), 'pressed LASER4KEY');
       showMe(4);
-      postEvent('Lasers requested', $currentElement.attr('id'));
+      postEvent('Laser 4 requested', $currentElement.attr('id'));
     }
     e.preventDefault();
   });
