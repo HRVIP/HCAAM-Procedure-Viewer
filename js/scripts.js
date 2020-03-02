@@ -8,14 +8,14 @@ function prepareList() {
   const DOWNKEY = 's';
   // const BEGINEXPERIMENTKEY = 'o';
   const ENDEXPERIMENTKEY = 'p';
-  const EXPANDKEY = 'd';
-  const COLLAPSEKEY = 'a';
+  // const EXPANDKEY = 'd';
+  // const COLLAPSEKEY = 'a';
   const PLAYKEY = 't';
   const LASER1KEY = '1';
   const LASER2KEY = '2';
   const LASER3KEY = '3';
   const LASER4KEY = '4';
-  const canExpand = true;
+  // const canExpand = true;
 
   // Retrieves sensor data from server
   const dataurl = 'http://192.168.0.110:3000/data';
@@ -102,10 +102,10 @@ function prepareList() {
   }
 
   // Add the classes for collapsing/expanding
-  $('#expList')
-      .find('li:has(ul)')
-      .children('ul')
-      .hide();
+  // $('#expList')
+  //     .find('li:has(ul)')
+  //     .children('ul')
+  //     .hide();
 
   // Set up this marker moving technology
   $currentElement = $('li:visible').first();
@@ -173,31 +173,31 @@ function prepareList() {
     );
   };
 
-  const toggle = function(that) {
-    if (that == event.target || event.key == EXPANDKEY || event.key == COLLAPSEKEY) {
-      $(that).toggleClass('expanded');
-      $(that)
-          .children('ul')
-          .toggle('fast');
+  // const toggle = function(that) {
+  //   if (that == event.target || event.key == EXPANDKEY || event.key == COLLAPSEKEY) {
+  //     $(that).toggleClass('expanded');
+  //     $(that)
+  //         .children('ul')
+  //         .toggle('fast');
 
-      if ($(that).hasClass('expanded')) {
-        dataLog(new Date().getTime(), that.id, 'expanded');
-        down();
-      } else {
-        dataLog(new Date().getTime(), that.id, 'collapsed');
-      }
-    }
-    return false;
-  };
+  //     if ($(that).hasClass('expanded')) {
+  //       dataLog(new Date().getTime(), that.id, 'expanded');
+  //       down();
+  //     } else {
+  //       dataLog(new Date().getTime(), that.id, 'collapsed');
+  //     }
+  //   }
+  //   return false;
+  // };
 
-  const toggleThat = function() {
-    if (canExpand) {
-      if ($currentElement.children('ul').length) {
-        toggle($currentElement[0]);
-      }
-      play();
-    }
-  };
+  // const toggleThat = function() {
+  //   if (canExpand) {
+  //     if ($currentElement.children('ul').length) {
+  //       toggle($currentElement[0]);
+  //     }
+  //     play();
+  //   }
+  // };
 
   const play = function() {
     if ($currentElement.children('video').length) {
@@ -253,14 +253,14 @@ function prepareList() {
       dataLog(new Date().getTime(), 'pressed PLAYKEY');
       play();
     }
-    if (event.key == EXPANDKEY) {
-      dataLog(new Date().getTime(), 'pressed EXPANDKEY');
-      toggleThat();
-    }
-    if (event.key == COLLAPSEKEY) {
-      dataLog(new Date().getTime(), 'pressed COLLAPSEKEY');
-      toggleThat();
-    }
+    // if (event.key == EXPANDKEY) {
+    //   dataLog(new Date().getTime(), 'pressed EXPANDKEY');
+    //   toggleThat();
+    // }
+    // if (event.key == COLLAPSEKEY) {
+    //   dataLog(new Date().getTime(), 'pressed COLLAPSEKEY');
+    //   toggleThat();
+    // }
     if (event.key == LASER1KEY) {
       dataLog(new Date().getTime(), 'pressed LASER1KEY');
       showMe(1);
