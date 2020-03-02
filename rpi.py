@@ -1,16 +1,18 @@
 # Kelden Ben-Ora
 # 2.27.2020
 
-import time
-import os
+import datetime
 import json
+import os
+import socket
+import time
+
 import requests
-import busio
+
 import board
+import busio
 import digitalio
 import smbus
-import socket
-import datetime
 
 # current ip address
 ip = 'http://' + (socket.gethostbyaddr(socket.gethostname())[2])[0] + ':3000'
@@ -200,11 +202,11 @@ dataLog(0, '', 1, [0, 0, 0, 0],
 
 # The main loop where everything happens and updates
 while not stop:
-    
+
     # stopwatch functionality
     # dt = time.time() - temp   do not uncomment this
     temp = time.time()
-    
+
     d = datetime.datetime.today()
 
     # Retrieve laser requests from server and log requests
@@ -215,21 +217,19 @@ while not stop:
         # print('blinking')
         dt = time.time() - temp
         temp = time.time()
-        dataLog(dt, 'Lasers Reqested', '', lasers, sensors['hall1'], [sensors['light1'], sensors['light2'], 
+        dataLog(dt, 'Lasers Reqested', '', lasers, sensors['hall1'], [sensors['light1'], sensors['light2'],
                                                                       sensors['light3']], sensors['accel1'])
         blinkLasers(lasers)
-
 
     # check change in sensor values
     if sensors != readData():
         # Read sensor data, log it, and send it to the server
         sensors = readData()
         dt = time.time() - temp
-        dataLog(dt, 'Sensors updated', '', lasers, sensors['hall1'], [sensors['light1'], sensors['light2'], 
+        dataLog(dt, 'Sensors updated', '', lasers, sensors['hall1'], [sensors['light1'], sensors['light2'],
                                                                       sensors['light3']], sensors['accel1'])
         post = requests.post(ip + '/data', sensors)
         print(post.text)
-
 
     # Retrieve event updates from server and end if experiment ended
     event = getEvent()
