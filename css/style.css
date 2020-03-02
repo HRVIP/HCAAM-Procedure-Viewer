@@ -4,14 +4,6 @@ ul#expList>li {
     margin-bottom: 10px;
 }
 
-ul#expList>li>div::before {
-    content: "⊕ ";
-}
-
-ul#expList>li.expanded>div::before {
-    content: "⊖ ";
-}
-
 li {
     list-style-type: none;
     border-left: 3px transparent solid;
@@ -40,11 +32,47 @@ div.caution {
     width: 100%;
 }
 
+#expList {
+    flex: 9;
+    padding-top: 10px;
+}
+
 #listContainer {
-    width: 100%;
+    display: flex;
     margin: auto;
-    max-width: 800px;
+    max-width: 900px;
     padding: 10px;
+}
+
+.listControl {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    flex: 1;
+    padding: 10px;
+}
+
+.listControl>a {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border: 3px solid #11244B !important;
+    text-align: center;
+    line-height: 94px;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.listControl>a+a {
+    margin-top: 50px;
 }
 
 .info {
@@ -53,10 +81,12 @@ div.caution {
 
 li>div.number {
     flex: 0.25;
+    padding-right: 5px;
 }
 
 li>div.info {
     flex: 2;
+    padding-right: 5px;
 }
 
 li>div.image {

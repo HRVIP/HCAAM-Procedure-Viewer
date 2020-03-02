@@ -199,6 +199,20 @@ function prepareList() {
   //   }
   // };
 
+  $('#up')
+      .unbind('click')
+      .click(function() {
+        dataLog(new Date().getTime(), 'clicked UPKEY');
+        up();
+      });
+
+  $('#down')
+      .unbind('click')
+      .click(function() {
+        dataLog(new Date().getTime(), 'clicked DOWNKEY');
+        down();
+      });
+
   const play = function() {
     if ($currentElement.children('video').length) {
       video = $currentElement.children('video')[0];
