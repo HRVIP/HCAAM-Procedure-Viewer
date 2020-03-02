@@ -6,7 +6,7 @@ function prepareList() {
 
   const UPKEY = 'w';
   const DOWNKEY = 's';
-  // const BEGINEXPERIMENTKEY = 'o';
+  const BEGINEXPERIMENTKEY = 'o';
   const ENDEXPERIMENTKEY = 'p';
   // const EXPANDKEY = 'd';
   // const COLLAPSEKEY = 'a';
@@ -258,14 +258,15 @@ function prepareList() {
       dataLog(new Date().getTime(), 'pressed UPKEY');
       up();
     }
-    // if (event.key == BEGINEXPERIMENTKEY) {
+    if (event.key == BEGINEXPERIMENTKEY) {
     //   dataLog(new Date().getTime(), 'pressed BEGINEXPERIMENTKEY')
     //   beginExperiment();
-    // }
+      postEvent('Start', $currentElement.attr('id'));
+    }
     if (event.key == ENDEXPERIMENTKEY) {
       //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
       //   endExperiment();
-      postEvent('End', '');
+      postEvent('End', $currentElement.attr('id'));
     }
     if (event.key == PLAYKEY) {
       dataLog(new Date().getTime(), 'pressed PLAYKEY');
@@ -287,17 +288,17 @@ function prepareList() {
     if (event.key == LASER2KEY) {
       dataLog(new Date().getTime(), 'pressed LASER2KEY');
       showMe(2);
-      postEvent('Lasers requested', '');
+      postEvent('Lasers requested', $currentElement.attr('id'));
     }
     if (event.key == LASER3KEY) {
       dataLog(new Date().getTime(), 'pressed LASER3KEY');
       showMe(3);
-      postEvent('Lasers requested', '');
+      postEvent('Lasers requested', $currentElement.attr('id'));
     }
     if (event.key == LASER4KEY) {
       dataLog(new Date().getTime(), 'pressed LASER4KEY');
       showMe(4);
-      postEvent('Lasers requested', '');
+      postEvent('Lasers requested', $currentElement.attr('id'));
     }
     e.preventDefault();
   });
