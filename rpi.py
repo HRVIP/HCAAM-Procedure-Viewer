@@ -1,5 +1,5 @@
-# Kelden Ben-Ora
-# 2.27.2020
+# Kelden Ben-Ora HRVIP UC Davis
+# 3.2.2020
 
 import datetime
 import json
@@ -47,7 +47,6 @@ H1.direction = digitalio.Direction.INPUT
 #######################
 
 # I/O from promicro
-global LI1, LI2, LI3
 LI1 = digitalio.DigitalInOut(board.D16)
 LI2 = digitalio.DigitalInOut(board.D20)
 LI3 = digitalio.DigitalInOut(board.D21)
@@ -57,7 +56,6 @@ LI2.direction = digitalio.Direction.INPUT
 LI3.direction = digitalio.Direction.INPUT
 
 # Setup the lasers
-global LA1, LA2, LA3, LA4
 LA1 = digitalio.DigitalInOut(board.D6)
 LA2 = digitalio.DigitalInOut(board.D13)
 LA3 = digitalio.DigitalInOut(board.D19)
@@ -149,8 +147,8 @@ def dataLog(dt, event, step, lasers, hall, lights, accel):
 # retrieve current event
 def getEvent():
     r = requests.get(ip + '/event')
-    event = r.json()
-    return event['event'], event['currentStep']
+    event_step = r.json()
+    return event_step[0], switch(event_step[1][8:len(event[1])])
 
 
 def getLasers():
@@ -196,13 +194,147 @@ def startExperiment():
     temp = time.time()
     stop = False
     xinit, yinit, zinit = accelStart()
+    global sensors
     sensors = readData()
     newDataFile()
-    dataLog(0, '', 1, np.array([0, 0, 0, 0]),
+    e, s = getEvent()
+    dataLog(0, 'Start', s, np.array([0, 0, 0, 0]),
             sensors['hall1'],
             np.array([sensors['light1'], sensors['light2'], sensors['light3']]),
             sensors['accel1'])
     return temp, stop, xinit, yinit, zinit, sensors
+
+
+# Map the step number seen in the backend to the actual step
+# seen on the procedure viewer
+def switch(argument):
+    stepMap = {
+        '0': '1',
+        '0_0': '1.1',
+        '0_1': '1.1.1',
+        '0_2': '1.2',
+        '0_3': '1.2.1',
+        '0_4': '1.3',
+        '0_5': '1.3.1',
+        '0_6': '1.4',
+        '0_7': '1.4.1',
+        '0_8': '1.4.2',
+        '0_9': '1.4.3',
+        '1': '2',
+        '1_0': '2.1',
+        '1_1': '2.1.1',
+        '1_2': '2.1.1.1',
+        '1_3': '2.1.2',
+        '1_4': '2.2',
+        '1_5': '2.2.1',
+        '1_6': '2.2.1.1',
+        '1_7': '2.2.2',
+        '1_8': '2.2.3',
+        '1_9': '2.2.3.1',
+        '1_10': 'Caution',
+        '1_11': '2.3',
+        '1_12': '2.3.1',
+        '1_13': 'Tube removal video',
+        '1_14': '2.4',
+        '1_15': '2.4.1',
+        '1_16': '2.4.1.1',
+        '1_17': '2.4.2',
+        '1_18': '2.4.3',
+        '2': '3',
+        '2_0': '3.1',
+        '2_1': '3.1.1',
+        '2_2': '3.2',
+        '2_3': '3.2.1',
+        '2_4': '3.2.2',
+        '2_5': '3.2.3',
+        '2_6': '3.2.4',
+        '2_7': 'Caution',
+        '2_8': '3.3',
+        '2_9': '3.3.1',
+        '2_10': 'Carburator fuel tube video',
+        '2_11': '3.3.1.1',
+        '2_12': '3.3.1.2',
+        '2_13': '3.4',
+        '2_14': '3.4.1',
+        '2_15': '3.4.2',
+        '2_16': '3.4.2.1',
+        '2_17': '3.5',
+        '2_18': '3.5.1',
+        '2_19': '3.5.1.1',
+        '2_20': '3.5.2',
+        '2_21': '3.5.2.1',
+        '2_22': '3.5.3',
+        '2_23': '3.5.4',
+        '2_24': '3.6',
+        '2_25': '3.6.1',
+        '2_26': '3.6.2',
+        '3': '4',
+        '3_0': '4.1',
+        '3_1': '4.1.1',
+        '3_2': '4.1.1.1',
+        '3_3': '4.1.2',
+        '3_4': '4.1.3',
+        '3_5': '4.2',
+        '3_6': '4.2.1',
+        '3_7': '4.3',
+        '3_8': '4.3.1',
+        '3_9': '4.4',
+        '3_10': '4.4.1',
+        '3_11': '4.4.2',
+        '3_12': '4.4.3',
+        '3_13': '4.4.3.1',
+        '4': '5',
+        '4_0': '5.1',
+        '4_1': '5.1.1',
+        '4_2': '5.1.2',
+        '4_3': '5.2',
+        '4_4': '5.2.1',
+        '4_5': '5.2.2',
+        '4_6': '5.2.3',
+        '4_7': '5.2.3.1',
+        '5': '6',
+        '5_0': '6.1',
+        '5_1': '6.1.1',
+        '5_2': '6.1.2',
+        '5_3': '6.1.3',
+        '5_4': '6.1.3.1',
+        '5_5': '6.1.4',
+        '5_6': '6.1.4.1',
+        '5_7': '6.1.5',
+        '5_8': '6.1.5.1',
+        '5_9': '6.2',
+        '5_10': '6.2.1',
+        '5_11': '6.2.2',
+        '5_12': '6.2.2.1',
+        '5_13': 'Remove hose video',
+        '5_14': '6.2.3',
+        '5_15': '6.3',
+        '5_16': '6.3.1',
+        '5_17': '6.3.2',
+        '5_18': '6.3.3',
+        '5_19': '6.4',
+        '6': '7',
+        '6_0': '7.1',
+        '6_1': '7.1.1',
+        '6_2': '7.1.2',
+        '6_3': '7.1.3',
+        '6_4': '7.1.3.1',
+        '6_5': '7.2',
+        '6_6': '7.2.1',
+        '6_7': '7.2.2',
+        '6_8': '7.2.2.1',
+        '6_9': '7.2.3',
+        '6_10': '7.2.4',
+        '6_11': '7.2.4.1',
+        '6_12': '7.3',
+        '6_13': '7.3.1',
+        '6_14': '7.3.1.1',
+        '6_15': '7.4',
+        '6_16': '7.4.1',
+        '6_17': '7.4.2'
+        
+    }
+    return stepMap.get(argument, 'Invalid step')
 
 
 # The main loop where everything happens and updates
@@ -219,8 +351,6 @@ while True:
         # dt = time.time() - temp   do not uncomment this
         temp = time.time()
 
-        d = datetime.datetime.today()
-
         # Retrieve laser requests from server and log requests
         # Blink lasers if there is a new request
         lasers = getLasers()
@@ -229,7 +359,8 @@ while True:
             # print('blinking')
             dt = time.time() - temp
             temp = time.time()
-            dataLog(dt, 'Lasers Reqested', '', lasers, sensors['hall1'], [sensors['light1'], sensors['light2'],
+            event, step = getEvent()
+            dataLog(dt, 'Lasers Reqested', step, lasers, sensors['hall1'], [sensors['light1'], sensors['light2'],
                                                                       sensors['light3']], sensors['accel1'])
             blinkLasers(lasers)
 
@@ -251,7 +382,7 @@ while True:
         if str(event) is 'End':
             stop = True
             f.close()
-        time.sleep(.5)
+        time.sleep(.1)
 
     # print("Lights:")
     # print(LI1.value, int(LI1.value))
