@@ -348,33 +348,41 @@ def switch(argument):
 while True:
     stop = True
     event, __ = getEvent()
+    print(event)
     if str(event) is 'Start':
+        print(event)
         temp, stop, xinit, yinit, zinit, sensors = startExperiment()
         
         
     while not stop:
         sensors = readData()
+        print("sensors: " + str(sensors))
         # stopwatch functionality
         # dt = time.time() - temp   do not uncomment this
         temp = time.time()
-
+        print("temp: " + str(temp))
         # Retrieve laser requests from server and log requests
         # Blink lasers if there is a new request
         lasers = getLasers()
+        print("lasers: " + str(lasers))
         # print(lasers)
         if (lasers != [0, 0, 0, 0]):
-            # print('blinking')
+            print('blinking ' + str(lasers))
             dt = time.time() - temp
             temp = time.time()
             event, step = getEvent()
+            print('Event: ' + event)
+            print('Step: ' + step)
             dataLog(dt, event, step, lasers, sensors['hall1'], [sensors['light1'], sensors['light2'],
                                                                       sensors['light3']], sensors['accel1'])
             blinkLasers(lasers)
         elif (lasers == [0, 0, 0, 0] and getEvent()[0] is 'Lasers requested'):
-            if getEvent()[1] is '' or getEvent()[1] is '':
+            if getEvent()[1] is '2.2.1' or getEvent()[1] is '7.2.4':
+                print('blinking ' + str(lasers))
                 lasers = [0, 0, 1, 0]
                 blinkLasers(lasers)
-            elif getEvent()[1] is '' or getEvent()[1] is '':
+            elif getEvent()[1] is '2.4.1' or getEvent()[1] is '7.1.3':
+                print('blinking ' + str(lasers))
                 lasers = [1, 1, 0, 1]
                 blinkLasers(lasers)
 
