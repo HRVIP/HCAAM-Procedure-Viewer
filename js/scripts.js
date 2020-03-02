@@ -18,7 +18,7 @@ function prepareList() {
   // const canExpand = true;
 
   // Retrieves sensor data from server
-  const dataurl = 'http://192.168.0.110:3000/data';
+  const dataurl = 'http://localhost:3000/data';
   function getData() {
     $.ajax({
       type: 'GET',
@@ -42,7 +42,7 @@ function prepareList() {
         });
   }
 
-  const eventurl = 'http://192.168.0.110:3000/event';
+  const eventurl = 'http://localhost:3000/event';
   function postEvent(event, currentStep) {
     $.ajax({
       type: 'POST',
@@ -52,7 +52,7 @@ function prepareList() {
   }
 
   // Send laser state change requests
-  const laserurl = 'http://192.168.0.110:3000/lasers';
+  const laserurl = 'http://localhost:3000/lasers';
   function showMe(laser) {
     if (laser == 1) {
       $.ajax({
@@ -133,6 +133,8 @@ function prepareList() {
     $currentElement = $nextElement;
     $currentElement.toggleClass('selected');
 
+    postEvent('clicked DOWNKEY', $currentElement.attr('id'));
+
     // Keep the marker at the top of the screen
     $('body, html').animate(
         {
@@ -163,6 +165,8 @@ function prepareList() {
     $currentElement.toggleClass('selected');
     $currentElement = $nextElement;
     $currentElement.toggleClass('selected');
+
+    postEvent('clicked UPKEY', $currentElement.attr('id'));
 
     // Keep the marker at the top of the screen
     $('body, html').animate(
@@ -278,7 +282,7 @@ function prepareList() {
     if (event.key == LASER1KEY) {
       dataLog(new Date().getTime(), 'pressed LASER1KEY');
       showMe(1);
-      postEvent('Lasers requested', ' ');
+      postEvent('Lasers requested', $currentElement.attr('id'));
     }
     if (event.key == LASER2KEY) {
       dataLog(new Date().getTime(), 'pressed LASER2KEY');

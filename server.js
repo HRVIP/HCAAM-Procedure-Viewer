@@ -89,8 +89,8 @@ app.route('/event')
     .post(function(req, res) {
       res.setHeader('Content-type', 'text/plain');
       res.send('Event logged');
-      console.log(req.body.event);
-      console.log(req.body.currentStep);
+      // console.log(req.body.event); 
+      // console.log(req.body.currentStep);
       event = req.body.event;
       currentStep = req.body.currentStep;
     })
