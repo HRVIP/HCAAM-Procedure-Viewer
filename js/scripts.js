@@ -116,15 +116,15 @@ function prepareList() {
   //     .hide();
 
   // Set up this marker moving technology
-  $currentElement = $('li:visible').first();
+  $currentElement = $('li:not(:has(ul))').first();
   $currentElement.toggleClass('selected');
 
   const down = function() {
     $('.info').css('border', '');
-    $allElements = $('li:visible');
+    $allElements = $('li:not(:has(ul))');
 
     if ($currentElement[0] == $allElements.last()[0]) {
-      // $nextElement = $('li:visible').first();
+      // $nextElement = $('li:not(:has(ul))').first();
       $nextElement = $currentElement;
     } else {
       $nextElement = $($allElements[$.inArray($currentElement[0], $allElements) + 1]);
@@ -154,10 +154,10 @@ function prepareList() {
 
   const up = function() {
     $('.info').css('border', '');
-    $allElements = $('li:visible');
+    $allElements = $('li:not(:has(ul))');
 
     if ($currentElement[0] == $allElements.first()[0]) {
-      // $nextElement = $('li:visible').last();
+      // $nextElement = $('li:not(:has(ul))').last();
       $nextElement = $currentElement;
     } else {
       $nextElement = $($allElements[$.inArray($currentElement[0], $allElements) - 1]);
