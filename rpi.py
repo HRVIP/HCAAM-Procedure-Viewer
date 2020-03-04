@@ -365,7 +365,7 @@ global temp
 # The main loop where everything happens and updates
 while True:
     
-    time.sleep(.5)
+    time.sleep(.2)
     print(' ')
     
     # Check for updates on events and keep track of current step
@@ -446,7 +446,7 @@ while True:
             endExperiment()
             stop = True
             
-        time.sleep(.5)
+        time.sleep(.07)
 
     # print("Lights:")
     # print(LI1.value, int(LI1.value))
