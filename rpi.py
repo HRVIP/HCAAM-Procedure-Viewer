@@ -12,6 +12,7 @@ import busio
 import digitalio
 import smbus
 import numpy as np
+import paho.mqtt.client as mqtt
 # current ip address
 ip = 'http://' + (socket.gethostbyaddr(socket.gethostname())[2])[0] + ':3000'
 # interface and setup for the accelerometer
@@ -19,6 +20,9 @@ bus = smbus.SMBus(1)
 #bus.write_byte_data(0x18, 0x20, 0x27)
 #bus.write_byte_data(0x18, 0x23, 0x00)
 i2c = busio.I2C(board.SCL, board.SDA)
+
+client = mqtt.Client()
+client.connect("localhost",1883,60)
 
 ######################
 # Locations of sensors and lasers on rpi pins
@@ -385,6 +389,11 @@ while True:
         print("sensors: " + str(sensors))
         
         event, currentStep = getEvent()
+        
+        # Turn on the screwdriver if they are on the right step
+        if event in ['2.1.1', '2.2.1', '7.2.4', '7.3.1']:
+            print('Screwdriver blinking')
+            client.publish('test', '1')
         
         # Retrieve laser requests from server and log requests
         # Blink lasers if there is a new request
