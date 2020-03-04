@@ -17,8 +17,8 @@ import paho.mqtt.client as mqtt
 ip = 'http://' + (socket.gethostbyaddr(socket.gethostname())[2])[0] + ':3000'
 # interface and setup for the accelerometer
 bus = smbus.SMBus(1)
-#bus.write_byte_data(0x18, 0x20, 0x27)
-#bus.write_byte_data(0x18, 0x23, 0x00)
+bus.write_byte_data(0x18, 0x20, 0x27)
+bus.write_byte_data(0x18, 0x23, 0x00)
 i2c = busio.I2C(board.SCL, board.SDA)
 
 client = mqtt.Client()
@@ -207,7 +207,7 @@ def newDataFile():
 def readData():
     data = {'light1': int(LI1.value), 'light2': int(LI2.value),
             'light3': int(LI3.value), 'hall1': int(not H1.value), 
-            'accel1': 'N/A'}#int(accel(xinit, yinit, zinit))
+            'accel1': int(accel(xinit, yinit, zinit))}
     return data
 
 
@@ -216,8 +216,7 @@ def startExperiment():
     print("Experiment started")
     temp = time.time()
     stop = False
-    xinit, yinit, zinit = 0, 0, 0
-    #xinit, yinit, zinit = accelStart()
+    xinit, yinit, zinit = accelStart()
     global sensors
     sensors = readData()
     newDataFile()
