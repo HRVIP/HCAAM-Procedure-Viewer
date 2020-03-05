@@ -429,15 +429,16 @@ while True:
                 blinkLasers(lasers)
 
 
+        post = requests.post(ip + '/data', sensors)
         # check change in sensor values
         if sensors != readData():
             print('sensors updated')
             # Read sensor data, log it, and send it to the server
             sensors = readData()
-            dt = time.time() - temp
+            dt = '%.3f' % (time.time() - temp)
+            temp = time.time()
             dataLog(dt, 'Sensors updated', '', np.array(lasers), sensors['hall1'],
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
-            post = requests.post(ip + '/data', sensors)
             print(post.text)
 
 
@@ -446,7 +447,7 @@ while True:
             endExperiment()
             stop = True
             
-        time.sleep(.07)
+        time.sleep(.01)
 
     # print("Lights:")
     # print(LI1.value, int(LI1.value))
