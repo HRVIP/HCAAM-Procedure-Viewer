@@ -96,7 +96,7 @@ function prepareList() {
   // Retrieve data every set interval (ms)
   setInterval(() => {
     getData();
-  }, 1000);
+  }, 10);
 
   /**
    * Logs data to console.
