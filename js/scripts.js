@@ -93,11 +93,6 @@ function prepareList() {
     dataLog('Request sent');
   }
 
-  // Retrieve data every set interval (ms)
-  setInterval(() => {
-    getData();
-  }, 10);
-
   /**
    * Logs data to console.
    */
@@ -315,6 +310,12 @@ function prepareList() {
     }
     e.preventDefault();
   });
+
+// Retrieve data every set interval (ms)
+setInterval(() => {
+  getData();
+}, 100);
+
 }
 
 /** ************************************************************/

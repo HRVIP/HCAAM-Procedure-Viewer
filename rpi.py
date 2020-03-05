@@ -383,9 +383,10 @@ while True:
         
     while not stop:
         
-        print("temp: " + str(temp))
+        # print("temp: " + str(temp))
         sensors = readData()
         print("sensors: " + str(sensors))
+        print(' ')
         
         event, currentStep = getEvent()
         
@@ -448,11 +449,3 @@ while True:
             stop = True
             
         time.sleep(.01)
-
-    # print("Lights:")
-    # print(LI1.value, int(LI1.value))
-    # print(LI2.value, int(LI2.value))
-    # print(LI3.value, int(LI3.value))
-    # print("Hall: " + str(int(not H1.value)))
-    # print("Accel: " + str(sensors['accel1']))
-    # print("")
