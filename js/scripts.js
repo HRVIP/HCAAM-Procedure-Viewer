@@ -31,7 +31,7 @@ function prepareList() {
 
           // Update interface based on sensor data
           $('p[sensor]').each(function(index, element) {
-            let sensorvalue = data[parseInt($(element).attr('sensor'))];
+            const sensorvalue = data[parseInt($(element).attr('sensor'))];
             $(element).attr('sensorvalue', sensorvalue);
 
             if ($(element).attr('sensortarget') == $(element).attr('sensorvalue')) {
@@ -311,11 +311,10 @@ function prepareList() {
     e.preventDefault();
   });
 
-// Retrieve data every set interval (ms)
-setInterval(() => {
-  getData();
-}, 100);
-
+  // Retrieve data every set interval (ms)
+  setInterval(() => {
+    getData();
+  }, 100);
 }
 
 /** ************************************************************/
