@@ -10,3 +10,5 @@ To activate and use the procedure viewer:
   - 192.168.0.xxx:3000
 3) Press the 'O' key to start the experiment trial
 4) Press the 'P' key to end the experiment trial
+
+The trial data csv files can be obtained by connecting remotely using ssh and then using the 'scp' command to copy files to the local computer.
