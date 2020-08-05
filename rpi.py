@@ -209,7 +209,7 @@ def newDataFile():
 
 def readData():
     data = {'light1': int(LI1.value), 'light2': int(LI2.value),
-            'light3': int(LI3.value), 'hall1': int(not H1.value),
+            'light3': int(LI3.value), 'hall1': int(H1.value),
             'accel1': int(accel(xinit, yinit, zinit))}
     return data
 
@@ -369,7 +369,7 @@ global temp
 # The main loop where everything happens and updates
 while True:
 
-    time.sleep(.2)
+    time.sleep(.3)
     print(' ')
 
     # Check for updates on events and keep track of current step
@@ -390,7 +390,6 @@ while True:
         # print("temp: " + str(temp))
         sensors = readData()
         print("sensors: " + str(sensors))
-        print(' ')
 
         event, currentStep = getEvent()
 
@@ -419,7 +418,7 @@ while True:
             if currentStep == '2.2.1' or currentStep == '7.2.4':
                 dt = '%.3f' % (time.time() - temp)
                 temp = time.time()
-                dataLog(dt, event, currentStep, np.array(lasers), sensors['hall1'],
+                dataLog(dt, 'Lasers requested', currentStep, np.array(lasers), sensors['hall1'],
                         np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
                 lasers = [0, 0, 1, 0]
                 print('blinking ' + str(lasers))
@@ -427,7 +426,7 @@ while True:
             elif currentStep == '2.4.1' or currentStep == '7.1.3':
                 dt = '%.3f' % (time.time() - temp)
                 temp = time.time()
-                dataLog(dt, event, currentStep, np.array(lasers), sensors['hall1'],
+                dataLog(dt, 'Lasers requested', currentStep, np.array(lasers), sensors['hall1'],
                         np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
                 lasers = [1, 1, 0, 1]
                 print('blinking ' + str(lasers))
@@ -450,4 +449,4 @@ while True:
             endExperiment()
             stop = True
 
-        time.sleep(.01)
+        time.sleep(.1)
