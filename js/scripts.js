@@ -19,7 +19,7 @@ function prepareList() {
   // const canExpand = true;
 
   // Retrieves sensor data from server
-  const dataurl = 'http://192.168.0.110:3000/data';
+  const dataurl = 'http://localhost:3000/data';
   function getData() {
     $.ajax({
       type: 'GET',
@@ -43,7 +43,7 @@ function prepareList() {
         });
   }
 
-  const eventurl = 'http://192.168.0.110:3000/event';
+  const eventurl = 'http://localhost:3000/event';
   function postEvent(event, currentStep) {
     $.ajax({
       type: 'POST',
@@ -53,7 +53,7 @@ function prepareList() {
   }
 
   // Send laser state change requests
-  const laserurl = 'http://192.168.0.110:3000/lasers';
+  const laserurl = 'http://localhost:3000/lasers';
   function showMe(laser) {
     if (laser == 0) {
       $.ajax({
@@ -91,6 +91,16 @@ function prepareList() {
       });
     }
     dataLog('Request sent');
+  }
+
+  function getTrialFile() {
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:3000/trials/test.csv',
+      success: function () {
+        window.location.href = './trials/test.csv';
+      }
+    });
   }
 
   /**
@@ -270,6 +280,7 @@ function prepareList() {
       //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
       //   endExperiment();
       postEvent('End', $currentElement.attr('id'));
+      getTrialFile();
     }
     if (event.key == PLAYKEY) {
       dataLog(new Date().getTime(), 'pressed PLAYKEY');

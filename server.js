@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
+var formidable = require('formidable');
 
 const app = express();
 const srv = http.createServer(app);
@@ -99,6 +100,10 @@ app.route('/event')
       res.json(data);
       event = '';
     });
+
+app.get('/trials/test.csv', function (req, res) {
+  res.sendFile(__dirname + '/trials/test.csv');
+});
 
 // Serve the procedure viewer at the root directory
 app.get('/', function(req, res) {
