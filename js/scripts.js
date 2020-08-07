@@ -101,12 +101,10 @@ function prepareList() {
       dataType: 'text',
       success: function (data) {
         fn = data;
-        console.log(fn);
         $.ajax({
           type: 'GET',
           url: 'http://localhost:3000/trials/'+fn,
           success: function () {
-            console.log(fn);
             window.location.href = './trials/'+fn;
           }
         });

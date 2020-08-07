@@ -106,13 +106,11 @@ let fileName;
 app.route('/fileName')
   .post(function (req, res) {
     fileName = req.body.file;
-    console.log(fileName);
     res.setHeader('Content-type', 'text/plain')
     res.send('File name received');
   })
   .get(function (req, res) {
     res.send(fileName);
-    console.log('Sent name')
   })
 
 // Serve the completed current trial file for download
