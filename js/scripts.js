@@ -94,11 +94,22 @@ function prepareList() {
   }
 
   function getTrialFile() {
+    var fn;
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:3000/trials/test.csv',
-      success: function () {
-        window.location.href = './trials/test.csv';
+      url: 'http://localhost:3000/fileName',
+      dataType: 'text',
+      success: function (data) {
+        fn = data;
+        console.log(fn);
+        $.ajax({
+          type: 'GET',
+          url: 'http://localhost:3000/trials/'+fn,
+          success: function () {
+            console.log(fn);
+            window.location.href = './trials/'+fn;
+          }
+        });
       }
     });
   }

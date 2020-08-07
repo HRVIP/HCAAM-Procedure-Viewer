@@ -2,7 +2,6 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
-var formidable = require('formidable');
 
 const app = express();
 const srv = http.createServer(app);
@@ -38,6 +37,7 @@ app.route('/data')
       console.log(light3);
       console.log(hall1);
       console.log(accel1);
+      res.setHeader('Content-type', 'text/plain');
       res.send('Sensors updated');
     })
 // Serve the sensor data to the client
@@ -101,9 +101,25 @@ app.route('/event')
       event = '';
     });
 
-app.get('/trials/test.csv', function (req, res) {
-  res.sendFile(__dirname + '/trials/test.csv');
-});
+// Post and get current trial file name    
+let fileName;
+app.route('/fileName')
+  .post(function (req, res) {
+    fileName = req.body.file;
+    console.log(fileName);
+    res.setHeader('Content-type', 'text/plain')
+    res.send('File name received');
+  })
+  .get(function (req, res) {
+    res.send(fileName);
+    console.log('Sent name')
+  })
+
+// Serve the completed current trial file for download
+var getFile = function (req, res) {
+  res.sendFile(__dirname + '/trials/' + req.params.fileName);
+}
+app.get('/trials/:fileName', getFile);
 
 // Serve the procedure viewer at the root directory
 app.get('/', function(req, res) {
