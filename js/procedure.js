@@ -590,11 +590,11 @@ const proc = {
       'image': '/img/figures/SparkCover_Replace.PNG',
       'sensors': [NaN, 0, NaN, NaN, NaN],
     }],
-    },
-    {
-      'text': 'End Trial',
-      'type': 'button',
-    }
+  },
+  {
+    'text': 'End Trial',
+    'type': 'button',
+  },
   ],
 };
 
