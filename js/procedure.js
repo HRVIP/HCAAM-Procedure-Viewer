@@ -590,7 +590,11 @@ const proc = {
       'image': '/img/figures/SparkCover_Replace.PNG',
       'sensors': [NaN, 0, NaN, NaN, NaN],
     }],
-  },
+    },
+    {
+      'text': 'End Trial',
+      'type': 'button',
+    }
   ],
 };
 
@@ -638,6 +642,8 @@ function buildProcedure(steps, parent, depth) {
       $('<li id="' + procID + '"><video class="info" src="' + step.text.substr(1) + '"controls></video></li>').appendTo('ul#' + parent);
     } else if (step.type == 'caution') {
       $('<li id="' + procID + '"><div class="caution">' + step.text + '</div></li>').appendTo('ul#' + parent);
+    } else if (step.type == 'button') {
+      $('<li><button type="button" onclick="end()" id="end">' + step.text + '</button></li>').appendTo('ul#' + parent);
     } else {
       step.image = (step.image === undefined) ? '' : step.image;
 

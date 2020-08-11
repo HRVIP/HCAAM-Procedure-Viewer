@@ -148,7 +148,7 @@ def blinkLasers(lasers):
 # write current data to the trial file
 def dataLog(dt, event, step, lasers, hall, lights, accel):
     f.write(str(getTime()) + ', ' + str(dt) + ', ' + str(event) + ', ' + str(step) + ', ' +
-            str(lasers) + ',' + str(hall) + ', ' + str(lights) + ', ' + str(accel) + '\n')
+            str(lasers) + ', ' + str(hall) + ', ' + str(lights) + ', ' + str(accel) + ', \n')
 
 
 def endExperiment():
@@ -200,11 +200,14 @@ def newDataFile():
         files.append(0)
     fn = str(max(files)+1)
     fn = fn + '.csv'
+    # Tell the server what the current trial number is
+    r = requests.post(ip + '/fileName', {'file': fn})
+    subject = requests.get(ip + '/subject').json()
     # print("Trial number", fn)
     global f
     f = open((directory+fn), 'w')
     print("Created new file")
-    f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer\n')
+    f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer, '+subject+'\n')
 
 
 def readData():

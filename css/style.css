@@ -37,6 +37,19 @@ div.caution {
     padding-top: 10px;
 }
 
+#end {
+    display: inline-block;
+    max-width: 500px;
+    border-radius: 20px;
+    padding: 25px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    left: 40%;
+}
+
 #listContainer {
     display: flex;
     margin: auto;

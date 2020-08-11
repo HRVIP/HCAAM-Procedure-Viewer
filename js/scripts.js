@@ -199,6 +199,27 @@ function prepareList() {
     );
   };
 
+  // make end function global so that the 
+  window.end = function () {
+    postEvent('End', $currentElement.attr('id'));
+    var fn;
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:3000/fileName',
+      dataType: 'text',
+      success: function (data) {
+        fn = data;
+        $.ajax({
+          type: 'GET',
+          url: 'http://localhost:3000/trials/'+fn,
+          success: function () {
+            window.location.href = './trials/'+fn;
+          }
+        });
+      }
+    });
+  }
+
   // const toggle = function(that) {
   //   if (that == event.target || event.key == EXPANDKEY || event.key == COLLAPSEKEY) {
   //     $(that).toggleClass('expanded');
@@ -280,17 +301,17 @@ function prepareList() {
       dataLog(new Date().getTime(), 'pressed UPKEY');
       up();
     }
-    if (event.key == BEGINEXPERIMENTKEY) {
-    //   dataLog(new Date().getTime(), 'pressed BEGINEXPERIMENTKEY')
-    //   beginExperiment();
-      postEvent('Start', $currentElement.attr('id'));
-    }
-    if (event.key == ENDEXPERIMENTKEY) {
-      //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
-      //   endExperiment();
-      postEvent('End', $currentElement.attr('id'));
-      getTrialFile();
-    }
+    // if (event.key == BEGINEXPERIMENTKEY) {
+    // //   dataLog(new Date().getTime(), 'pressed BEGINEXPERIMENTKEY')
+    // //   beginExperiment();
+    //   postEvent('Start', $currentElement.attr('id'));
+    // }
+    // if (event.key == ENDEXPERIMENTKEY) {
+    //   //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
+    //   //   endExperiment();
+    //   postEvent('End', $currentElement.attr('id'));
+    //   getTrialFile();
+    // }
     if (event.key == PLAYKEY) {
       dataLog(new Date().getTime(), 'pressed PLAYKEY');
       play();
@@ -335,6 +356,9 @@ function prepareList() {
   setInterval(() => {
     getData();
   }, 100);
+
+  // Start the trial when the current page has finised preparation
+  postEvent('Start', $currentElement.attr('id'));
 }
 
 /** ************************************************************/
