@@ -106,16 +106,19 @@ def accel(x, y, z):
 
 # base reading for orientation to calibrate future readings
 def accelStart():
+    global xinit
     data0 = bus.read_byte_data(0x18, 0x28)
     data1 = bus.read_byte_data(0x18, 0x29)
     xinit = data1 * 256 + data0
     if xinit > 32767:
         xinit -= 65536
+    global yinit
     data0 = bus.read_byte_data(0x18, 0x2A)
     data1 = bus.read_byte_data(0x18, 0x2B)
     yinit = data1 * 256 + data0
     if yinit > 32767:
         yinit -= 65536
+    global zinit
     data0 = bus.read_byte_data(0x18, 0x2C)
     data1 = bus.read_byte_data(0x18, 0x2D)
     zinit = data1 * 256 + data0
@@ -398,7 +401,7 @@ while True:
 
         # Turn on the screwdriver if they are on the right step
         if currentStep in ['2.1.1', '2.2.1', '7.2.4', '7.3.1']:
-            print('Screwdriver blinking')
+            # print('Screwdriver blinking')
             # client.publish('test', '1')
 
         # Retrieve laser requests from server and log requests
