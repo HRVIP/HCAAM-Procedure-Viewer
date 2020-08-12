@@ -190,7 +190,7 @@ def getTime():
 # check current trial number and set up csv
 def newDataFile():
     files = []
-    directory = "/home/pi/trials/"
+    directory = "/home/pi/hcaamviewer/trials/"
     for root, di, fils in os.walk(directory, topdown=False):
         for name in fils:
             name = name[0:-4]
