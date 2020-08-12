@@ -13,7 +13,7 @@
 
   <form action="/subject" method='post' id='subjectID'
     style='top: 50%; left: 50%; position: absolute; transform: translate(-50%, -50%);'>
-    <label for="cars">Subject ID:</label>
+    <label for="ID">Subject ID:</label>
     <select name="ID" id="ID">
       <option value="Select">Select</option>
       <option value="9N24M">9N24M</option>
@@ -41,7 +41,7 @@
             'type': 'POST',
             'data': { 'id': val },
             success: function () {
-              window.location.replace('http://localhost:3000/start');
+              window.location.replace('http://192.168.0.112:3000/start');
             }
           });
         }
