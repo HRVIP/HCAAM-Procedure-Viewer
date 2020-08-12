@@ -27,7 +27,7 @@ function prepareList() {
       dataType: 'json',
     })
         .done(function(data) {
-          // console.log(data);
+        // console.log(data);
 
           // Update interface based on sensor data
           $('p[sensor]').each(function(index, element) {
@@ -94,21 +94,21 @@ function prepareList() {
   }
 
   function getTrialFile() {
-    var fn;
+    let fn;
     $.ajax({
       type: 'GET',
       url: 'http://localhost:3000/fileName',
       dataType: 'text',
-      success: function (data) {
+      success: function(data) {
         fn = data;
         $.ajax({
           type: 'GET',
-          url: 'http://localhost:3000/trials/'+fn,
-          success: function () {
-            window.location.href = './trials/'+fn;
-          }
+          url: 'http://localhost:3000/trials/' + fn,
+          success: function() {
+            window.location.href = './trials/' + fn;
+          },
         });
-      }
+      },
     });
   }
 
@@ -199,26 +199,26 @@ function prepareList() {
     );
   };
 
-  // make end function global so that the 
-  window.end = function () {
+  // make end function global so that the
+  window.end = function() {
     postEvent('End', $currentElement.attr('id'));
-    var fn;
+    let fn;
     $.ajax({
       type: 'GET',
       url: 'http://localhost:3000/fileName',
       dataType: 'text',
-      success: function (data) {
+      success: function(data) {
         fn = data;
         $.ajax({
           type: 'GET',
-          url: 'http://localhost:3000/trials/'+fn,
-          success: function () {
-            window.location.href = './trials/'+fn;
-          }
+          url: 'http://localhost:3000/trials/' + fn,
+          success: function() {
+            window.location.href = './trials/' + fn;
+          },
         });
-      }
+      },
     });
-  }
+  };
 
   // const toggle = function(that) {
   //   if (that == event.target || event.key == EXPANDKEY || event.key == COLLAPSEKEY) {
