@@ -397,8 +397,6 @@ while True:
         sensors = readData()
         print("sensors: " + str(sensors))
 
-        event, currentStep = getEvent()
-
         # Turn on the screwdriver if they are on the right step
         # if currentStep in ['2.1.1', '2.2.1', '7.2.4', '7.3.1']:
             # print('Screwdriver blinking')
@@ -409,6 +407,17 @@ while True:
         lasers = getLasers()
         print("lasers: " + str(lasers))
         # print(lasers)
+        
+        # Check if the step has changed
+        newEvent, newCurrentStep = getEvent()
+        if (newCurrentStep != currentStep):
+            dt = '%.3f' % (time.time() - temp)
+            temp = time.time()
+            dataLog(dt, newEvent, newCurrentStep, np.array(lasers), sensors['hall1'],
+                    np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+            currentStep = newCurrentStep
+            event = newEvent
+            
         if (lasers != [0, 0, 0, 0]):
             print('blinking ' + str(lasers))
             dt = '%.3f' % (time.time() - temp)
