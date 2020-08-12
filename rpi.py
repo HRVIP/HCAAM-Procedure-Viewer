@@ -13,7 +13,7 @@ import requests
 import board
 import busio
 import digitalio
-import paho.mqtt.client as mqtt
+# import paho.mqtt.client as mqtt
 import smbus
 
 # current ip address
@@ -24,8 +24,8 @@ bus.write_byte_data(0x18, 0x20, 0x27)
 bus.write_byte_data(0x18, 0x23, 0x00)
 i2c = busio.I2C(board.SCL, board.SDA)
 
-client = mqtt.Client()
-client.connect("localhost", 1883, 60)
+# client = mqtt.Client()
+# client.connect("localhost", 1883, 60)
 
 ######################
 # Locations of sensors and lasers on rpi pins
