@@ -399,7 +399,7 @@ while True:
         # Turn on the screwdriver if they are on the right step
         if currentStep in ['2.1.1', '2.2.1', '7.2.4', '7.3.1']:
             print('Screwdriver blinking')
-            client.publish('test', '1')
+            # client.publish('test', '1')
 
         # Retrieve laser requests from server and log requests
         # Blink lasers if there is a new request
