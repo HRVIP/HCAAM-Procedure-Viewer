@@ -411,12 +411,13 @@ while True:
         # Check if the step has changed
         newEvent, newCurrentStep = getEvent()
         if (newCurrentStep != currentStep):
+            print("Updated step")
             dt = '%.3f' % (time.time() - temp)
             temp = time.time()
             dataLog(dt, newEvent, newCurrentStep, np.array(lasers), sensors['hall1'],
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
-            currentStep = newCurrentStep
-            event = newEvent
+        currentStep = newCurrentStep
+        event = newEvent
             
         if (lasers != [0, 0, 0, 0]):
             print('blinking ' + str(lasers))
