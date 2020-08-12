@@ -400,7 +400,7 @@ while True:
         event, currentStep = getEvent()
 
         # Turn on the screwdriver if they are on the right step
-        if currentStep in ['2.1.1', '2.2.1', '7.2.4', '7.3.1']:
+        # if currentStep in ['2.1.1', '2.2.1', '7.2.4', '7.3.1']:
             # print('Screwdriver blinking')
             # client.publish('test', '1')
 
