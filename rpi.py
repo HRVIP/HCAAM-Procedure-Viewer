@@ -1,5 +1,5 @@
 # Kelden Ben-Ora HRVIP UC Davis
-# 3.4.2020
+# 8.14.2020
 
 import datetime
 import json
@@ -186,7 +186,7 @@ def getLasers():
 
 def getTime():
     d = datetime.datetime.today()
-    t = d.strftime('%H:%M:%S')
+    t = d.strftime('%H:%M:%S:.%f')[:3]
     return t
 
 
@@ -456,7 +456,7 @@ while True:
             sensors = readData()
             dt = '%.3f' % (time.time() - temp)
             temp = time.time()
-            dataLog(dt, 'Sensors updated', '', np.array(lasers), sensors['hall1'],
+            dataLog(dt, 'Sensors updated', currentStep, np.array(lasers), sensors['hall1'],
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
             print(post.text)
 
