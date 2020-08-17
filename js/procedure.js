@@ -432,7 +432,7 @@ function buildProcedure(steps, parent, depth) {
     } else if (step.type == 'caution') {
       $('<li id="' + procID + '"><div class="caution">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'button') {
-      $('<li id="' + procID + '"><button type="button" onclick="end()" id="end">' + step.text + '</button></li>').appendTo('ul#' + parent);
+      $('<div id="' + procID + '"><button type="button" onclick="end()" id="end">' + step.text + '</button></div>').appendTo('ul#' + parent);
     } else {
       step.image = (step.image === undefined) ? '' : step.image;
 
