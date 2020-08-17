@@ -186,7 +186,7 @@ def getLasers():
 
 def getTime():
     d = datetime.datetime.today()
-    t = d.strftime('%H:%M:%S:.%f')[:3]
+    t = d.strftime('%H:%M:%S.%f')
     return t
 
 
@@ -210,7 +210,7 @@ def newDataFile():
     global f
     f = open((directory+fn), 'w')
     print("Created new file")
-    f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer, '+subject+'\n')
+    f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer, '+subject+', '+datetime.datetime.today().strftime('%m/%d/%Y')+'\n')
 
 
 def readData():
