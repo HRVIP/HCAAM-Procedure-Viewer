@@ -151,7 +151,7 @@ def blinkLasers(lasers):
 # write current data to the trial file
 def dataLog(dt, event, step, lasers, hall, lights, accel):
     f.write(str(getTime()) + ', ' + str(dt) + ', ' + str(event) + ', ' + str(step) + ', ' +
-            str(lasers) + ', ' + str(hall) + ', ' + str(lights) + ', ' + str(accel) + ', \n')
+            str(lasers) + ', ' + str(hall) + ', ' + str(lights) + ', ' + str(accel) + ', ' + ', \n')
 
 
 def endExperiment():
