@@ -99,9 +99,9 @@ def accel(x, y, z):
         zAccel -= 65536
     zAccel = zAccel - z
     if zAccel < -5000:
-        return True
-    else:
         return False
+    else:
+        return True
 
 
 # base reading for orientation to calibrate future readings
