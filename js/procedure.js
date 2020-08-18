@@ -38,9 +38,10 @@ const proc = {
       'number': '1.5.1.',
       'text': 'Rest the cap on the outside of the Generator and away from the Spark Plug.',
       'image': '/img/figures/SparkCap_Resting.PNG',
-    }],
+    },
+    ],
   },
-  
+
   {
     'text': '2.  REMOVE AIR CLEANER ASSEMBLY',
     'type': 'header',
@@ -105,8 +106,10 @@ const proc = {
       'number': '2.9.',
       'text': 'Slide the Air Intake Joint Gasket off of the bolts attached to the Carburetor.',
       'image': '/img/figures/AirGasket_Removal.PNG',
-    }],
+    },
+    ],
   },
+
   {
     'text': '3.  CARBURETOR REMOVAL',
     'type': 'header',
@@ -163,7 +166,7 @@ const proc = {
       'text': 'Pull the Vent Tubes down and out of the other tubes covering them. Remove them and place them next to the generator.',
       'image': '/img/figures/VentTubes_Removal.PNG',
     },
-        {
+    {
       'text': 'CAUTION: Make sure the gasket does not come out with the Carburetor.',
       'type': 'caution',
     },
@@ -177,7 +180,8 @@ const proc = {
       'text': 'The Carburetor should be rested upside down as shown in the figure.',
       'image': '/img/figures/Carb_Placement.PNG',
       'sensors': [NaN, NaN, NaN, NaN, 1],
-    }],
+    },
+    ],
   },
 
   {
@@ -217,7 +221,8 @@ const proc = {
       'number': '4.6.1.',
       'text': 'Test the Float Valve Spring for operation by pushing down on the Float Valve Tip.',
       'image': '/img/figures/FloatSpring_Location.PNG',
-    }],
+    },
+    ],
   },
 
   {
@@ -243,12 +248,13 @@ const proc = {
       'text': 'Replace the Float Chamber and align the marking on the Float Chamber flange with the marking on the Carburetor assembly.',
       'image': '/img/figures/FloatChamber_Align.PNG',
     },
-    
+
     {
       'number': '5.5.',
       'text': 'Use the Ratcheting Socket Wrench and 10 mm Hex Socket to secure the Float Chamber to the Carburetor assembly with the 10mm Bolt and Washer.',
       'image': '/img/figures/FloatChamberBolt_Location.PNG',
-    }],
+    },
+    ],
   },
 
   {
@@ -317,7 +323,8 @@ const proc = {
     {
       'number': '6.12.',
       'text': 'Inspect the bottom inside of the Generator casing for gasoline or tools; clean if necessary.',
-    }],
+    },
+    ],
   },
 
   {
@@ -378,7 +385,8 @@ const proc = {
       'text': 'Replace the Spark Plug Cover.',
       'image': '/img/figures/SparkCover_Replace.PNG',
       'sensors': [NaN, 0, NaN, NaN, NaN],
-    }],
+    },
+    ],
   },
   {
     'text': 'End Trial',

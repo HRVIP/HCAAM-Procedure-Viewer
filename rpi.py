@@ -188,7 +188,8 @@ def newDataFile():
     global f
     f = open((directory+fn), 'w')
     print("Created new file")
-    f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer, '+subject+', '+datetime.datetime.today().strftime('%m/%d/%Y')+'\n')
+    f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer, ' +
+            subject+', '+datetime.datetime.today().strftime('%m/%d/%Y')+'\n')
 
 
 def readData():
@@ -301,10 +302,9 @@ def switch(argument):
 global stop
 stop = True
 global temp
+
 # The main loop where everything happens and updates
 while True:
-
-
     # Check for updates on events and keep track of current step
     event, currentStep = getEvent()
     # print(event, currentStep)
@@ -319,7 +319,6 @@ while True:
         # print("Experiment ended")
 
     while not stop:
-
         # print("temp: " + str(temp))
         sensors = readData()
         # print("sensors: " + str(sensors))
@@ -334,7 +333,7 @@ while True:
         lasers = getLasers()
         # print("lasers: " + str(lasers))
         # print(lasers)
-        
+
         # Check if the step has changed
         newEvent, newCurrentStep = getEvent()
         if (newCurrentStep != currentStep):
@@ -345,9 +344,8 @@ while True:
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
         currentStep = newCurrentStep
         event = newEvent
-            
-        if (lasers != [0, 0, 0, 0]):
 
+        if (lasers != [0, 0, 0, 0]):
             dt = '%.3f' % (time.time() - temp)
             # print("delta time: " + dt)
             temp = time.time()
@@ -356,7 +354,6 @@ while True:
             dataLog(dt, event, currentStep, np.array(lasers), sensors['hall1'],
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
             blinkLasers(lasers)
-
         elif (lasers == [0, 0, 0, 0] and event == 'Lasers requested'):
             if currentStep == '2.2.1' or currentStep == '7.2.4':
                 dt = '%.3f' % (time.time() - temp)

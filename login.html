@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
   <form action="/subject" method='post' id='subjectID'
     style='top: 50%; left: 50%; position: absolute; transform: translate(-50%, -50%);'>
     <label for="ID">Subject ID:</label>
@@ -22,12 +21,10 @@
       <option value="3H2CA">3H2CA</option>
     </select>
     <br><br>
-    <input type='submit' value='Start trial' style='border-radius: 
-    10px; background-color: green; padding: 20px; 
+    <input type='submit' value='Start trial' style='border-radius:
+    10px; background-color: green; padding: 20px;
     color: white; position: relative; left: 50%; transform: translateX(-50%);'>
   </form>
-
-
 
   <script>
     var form = document.querySelector('form');
@@ -39,13 +36,14 @@
           $.ajax({
             'url': '/subject',
             'type': 'POST',
-            'data': { 'id': val },
+            'data': {
+              'id': val
+            },
             success: function () {
               window.location.replace('http://192.168.0.112:3000/start');
             }
           });
-        }
-        else {
+        } else {
           alert("Please select a valid subject ID");
         }
       }

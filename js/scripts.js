@@ -1,6 +1,6 @@
 /**
-* Prepares the procedure to be dynamically expandable/collapsible   *
-*/
+ * Prepares the procedure to be dynamically expandable/collapsible   *
+ */
 function prepareList() {
   experimentStarted = true;
 
@@ -21,6 +21,7 @@ function prepareList() {
   // Retrieves sensor data from server
   // const dataurl = 'http://192.168.0.112:3000/data';
   const dataurl = srvurl + '/data';
+
   function getData() {
     $.ajax({
       type: 'GET',
@@ -45,50 +46,80 @@ function prepareList() {
   }
 
   const eventurl = srvurl + '/event';
+
   function postEvent(event, currentStep) {
     $.ajax({
       type: 'POST',
       url: eventurl,
-      data: {event: event.toString(), currentStep: currentStep.toString()},
+      data: {
+        event: event.toString(),
+        currentStep: currentStep.toString(),
+      },
     });
   }
 
   // Send laser state change requests
   const laserurl = srvurl + '/lasers';
+
   function showMe(laser) {
     if (laser == 0) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '0', laser2: '0', laser3: '0', laser4: '0'},
+        data: {
+          laser1: '0',
+          laser2: '0',
+          laser3: '0',
+          laser4: '0',
+        },
       });
     }
     if (laser == 1) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '1', laser2: '0', laser3: '0', laser4: '0'},
+        data: {
+          laser1: '1',
+          laser2: '0',
+          laser3: '0',
+          laser4: '0',
+        },
       });
     }
     if (laser == 2) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '0', laser2: '1', laser3: '0', laser4: '0'},
+        data: {
+          laser1: '0',
+          laser2: '1',
+          laser3: '0',
+          laser4: '0',
+        },
       });
     }
     if (laser == 3) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '0', laser2: '0', laser3: '1', laser4: '0'},
+        data: {
+          laser1: '0',
+          laser2: '0',
+          laser3: '1',
+          laser4: '0',
+        },
       });
     }
     if (laser == 4) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '0', laser2: '0', laser3: '0', laser4: '1'},
+        data: {
+          laser1: '0',
+          laser2: '0',
+          laser3: '0',
+          laser4: '1',
+        },
       });
     }
     dataLog('Request sent');
@@ -159,11 +190,10 @@ function prepareList() {
     postEvent('clicked DOWNKEY', $currentElement.attr('id'));
 
     // Keep the marker at the top of the screen
-    $('body, html').animate(
-        {
-          scrollTop: $currentElement.position().top - 100,
-        },
-        100,
+    $('body, html').animate({
+      scrollTop: $currentElement.position().top - 100,
+    },
+    100,
     );
   };
 
@@ -192,11 +222,10 @@ function prepareList() {
     postEvent('clicked UPKEY', $currentElement.attr('id'));
 
     // Keep the marker at the top of the screen
-    $('body, html').animate(
-        {
-          scrollTop: $currentElement.position().top - 100,
-        },
-        100,
+    $('body, html').animate({
+      scrollTop: $currentElement.position().top - 100,
+    },
+    100,
     );
   };
 
