@@ -79,19 +79,8 @@ LA3.value = False
 LA4.value = False
 
 
-def accel(x, y, z):
-    data0 = bus.read_byte_data(0x18, 0x28)
-    data1 = bus.read_byte_data(0x18, 0x29)
-    xAccel = data1 * 256 + data0
-    if xAccel > 32767:
-        xAccel -= 65536
-    xAccel = xAccel - x
-    data0 = bus.read_byte_data(0x18, 0x2A)
-    data1 = bus.read_byte_data(0x18, 0x2B)
-    yAccel = data1 * 256 + data0
-    if yAccel > 32767:
-        yAccel -= 65536
-    yAccel = yAccel - y
+def accel(z):
+
     data0 = bus.read_byte_data(0x18, 0x2C)
     data1 = bus.read_byte_data(0x18, 0x2D)
     zAccel = data1 * 256 + data0
@@ -106,25 +95,14 @@ def accel(x, y, z):
 
 # base reading for orientation to calibrate future readings
 def accelStart():
-    global xinit
-    data0 = bus.read_byte_data(0x18, 0x28)
-    data1 = bus.read_byte_data(0x18, 0x29)
-    xinit = data1 * 256 + data0
-    if xinit > 32767:
-        xinit -= 65536
-    global yinit
-    data0 = bus.read_byte_data(0x18, 0x2A)
-    data1 = bus.read_byte_data(0x18, 0x2B)
-    yinit = data1 * 256 + data0
-    if yinit > 32767:
-        yinit -= 65536
+
     global zinit
     data0 = bus.read_byte_data(0x18, 0x2C)
     data1 = bus.read_byte_data(0x18, 0x2D)
     zinit = data1 * 256 + data0
     if zinit > 32767:
         zinit -= 65536
-    return xinit, yinit, xinit
+    return zinit
 
 
 def blinkLasers(lasers):
@@ -216,7 +194,7 @@ def newDataFile():
 def readData():
     data = {'light1': int(LI1.value), 'light2': int(LI2.value),
             'light3': int(LI3.value), 'hall1': int(H1.value),
-            'accel1': int(accel(xinit, yinit, zinit))}
+            'accel1': int(accel(zinit))}
     return data
 
 
@@ -225,7 +203,7 @@ def startExperiment():
     print("Experiment started")
     temp = time.time()
     stop = False
-    xinit, yinit, zinit = accelStart()
+    zinit = accelStart()
     global sensors
     sensors = readData()
     newDataFile()
@@ -234,7 +212,7 @@ def startExperiment():
             sensors['hall1'],
             np.array([sensors['light1'], sensors['light2'], sensors['light3']]),
             sensors['accel1'])
-    return temp, stop, xinit, yinit, zinit, sensors
+    return temp, stop, zinit, sensors
 
 
 # Map the step number seen in the backend to the actual step
@@ -326,27 +304,25 @@ global temp
 # The main loop where everything happens and updates
 while True:
 
-    time.sleep(.3)
-    print(' ')
 
     # Check for updates on events and keep track of current step
     event, currentStep = getEvent()
     # print(event, currentStep)
-    print(event)
-    print(currentStep)
+    # print(event)
+    # print(currentStep)
 
     # start or end experiment
     if str(event) == 'Start':
-        print(event)
-        temp, stop, xinit, yinit, zinit, sensors = startExperiment()
-    if str(event) == 'End':
-        print("Experiment ended")
+        # print(event)
+        temp, stop, zinit, sensors = startExperiment()
+    # if str(event) == 'End':
+        # print("Experiment ended")
 
     while not stop:
 
         # print("temp: " + str(temp))
         sensors = readData()
-        print("sensors: " + str(sensors))
+        # print("sensors: " + str(sensors))
 
         # Turn on the screwdriver if they are on the right step
         # if currentStep in ['2.1.1', '2.2.1', '7.2.4', '7.3.1']:
@@ -356,13 +332,13 @@ while True:
         # Retrieve laser requests from server and log requests
         # Blink lasers if there is a new request
         lasers = getLasers()
-        print("lasers: " + str(lasers))
+        # print("lasers: " + str(lasers))
         # print(lasers)
         
         # Check if the step has changed
         newEvent, newCurrentStep = getEvent()
         if (newCurrentStep != currentStep):
-            print("Updated step")
+            # print("Updated step")
             dt = '%.3f' % (time.time() - temp)
             temp = time.time()
             dataLog(dt, newEvent, newCurrentStep, np.array(lasers), sensors['hall1'],
@@ -371,12 +347,12 @@ while True:
         event = newEvent
             
         if (lasers != [0, 0, 0, 0]):
-            print('blinking ' + str(lasers))
+
             dt = '%.3f' % (time.time() - temp)
-            print("delta time: " + dt)
+            # print("delta time: " + dt)
             temp = time.time()
-            print('Event: ' + event)
-            print('Step: ' + currentStep)
+            # print('Event: ' + event)
+            # print('Step: ' + currentStep)
             dataLog(dt, event, currentStep, np.array(lasers), sensors['hall1'],
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
             blinkLasers(lasers)
@@ -388,7 +364,7 @@ while True:
                 dataLog(dt, 'Lasers requested', currentStep, np.array(lasers), sensors['hall1'],
                         np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
                 lasers = [0, 0, 1, 0]
-                print('blinking ' + str(lasers))
+                # print('blinking ' + str(lasers))
                 blinkLasers(lasers)
             elif currentStep == '2.4.1' or currentStep == '7.1.3':
                 dt = '%.3f' % (time.time() - temp)
@@ -396,24 +372,21 @@ while True:
                 dataLog(dt, 'Lasers requested', currentStep, np.array(lasers), sensors['hall1'],
                         np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
                 lasers = [1, 1, 0, 1]
-                print('blinking ' + str(lasers))
+                # print('blinking ' + str(lasers))
                 blinkLasers(lasers)
 
         post = requests.post(ip + '/data', sensors)
         # check change in sensor values
         if sensors != readData():
-            print('sensors updated')
+            # print('sensors updated')
             # Read sensor data, log it, and send it to the server
             sensors = readData()
             dt = '%.3f' % (time.time() - temp)
             temp = time.time()
             dataLog(dt, 'Sensors updated', currentStep, np.array(lasers), sensors['hall1'],
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
-            print(post.text)
 
         # End if experiment ended
         if str(event) == 'End':
             endExperiment()
             stop = True
-
-        time.sleep(.1)
