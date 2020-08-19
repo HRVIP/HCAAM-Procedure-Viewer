@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Procedure Viewer</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="/jquery.min.js"></script>
+</head>
+
+<body>
+  <form action="/subject" method='post' id='subjectID'
+    style='top: 50%; left: 50%; position: absolute; transform: translate(-50%, -50%);'>
+    <label for="ID">Subject ID:</label>
+    <select name="ID" id="ID">
+      <option value="Select">Select</option>
+      <option value="9N24M">9N24M</option>
+      <option value="8B5RP">8B5RP</option>
+      <option value="52YH7">52YH7</option>
+      <option value="3H2CA">3H2CA</option>
+    </select>
+    <br><br>
+    <input type='submit' value='Start trial' style='border-radius:
+    10px; background-color: green; padding: 20px;
+    color: white; position: relative; left: 50%; transform: translateX(-50%);'>
+  </form>
+
+  <script>
+    var form = document.querySelector('form');
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      let data = new FormData(form);
+      for (var val of data.values()) {
+        if (val !== "Select") {
+          $.ajax({
+            'url': '/subject',
+            'type': 'POST',
+            'data': {
+              'id': val
+            },
+            success: function () {
+              window.location.replace('http://192.168.0.112:3000/start');
+            }
+          });
+        } else {
+          alert("Please select a valid subject ID");
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>

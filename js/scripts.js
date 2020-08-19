@@ -1,13 +1,13 @@
 /**
-* Prepares the procedure to be dynamically expandable/collapsible   *
-*/
+ * Prepares the procedure to be dynamically expandable/collapsible   *
+ */
 function prepareList() {
   experimentStarted = true;
 
   const UPKEY = 'w';
   const DOWNKEY = 's';
-  const BEGINEXPERIMENTKEY = 'o';
-  const ENDEXPERIMENTKEY = 'p';
+  // const BEGINEXPERIMENTKEY = 'o';
+  // const ENDEXPERIMENTKEY = 'p';
   // const EXPANDKEY = 'd';
   // const COLLAPSEKEY = 'a';
   const PLAYKEY = 't';
@@ -17,9 +17,11 @@ function prepareList() {
   const LASER4KEY = '4';
   const LASERKEY = 'l';
   // const canExpand = true;
-
+  const srvurl = 'http://192.168.0.112:3000';
   // Retrieves sensor data from server
-  const dataurl = 'http://localhost:3000/data';
+  // const dataurl = 'http://192.168.0.112:3000/data';
+  const dataurl = srvurl + '/data';
+
   function getData() {
     $.ajax({
       type: 'GET',
@@ -27,7 +29,7 @@ function prepareList() {
       dataType: 'json',
     })
         .done(function(data) {
-          // console.log(data);
+        // console.log(data);
 
           // Update interface based on sensor data
           $('p[sensor]').each(function(index, element) {
@@ -43,72 +45,102 @@ function prepareList() {
         });
   }
 
-  const eventurl = 'http://localhost:3000/event';
+  const eventurl = srvurl + '/event';
+
   function postEvent(event, currentStep) {
     $.ajax({
       type: 'POST',
       url: eventurl,
-      data: {event: event.toString(), currentStep: currentStep.toString()},
+      data: {
+        event: event.toString(),
+        currentStep: currentStep.toString(),
+      },
     });
   }
 
   // Send laser state change requests
-  const laserurl = 'http://localhost:3000/lasers';
+  const laserurl = srvurl + '/lasers';
+
   function showMe(laser) {
     if (laser == 0) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '0', laser2: '0', laser3: '0', laser4: '0'},
+        data: {
+          laser1: '0',
+          laser2: '0',
+          laser3: '0',
+          laser4: '0',
+        },
       });
     }
     if (laser == 1) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '1', laser2: '0', laser3: '0', laser4: '0'},
+        data: {
+          laser1: '1',
+          laser2: '0',
+          laser3: '0',
+          laser4: '0',
+        },
       });
     }
     if (laser == 2) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '0', laser2: '1', laser3: '0', laser4: '0'},
+        data: {
+          laser1: '0',
+          laser2: '1',
+          laser3: '0',
+          laser4: '0',
+        },
       });
     }
     if (laser == 3) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '0', laser2: '0', laser3: '1', laser4: '0'},
+        data: {
+          laser1: '0',
+          laser2: '0',
+          laser3: '1',
+          laser4: '0',
+        },
       });
     }
     if (laser == 4) {
       $.ajax({
         type: 'POST',
         url: laserurl,
-        data: {laser1: '0', laser2: '0', laser3: '0', laser4: '1'},
+        data: {
+          laser1: '0',
+          laser2: '0',
+          laser3: '0',
+          laser4: '1',
+        },
       });
     }
     dataLog('Request sent');
   }
 
   function getTrialFile() {
-    var fn;
+    let fn;
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:3000/fileName',
+      url: srvurl + '/fileName',
       dataType: 'text',
-      success: function (data) {
+      success: function(data) {
         fn = data;
         $.ajax({
           type: 'GET',
-          url: 'http://localhost:3000/trials/'+fn,
-          success: function () {
-            window.location.href = './trials/'+fn;
-          }
+          url: srvurl + '/trials/' + fn,
+          success: function() {
+            window.location.href = './trials/' + fn;
+          },
         });
-      }
+      },
     });
   }
 
@@ -158,11 +190,10 @@ function prepareList() {
     postEvent('clicked DOWNKEY', $currentElement.attr('id'));
 
     // Keep the marker at the top of the screen
-    $('body, html').animate(
-        {
-          scrollTop: $currentElement.position().top - 100,
-        },
-        100,
+    $('body, html').animate({
+      scrollTop: $currentElement.position().top - 100,
+    },
+    100,
     );
   };
 
@@ -191,12 +222,32 @@ function prepareList() {
     postEvent('clicked UPKEY', $currentElement.attr('id'));
 
     // Keep the marker at the top of the screen
-    $('body, html').animate(
-        {
-          scrollTop: $currentElement.position().top - 100,
-        },
-        100,
+    $('body, html').animate({
+      scrollTop: $currentElement.position().top - 100,
+    },
+    100,
     );
+  };
+
+  // make end function global so that the
+  window.end = function() {
+    postEvent('End', $currentElement.attr('id'));
+    let fn;
+    $.ajax({
+      type: 'GET',
+      url: srvurl + '/fileName',
+      dataType: 'text',
+      success: function(data) {
+        fn = data;
+        $.ajax({
+          type: 'GET',
+          url: srvurl + '/trials/' + fn,
+          success: function() {
+            window.location.href = './trials/' + fn;
+          },
+        });
+      },
+    });
   };
 
   // const toggle = function(that) {
@@ -280,17 +331,17 @@ function prepareList() {
       dataLog(new Date().getTime(), 'pressed UPKEY');
       up();
     }
-    if (event.key == BEGINEXPERIMENTKEY) {
-    //   dataLog(new Date().getTime(), 'pressed BEGINEXPERIMENTKEY')
-    //   beginExperiment();
-      postEvent('Start', $currentElement.attr('id'));
-    }
-    if (event.key == ENDEXPERIMENTKEY) {
-      //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
-      //   endExperiment();
-      postEvent('End', $currentElement.attr('id'));
-      getTrialFile();
-    }
+    // if (event.key == BEGINEXPERIMENTKEY) {
+    // //   dataLog(new Date().getTime(), 'pressed BEGINEXPERIMENTKEY')
+    // //   beginExperiment();
+    //   postEvent('Start', $currentElement.attr('id'));
+    // }
+    // if (event.key == ENDEXPERIMENTKEY) {
+    //   //   dataLog(new Date().getTime(), 'pressed ENDEXPERIMENTKEY');
+    //   //   endExperiment();
+    //   postEvent('End', $currentElement.attr('id'));
+    //   getTrialFile();
+    // }
     if (event.key == PLAYKEY) {
       dataLog(new Date().getTime(), 'pressed PLAYKEY');
       play();
@@ -335,6 +386,9 @@ function prepareList() {
   setInterval(() => {
     getData();
   }, 100);
+
+  // Start the trial when the current page has finised preparation
+  postEvent('Start', $currentElement.attr('id'));
 }
 
 /** ************************************************************/

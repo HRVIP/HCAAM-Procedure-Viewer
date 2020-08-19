@@ -17,7 +17,8 @@ ul {
     padding-left: 0px;
 }
 
-img, video {
+img,
+video {
     max-width: 300px;
     max-height: 300px;
     width: 100%;
@@ -37,10 +38,23 @@ div.caution {
     padding-top: 10px;
 }
 
+#end {
+    display: inline-block;
+    max-width: 500px;
+    border-radius: 20px;
+    padding: 25px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    left: 40%;
+}
+
 #listContainer {
     display: flex;
     margin: auto;
-    max-width: 900px;
+    max-width: 1000px;
     padding: 10px;
 }
 
@@ -84,12 +98,12 @@ li>div.number {
 }
 
 li>div.info {
-    flex: 2;
+    flex: 3;
     padding-right: 5px;
 }
 
 li>div.image {
-    flex: 1;
+    flex: 2;
 }
 
 li>video {
@@ -101,7 +115,7 @@ li>video {
 
 .selected {
     border-left: 3px solid #11244B !important;
-    background-color: #F6F6F6
+    background-color: #D6EAF8
 }
 
 p[sensortargetreached="1"] {

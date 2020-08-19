@@ -15,7 +15,9 @@ app.use('/js', express.static('js'));
 app.use('/vid', express.static('vid'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+  extended: false,
+}));
 
 // Store sensor data received from post requests
 let light1 = 0;
@@ -32,18 +34,19 @@ app.route('/data')
       light3 = req.body.light3;
       hall1 = req.body.hall1;
       accel1 = req.body.accel1;
-      console.log(light1);
-      console.log(light2);
-      console.log(light3);
-      console.log(hall1);
-      console.log(accel1);
+      // console.log(light1);
+      // console.log(light2);
+      // console.log(light3);
+      // console.log(hall1);
+      // console.log(accel1);
       res.setHeader('Content-type', 'text/plain');
       res.send('Sensors updated');
     })
 // Serve the sensor data to the client
     .get(function(req, res) {
       const data = [parseInt(light1), parseInt(light2), parseInt(light3), +
-      parseInt(hall1), parseInt(accel1)];
+      parseInt(hall1), parseInt(accel1),
+      ];
       res.send(data);
     });
 
@@ -75,7 +78,6 @@ app.route('/lasers')
     .get(function(req, res) {
       const states = [laser1, laser2, laser3, laser4];
       res.json(states);
-      console.log(states);
       // reset laser states after sending them to pi
       laser1 = 0;
       laser2 = 0;
@@ -90,8 +92,6 @@ app.route('/event')
     .post(function(req, res) {
       res.setHeader('Content-type', 'text/plain');
       res.send('Event logged');
-      // console.log(req.body.event);
-      // console.log(req.body.currentStep);
       event = req.body.event;
       currentStep = req.body.currentStep;
     })
@@ -101,27 +101,48 @@ app.route('/event')
       event = '';
     });
 
-// Post and get current trial file name    
-let fileName;
+// Post and get current trial file name
+let fileName = 'error.csv';
+// If fileName not updated, error.csv will be displayed
 app.route('/fileName')
-  .post(function (req, res) {
-    fileName = req.body.file;
-    res.setHeader('Content-type', 'text/plain')
-    res.send('File name received');
-  })
-  .get(function (req, res) {
-    res.send(fileName);
-  })
+// Receiving name from rpi
+    .post(function(req, res) {
+      fileName = req.body.file;
+      res.setHeader('Content-type', 'text/plain');
+      res.send('File name received');
+    })
+// Giving name to client
+    .get(function(req, res) {
+      res.send(fileName);
+    });
+
+let subject;
+app.route('/subject')
+// Store subject ID as indicated from login form
+    .post(function(req, res) {
+      subject = req.body.id;
+      res.setHeader('Content-type', 'text/plain');
+      res.send('Subject id received');
+    })
+// Send subject name to rpi to store in trial data file
+    .get(function(req, res) {
+      res.json(subject);
+    });
 
 // Serve the completed current trial file for download
-var getFile = function (req, res) {
+const getFile = function(req, res) {
   res.sendFile(__dirname + '/trials/' + req.params.fileName);
-}
+};
 app.get('/trials/:fileName', getFile);
 
-// Serve the procedure viewer at the root directory
-app.get('/', function(req, res) {
+// Serve the procedure viewer at the root directory after the login is complete
+app.get('/start', function(req, res) {
   res.sendFile(__dirname + '/index.html');
+});
+
+// Serve the login form at the root directory
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/login.html');
 });
 
 srv.listen(3000);
