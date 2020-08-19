@@ -283,7 +283,7 @@ const proc = {
     },
     {
       'number': '6.5.',
-      'text': 'Reattach the Left Hand Vent Tube to the Carburetor by pushing it onto the fitting. ',
+      'text': 'Reattach the Left Hand Vent Tube to the Carburetor by pushing it onto the fitting.',
       'image': '/img/figures/VentLeft_Attached.PNG',
     },
     {
@@ -323,6 +323,7 @@ const proc = {
     {
       'number': '6.12.',
       'text': 'Inspect the bottom inside of the Generator casing for gasoline or tools; clean if necessary.',
+      'type': 'text',
     },
     ],
   },
@@ -441,6 +442,8 @@ function buildProcedure(steps, parent, depth) {
       $('<li id="' + procID + '"><div class="caution">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'button') {
       $('<div id="' + procID + '"><button type="button" onclick="end()" id="end">' + step.text + '</button></div>').appendTo('ul#' + parent);
+    } else if (step.type == 'text') {
+      $('<li id="' + procID + '"><div class="number">' + step.number + '</div><div class="info">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else {
       step.image = (step.image === undefined) ? '' : step.image;
 
