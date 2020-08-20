@@ -1,5 +1,5 @@
 # Kelden Ben-Ora HRVIP UC Davis
-# 8.14.2020
+# 8.20.2020
 
 import datetime
 import json
@@ -355,7 +355,7 @@ while True:
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
             blinkLasers(lasers)
         elif (lasers == [0, 0, 0, 0] and event == 'Lasers requested'):
-            if currentStep == '2.2.1' or currentStep == '7.2.4':
+            if currentStep == '2.3' or currentStep == '7.7':
                 dt = '%.3f' % (time.time() - temp)
                 temp = time.time()
                 dataLog(dt, 'Lasers requested', currentStep, np.array(lasers), sensors['hall1'],
@@ -363,7 +363,7 @@ while True:
                 lasers = [0, 0, 1, 0]
                 # print('blinking ' + str(lasers))
                 blinkLasers(lasers)
-            elif currentStep == '2.4.1' or currentStep == '7.1.3':
+            elif currentStep == '2.7' or currentStep == '7.3':
                 dt = '%.3f' % (time.time() - temp)
                 temp = time.time()
                 dataLog(dt, 'Lasers requested', currentStep, np.array(lasers), sensors['hall1'],
