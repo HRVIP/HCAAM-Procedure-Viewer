@@ -9,5 +9,5 @@ To activate and use the procedure viewer:
 2) Navigate to the ip address of the generator to be used on a web browser.
   - 192.168.0.10x:3000 (x = 3 or 4 for generators at HERA)
 
-Login with a subject ID and start the trial by hitting the Start Trial button
-Download the trial csv file when prompted after finishing the trial and hitting the End Trial button
+Login with a subject ID and start the trial by hitting the Start Trial button.
+Download the trial csv file when prompted after finishing the trial and hitting the End Trial button.
