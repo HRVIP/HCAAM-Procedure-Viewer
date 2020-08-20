@@ -5,10 +5,9 @@ To use the procedure viewer you should install `node` and then run the following
 2) Run the server using `npm start`
 
 To activate and use the procedure viewer:
-1) Connect to the ProcedureViewer network
+1) Connect to the ProcedureViewer_5G network
 2) Navigate to the ip address of the generator to be used on a web browser.
-  - 192.168.0.xxx:3000
-3) Press the 'O' key to start the experiment trial
-4) Press the 'P' key to end the experiment trial
+  - 192.168.0.10x:3000 (x = 3 or 4 for generators at HERA)
 
-The trial data csv files can be obtained by connecting remotely using ssh and then using the 'scp' command to copy files to the local computer.
+Login with a subject ID and start the trial by hitting the Start Trial button
+Download the trial csv file when prompted after finishing the trial and hitting the End Trial button
