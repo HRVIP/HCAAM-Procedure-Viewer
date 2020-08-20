@@ -4,7 +4,7 @@ const proc = {
     'type': 'header',
     'subtasks': [{
       'number': '1.1.',
-      'text': 'Turn Engine Switch → OFF (Clearly state \'Engine Switch off\'.)',
+      'text': 'Turn Engine Switch → OFF (Clearly state \'Engine Switch off\')',
       'image': '/img/figures/EngineSwitch.PNG',
       // flange nut left, flange nut right, air cleaner cover screw, center bolt
       // 'lasers': [0, 0, 0, 0],
@@ -14,7 +14,7 @@ const proc = {
     },
     {
       'number': '1.2.',
-      'text': 'Unplug all power cords from the Control Panel (Clearly state \'Control Panel cleared\'.)',
+      'text': 'Unplug all power cords from the Control Panel (Clearly state \'Control Panel cleared\')',
       'image': '/img/figures/ControlPanel.PNG',
     },
     {
@@ -64,12 +64,12 @@ const proc = {
     },
     {
       'number': '2.4.',
-      'text': 'Pull off the Air Cleaner Cover.',
+      'text': 'Pull out the Air Cleaner Cover.',
       'image': '/img/figures/AirCover_Removal.PNG',
     },
     {
       'number': '2.5.',
-      'text': 'Pull out both of the Air Filters by hand: the Main Filter and the Outer Filter. Note that the filters might be greasy; there are rags if necessary',
+      'text': 'Pull out both of the Air Filters by hand: the Main Filter and the Outer Filter. Note that the filters might be greasy; there are rags if necessary.',
       'image': '/img/figures/AirFilters_Labeled.PNG',
     },
     {
@@ -177,7 +177,7 @@ const proc = {
     },
     {
       'number': '3.7.1.',
-      'text': 'The Carburetor should be rested upside down as shown in the figure.',
+      'text': 'Rest the Carburetor upside down as shown in the figure.',
       'image': '/img/figures/Carb_Placement.PNG',
       'sensors': [NaN, NaN, NaN, NaN, 1],
     },
