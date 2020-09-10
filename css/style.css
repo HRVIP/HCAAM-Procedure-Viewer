@@ -19,8 +19,8 @@ ul {
 
 img,
 video {
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 400px;
+    max-height: 400px;
     width: 100%;
     height: auto;
 }
@@ -42,19 +42,18 @@ div.caution {
     display: inline-block;
     max-width: 500px;
     border-radius: 20px;
-    padding: 25px;
+    padding: 30px;
     background-color: red;
     color: white;
     text-align: center;
     cursor: pointer;
-    position: relative;
-    left: 40%;
+    position: absolute;
+    left: 45%;
 }
 
 #listContainer {
     display: flex;
     margin: auto;
-    max-width: 1000px;
     padding: 10px;
 }
 
@@ -109,8 +108,8 @@ li>div.image {
 li>video {
     margin-left: auto;
     margin-right: auto;
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 500px;
+    max-height: 500px;
 }
 
 .selected {
