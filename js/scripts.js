@@ -17,7 +17,8 @@ function prepareList() {
   const LASER4KEY = '4';
   const LASERKEY = 'l';
   // const canExpand = true;
-  const srvurl = 'http://192.168.0.112:3000';
+  const srvurl = 'http://' + window.location.hostname + ':3000';
+  
   // Retrieves sensor data from server
   // const dataurl = 'http://192.168.0.112:3000/data';
   const dataurl = srvurl + '/data';
@@ -229,7 +230,7 @@ function prepareList() {
     );
   };
 
-  // make end function global so that the
+  // make end function global
   window.end = function() {
     postEvent('End', $currentElement.attr('id'));
     let fn;
