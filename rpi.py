@@ -186,8 +186,8 @@ def newDataFile():
     
     subject = requests.get(ip + '/subject').json()
     d = datetime.datetime.today()
-    date = d.strftime('%m/%d/%Y')
-    t = d.strftime('%H:%M:%S')
+    date = d.strftime('%m-%d-%Y')
+    t = d.strftime('_%H-%M')
     fn = date + t + str(subject) + '.csv'
     # Tell the server what the current trial file is called
     r = requests.post(ip + '/fileName', {'file': fn})
@@ -197,7 +197,7 @@ def newDataFile():
     f = open((directory+fn), 'w')
     print("Created new file")
     f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer, ' +
-            subject+', '+datetime.datetime.today().strftime('%m/%d/%Y')+'\n')
+            subject+', '+datetime.datetime.today().strftime('%m-%d-%Y')+'\n')
 
 
 def readData():
