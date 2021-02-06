@@ -170,18 +170,26 @@ def getTime():
 
 # check current trial number and set up csv
 def newDataFile():
-    files = []
+    # files = []
     directory = "/home/pi/hcaamviewer/trials/"
-    for root, di, fils in os.walk(directory, topdown=False):
-        for name in fils:
-            name = name[0:-4]
-            if fils:
-                files.append(int(name))
-    if not files:
-        files.append(0)
-    fn = str(max(files)+1)
-    fn = fn + '.csv'
-    # Tell the server what the current trial number is
+    
+    # read current trial file numerical names and increment current
+    # for root, di, fils in os.walk(directory, topdown=False):
+    #     for name in fils:
+    #         name = name[0:-4]
+    #         if fils:
+    #             files.append(int(name))
+    # if not files:
+    #     files.append(0)
+    # fn = str(max(files)+1)
+    # fn = fn + '.csv'
+    
+    subject = requests.get(ip + '/subject').json()
+    d = datetime.datetime.today()
+    date = d.strftime('%m/%d/%Y')
+    t = d.strftime('%H:%M:%S')
+    fn = date + t + str(subject) + '.csv'
+    # Tell the server what the current trial file is called
     r = requests.post(ip + '/fileName', {'file': fn})
     subject = requests.get(ip + '/subject').json()
     # print("Trial number", fn)
