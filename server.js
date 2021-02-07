@@ -132,8 +132,8 @@ app.route('/subject')
 // Serve the completed current trial file for download
 const getFile = function(req, res) {
   res.sendFile(__dirname + '/trials/' + req.params.fileName);
-  app.get('/trials/:fileName', getFile);
 };
+app.get('/trials/:fileName', getFile);
 
 // Serve the procedure viewer at the root directory after the login is complete
 app.get('/start', function(req, res) {

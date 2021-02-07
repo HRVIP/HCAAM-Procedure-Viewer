@@ -243,8 +243,13 @@ function prepareList() {
         $.ajax({
           type: 'GET',
           url: srvurl + '/trials/' + fn,
-          success: function() {
-            window.location.href = './trials/' + fn;
+          success: function () {
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = srvurl + '/trials/' + fn;
+            hiddenElement.target = '_blank';
+            hiddenElement.download = fn;
+            hiddenElement.click();
+            //window.location.href = './trials/' + fn;
           },
         });
       },
