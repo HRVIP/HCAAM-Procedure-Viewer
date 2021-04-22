@@ -117,6 +117,10 @@ li>video {
     background-color: #D6EAF8
 }
 
+.selected > .info {
+    font-weight: bold;
+}
+
 p[sensortargetreached="1"] {
     color: green;
 }
