@@ -459,7 +459,7 @@ function buildProcedure(steps, parent, depth) {
 
       hasLasers = step.lasers !== undefined;
       if (hasLasers) {
-        step.text += '<br /><br /> <b>For help, please activate laser guidance with the "L" key.</b>';
+        step.text += '<br /><br /> <button class="laserButton" lasers="' + step.lasers + '">Click for Laser Guidance</button>';
       }
       $('<li id="' + procID + '"><div class="number">' + step.number + '</div><div class="info">' + step.text + '</div><div class="image"><img class="info" src="' + step.image.substr(1) + '"></div></li>').appendTo('ul#' + parent);
     }

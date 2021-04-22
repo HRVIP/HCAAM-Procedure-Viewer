@@ -362,6 +362,7 @@ while True:
             dataLog(dt, event, currentStep, np.array(lasers), sensors['hall1'],
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
             blinkLasers(lasers)
+        # With the new laser code, I'm not sure if this is necessary anymore
         elif (lasers == [0, 0, 0, 0] and event == 'Lasers requested'):
             if currentStep == '2.3' or currentStep == '7.7':
                 dt = '%.3f' % (time.time() - temp)

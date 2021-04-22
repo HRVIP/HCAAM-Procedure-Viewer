@@ -126,6 +126,22 @@ function prepareList() {
     dataLog('Request sent');
   }
 
+  function sendLasers(step) {
+    lasers = step.attr('lasers').split(",");
+
+    $.ajax({
+      type: 'POST',
+      url: laserurl,
+      data: {
+        laser1: lasers[0],
+        laser2: lasers[1],
+        laser3: lasers[2],
+        laser4: lasers[3],
+      },
+    });
+    dataLog('Request sent');
+  }
+
   function getTrialFile() {
     let fn;
     $.ajax({
@@ -295,6 +311,12 @@ function prepareList() {
         dataLog(new Date().getTime(), 'clicked DOWNKEY');
         down();
       });
+  $(".laserButton")
+    .unbind('click')
+    .click(function() {
+      dataLog(new Date().getTime(), 'clicked LASERBUTTON');
+      sendLasers($(this));
+    });
 
   const play = function() {
     if ($currentElement.children('video').length) {
