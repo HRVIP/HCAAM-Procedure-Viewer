@@ -396,34 +396,6 @@ const proc = {
   ],
 };
 
-const sensorDict = {
-  0: {
-    'text': 'Front cover should be ',
-    '0': 'closed.',
-    '1': 'open.',
-  },
-  1: {
-    'text': 'Spark plug cover should be ',
-    '0': 'closed.',
-    '1': 'open.',
-  },
-  2: {
-    'text': 'Spark plug cap should be ',
-    '0': 'closed.',
-    '1': 'open.',
-  },
-  3: {
-    'text': 'Air cleaner case should be ',
-    '0': 'closed.',
-    '1': 'open.',
-  },
-  4: {
-    'text': 'Float chamber should be ',
-    '0': 'upright.',
-    '1': 'upside down.',
-  },
-};
-
 /**
  * Recursive function to build procedure steps.
  * @param {object} steps The step object, containing the step's information and any nested steps.
@@ -452,7 +424,7 @@ function buildProcedure(steps, parent, depth) {
         step.text += '<br /><br />';
         step.sensors.forEach(function(sensorTarget, sensorIndex) {
           if (!Number.isNaN(sensorTarget)) {
-            step.text += '<p sensor=' + sensorIndex + ' sensorTarget=' + sensorTarget + ' sensorValue=0>' + sensorDict[sensorIndex]['text'] + sensorDict[sensorIndex][sensorTarget] + '</p>';
+            step.text += '<p class="sensor" sensor=' + sensorIndex + ' sensorTarget=' + sensorTarget + ' sensorValue=0>Sensor Feedback: </p>';
           }
         });
       }

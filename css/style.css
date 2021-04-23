@@ -121,10 +121,16 @@ li>video {
     font-weight: bold;
 }
 
-p[sensortargetreached="1"] {
-    color: green;
+p[sensortargetreached="1"]::after {
+    border-radius: 10px;
+    padding: 5px;
+    content: 'Complete';
+    background-color: lightgreen;
 }
 
-p[sensortargetreached="0"] {
-    color: red;
+p[sensortargetreached="0"]::after {
+    border-radius: 10px;
+    padding: 5px;
+    content: 'Incomplete';
+    background-color: lightgrey;
 }
