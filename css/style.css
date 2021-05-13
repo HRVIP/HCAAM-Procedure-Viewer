@@ -26,11 +26,11 @@ video {
 }
 
 div.caution {
+    border: black 3px solid;
     background-color: yellow;
     text-align: center;
     padding: 10px;
     margin: 10px;
-    width: 100%;
 }
 
 #expList {

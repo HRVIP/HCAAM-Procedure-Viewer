@@ -73,11 +73,8 @@ const proc = {
       'image': '/img/figures/AirFilters_Labeled.PNG',
     },
     {
-      'text': 'CAUTION: Pry the Breather Tube off gently to avoid damaging it.',
-      'type': 'caution',
-    },
-    {
       'number': '2.6.',
+      'caution': 'CAUTION: Pry the Breather Tube off gently to avoid damaging it.',
       'text': 'Pull the Breather Tube off of the Air Cleaner Case.',
       'image': '/img/figures/BreatherTube_Indicator.PNG',
     },
@@ -119,11 +116,8 @@ const proc = {
       'image': '/img/figures/FuelTube_Clamped.PNG',
     },
     {
-      'text': 'CAUTION: Pry the Carburetor Fuel Tube off gently to avoid damaging it.',
-      'type': 'caution',
-    },
-    {
       'number': '3.2.',
+      'caution': 'CAUTION: Pry the Carburetor Fuel Tube off gently to avoid damaging it.',
       'text': 'Disengage the tension clamp on the Carburetor Fuel Tube by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp off of the fitting and up the tube.',
       'image': '/img/figures/TensionClamp_Location.PNG',
     },
@@ -167,11 +161,8 @@ const proc = {
       'image': '/img/figures/VentTubes_Removal.PNG',
     },
     {
-      'text': 'CAUTION: Make sure the gasket does not come out with the Carburetor.',
-      'type': 'caution',
-    },
-    {
       'number': '3.7.',
+      'caution': 'CAUTION: Make sure the gasket does not come out with the Carburetor.',
       'text': 'Slide the Carburetor off of the bolts attached to the Generator.',
       'image': '/img/figures/Carb_Removal.PNG',
     },
@@ -410,15 +401,30 @@ function buildProcedure(steps, parent, depth) {
       $('<li id="' + procID + '"><div class="info">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'video') {
       $('<li id="' + procID + '"><video class="info" src="' + step.text.substr(1) + '"controls></video></li>').appendTo('ul#' + parent);
-    } else if (step.type == 'caution') {
-      $('<li id="' + procID + '"><div class="caution">' + step.text + '</div></li>').appendTo('ul#' + parent);
+    // } else if (step.type == 'caution') {
+      // $('<li id="' + procID + '"><div class="caution">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'button') {
       $('<div id="' + procID + '"><button type="button" onclick="end()" id="end">' + step.text + '</button></div>').appendTo('ul#' + parent);
     } else if (step.type == 'text') {
       $('<li id="' + procID + '"><div class="number">' + step.number + '</div><div class="info">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else {
-      step.image = (step.image === undefined) ? '' : step.image;
+      // We'll just build up a step based on whatever we have
 
+      // Is there a caution?
+      hasCaution = step.caution !== undefined
+      if (hasCaution) {
+        step.text = '<div class="caution">' + step.caution + '</div>' + step.text
+      }
+
+      // Is there an image?
+      hasImage = step.image !== undefined
+      step.image = !hasImage ? '' : step.image;
+
+      // Is there an video?
+      hasVideo = step.video !== undefined
+      step.video = !hasVideo ? '' : step.video;
+
+      // Are there sensors?
       hasSensors = step.sensors !== undefined;
       if (hasSensors) {
         step.text += '<br /><br />';
@@ -429,11 +435,18 @@ function buildProcedure(steps, parent, depth) {
         });
       }
 
+      // Are there lasers?
       hasLasers = step.lasers !== undefined;
       if (hasLasers) {
         step.text += '<br /><br /> <button class="laserButton" lasers="' + step.lasers + '">Click for Laser Guidance</button>';
       }
-      $('<li id="' + procID + '"><div class="number">' + step.number + '</div><div class="info">' + step.text + '</div><div class="image"><img class="info" src="' + step.image.substr(1) + '"></div></li>').appendTo('ul#' + parent);
+
+      // Build it.
+      $('<li id="' + procID + '">' +
+        '<div class="number">' + step.number + '</div>' +
+        '<div class="info">' + step.text + '</div>' +
+        '<div class="image"><img class="info" src="' + step.image.substr(1) + '"></div>' +
+        '</li>').appendTo('ul#' + parent);
     }
 
     if (step.subtasks != undefined) {
@@ -442,5 +455,16 @@ function buildProcedure(steps, parent, depth) {
     }
   });
 }
+
+// Grab the subject ID for mapping.
+let subject;
+$.ajax({
+  type: 'GET',
+  url: '/subject',
+  dataType: 'json',
+}).done(function(req, res) {
+  console.log(req);
+  subject = req;
+})
 
 buildProcedure(proc['PROCEDURE'], 'expList', 0);
