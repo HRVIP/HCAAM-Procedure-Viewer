@@ -17,8 +17,7 @@ ul {
     padding-left: 0px;
 }
 
-img,
-video {
+img, video {
     max-width: 400px;
     max-height: 400px;
     width: 100%;
@@ -117,7 +116,7 @@ li>video {
     background-color: #D6EAF8
 }
 
-.selected > .info {
+.selected>.info {
     font-weight: bold;
 }
 

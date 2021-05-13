@@ -401,7 +401,7 @@ function buildProcedure(steps, parent, depth) {
       $('<li id="' + procID + '"><div class="info">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'video') {
       $('<li id="' + procID + '"><video class="info" src="' + step.text.substr(1) + '"controls></video></li>').appendTo('ul#' + parent);
-    // } else if (step.type == 'caution') {
+      // } else if (step.type == 'caution') {
       // $('<li id="' + procID + '"><div class="caution">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'button') {
       $('<div id="' + procID + '"><button type="button" onclick="end()" id="end">' + step.text + '</button></div>').appendTo('ul#' + parent);
@@ -411,17 +411,17 @@ function buildProcedure(steps, parent, depth) {
       // We'll just build up a step based on whatever we have
 
       // Is there a caution?
-      hasCaution = step.caution !== undefined
+      hasCaution = step.caution !== undefined;
       if (hasCaution) {
-        step.text = '<div class="caution">' + step.caution + '</div>' + step.text
+        step.text = '<div class="caution">' + step.caution + '</div>' + step.text;
       }
 
       // Is there an image?
-      hasImage = step.image !== undefined
+      hasImage = step.image !== undefined;
       step.image = !hasImage ? '' : step.image;
 
       // Is there an video?
-      hasVideo = step.video !== undefined
+      hasVideo = step.video !== undefined;
       step.video = !hasVideo ? '' : step.video;
 
       // Are there sensors?
@@ -463,8 +463,8 @@ $.ajax({
   url: '/subject',
   dataType: 'json',
 }).done(function(req, res) {
-  console.log(req);
   subject = req;
-})
+  console.log(subject);
+});
 
 buildProcedure(proc['PROCEDURE'], 'expList', 0);
