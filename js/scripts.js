@@ -1,7 +1,7 @@
 /**
  * This function enables the user interaction and communication with the server.
  */
-function main() {
+function buildInteractivity() {
   experimentStarted = true;
 
   const UPKEY = 'w';
@@ -357,7 +357,5 @@ function main() {
 /** ************************************************************/
 $(document).ready(function() {
   // Load the procedure
-  $.getScript('js/procedure.js', function() {
-    main();
-  });
+  $.getScript('js/procedure.js');
 });

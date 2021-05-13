@@ -84,8 +84,8 @@ const proc = {
       'image': '/img/figures/BreatherTube_Removal.PNG',
     },
     {
-      'text': '/vid/Breather_Removal.mp4',
-      'type': 'video',
+      'video': '/vid/Breather_Removal.mp4',
+      // 'type': 'video',
     },
     {
       'number': '2.7.',
@@ -122,8 +122,8 @@ const proc = {
       'image': '/img/figures/TensionClamp_Location.PNG',
     },
     {
-      'text': '/vid/TensionClamp_Removal.mp4',
-      'type': 'video',
+      'video': '/vid/TensionClamp_Removal.mp4',
+      // 'type': 'video',
     },
     {
       'number': '3.3.',
@@ -288,8 +288,8 @@ const proc = {
       'image': '/img/figures/TensionClamp_Location.PNG',
     },
     {
-      'text': '/vid/TensionClamp_Reattach.mp4',
-      'type': 'video',
+      'video': '/vid/TensionClamp_Reattach.mp4',
+      // 'type': 'video',
     },
     {
       'number': '6.8.',
@@ -314,7 +314,7 @@ const proc = {
     {
       'number': '6.12.',
       'text': 'Inspect the bottom inside of the Generator casing for gasoline or tools; clean if necessary.',
-      'type': 'text',
+      // 'type': 'text',
     },
     ],
   },
@@ -389,43 +389,69 @@ const proc = {
 
 /**
  * Recursive function to build procedure steps.
+ * @param {string} group The type of procedure to build.
  * @param {object} steps The step object, containing the step's information and any nested steps.
  * @param {string} parent The parent of the step.
  * @param {int} depth The nested depth of the step.
  */
-function buildProcedure(steps, parent, depth) {
+function buildProcedure(group, steps, parent, depth) {
   steps.forEach(function(step, index) {
     const procID = parent + '_' + index;
 
     if (step.type == 'header') {
       $('<li id="' + procID + '"><div class="info">' + step.text + '</div></li>').appendTo('ul#' + parent);
-    } else if (step.type == 'video') {
-      $('<li id="' + procID + '"><video class="info" src="' + step.text.substr(1) + '"controls></video></li>').appendTo('ul#' + parent);
+      // } else if (step.type == 'video') {
+      // $('<li id="' + procID + '"><video class="info" src="' + step.text.substr(1) + '"controls></video></li>').appendTo('ul#' + parent);
       // } else if (step.type == 'caution') {
       // $('<li id="' + procID + '"><div class="caution">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else if (step.type == 'button') {
       $('<div id="' + procID + '"><button type="button" onclick="end()" id="end">' + step.text + '</button></div>').appendTo('ul#' + parent);
-    } else if (step.type == 'text') {
-      $('<li id="' + procID + '"><div class="number">' + step.number + '</div><div class="info">' + step.text + '</div></li>').appendTo('ul#' + parent);
+      // } else if (step.type == 'text') {
+      //   $('<li id="' + procID + '"><div class="number">' + step.number + '</div><div class="info">' + step.text + '</div></li>').appendTo('ul#' + parent);
     } else {
-      // We'll just build up a step based on whatever we have
+      // We'll just build up a step based on whatever we have...
+      step.media = '';
 
       // Is there a caution?
       hasCaution = step.caution !== undefined;
+
+      // Is there an image?
+      hasImage = step.image !== undefined;
+      // step.image = !hasImage ? '' : step.image;
+
+      // Is there an video?
+      hasVideo = step.video !== undefined;
+      // step.video = !hasVideo ? '' : step.video;
+
+      // Are there sensors?
+      hasSensors = step.sensors !== undefined;
+
+      // Are there lasers?
+      hasLasers = step.lasers !== undefined;
+
+      // console.log(group);
+      // ...and we'll use whatever we're allowed based on group.
+      if (group !== 'full') {
+        hasSensors = false;
+        hasLasers = false;
+        hasImage = false;
+        hasVideo = false;
+      }
+
       if (hasCaution) {
         step.text = '<div class="caution">' + step.caution + '</div>' + step.text;
       }
 
-      // Is there an image?
-      hasImage = step.image !== undefined;
-      step.image = !hasImage ? '' : step.image;
+      if (hasImage) {
+        step.media = '<div class="image"><img class="info" src="' + step.image.substr(1) + '"></div>';
+      }
 
-      // Is there an video?
-      hasVideo = step.video !== undefined;
-      step.video = !hasVideo ? '' : step.video;
+      if (hasVideo) {
+        step.number = '';
+        step.text = '';
+        step.media = '<video class="info" src="' + step.video.substr(1) + '"controls></video>';
+      }
 
-      // Are there sensors?
-      hasSensors = step.sensors !== undefined;
       if (hasSensors) {
         step.text += '<br /><br />';
         step.sensors.forEach(function(sensorTarget, sensorIndex) {
@@ -435,8 +461,6 @@ function buildProcedure(steps, parent, depth) {
         });
       }
 
-      // Are there lasers?
-      hasLasers = step.lasers !== undefined;
       if (hasLasers) {
         step.text += '<br /><br /> <button class="laserButton" lasers="' + step.lasers + '">Click for Laser Guidance</button>';
       }
@@ -445,18 +469,18 @@ function buildProcedure(steps, parent, depth) {
       $('<li id="' + procID + '">' +
         '<div class="number">' + step.number + '</div>' +
         '<div class="info">' + step.text + '</div>' +
-        '<div class="image"><img class="info" src="' + step.image.substr(1) + '"></div>' +
+        step.media +
         '</li>').appendTo('ul#' + parent);
     }
 
     if (step.subtasks != undefined) {
       $('<ul id="' + procID + '"></ul').appendTo('li#' + procID);
-      buildProcedure(step.subtasks, procID, depth + 1);
+      buildProcedure(group, step.subtasks, procID, depth + 1);
     }
   });
 }
 
-// Grab the group for mapping.
+// Grab the group for mapping and kick things off.
 let group;
 $.ajax({
   type: 'GET',
@@ -464,7 +488,7 @@ $.ajax({
   dataType: 'json',
 }).done(function(req, res) {
   group = req;
-  console.log(group);
+  // console.log(group);
+  buildProcedure(group, proc['PROCEDURE'], 'expList', 0);
+  buildInteractivity();
 });
-
-buildProcedure(proc['PROCEDURE'], 'expList', 0);
