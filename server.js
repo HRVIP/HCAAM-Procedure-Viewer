@@ -129,6 +129,19 @@ app.route('/subject')
       res.json(subject);
     });
 
+let group;
+app.route('/group')
+// Store group as indicated from login form
+    .post(function(req, res) {
+      group = req.body.group;
+      res.setHeader('Content-type', 'text/plain');
+      res.send('Group received');
+    })
+// Send group name to rpi to store in trial data file
+    .get(function(req, res) {
+      res.json(group);
+    });
+
 // Serve the completed current trial file for download
 const getFile = function(req, res) {
   res.sendFile(__dirname + '/trials/' + req.params.fileName);

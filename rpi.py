@@ -172,7 +172,7 @@ def getTime():
 def newDataFile():
     # files = []
     directory = "/home/pi/hcaamviewer/trials/"
-    
+
     # read current trial file numerical names and increment current
     # for root, di, fils in os.walk(directory, topdown=False):
     #     for name in fils:
@@ -183,21 +183,23 @@ def newDataFile():
     #     files.append(0)
     # fn = str(max(files)+1)
     # fn = fn + '.csv'
-    
+
     subject = requests.get(ip + '/subject').json()
+    group = requests.get(ip + '/group').json()
     d = datetime.datetime.today()
     date = d.strftime('%m-%d-%Y')
     t = d.strftime('_%H-%M')
-    fn = date + t + str(subject) + '.csv'
+    fn = date + t + str(subject) + '_' + str(group) + '.csv'
     # Tell the server what the current trial file is called
     r = requests.post(ip + '/fileName', {'file': fn})
-    subject = requests.get(ip + '/subject').json()
+    # subject = requests.get(ip + '/subject').json()
+    # group = requests.get(ip + '/group').json()
     # print("Trial number", fn)
     global f
     f = open((directory+fn), 'w')
     print("Created new file")
     f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer, ' +
-            subject+', '+datetime.datetime.today().strftime('%m-%d-%Y')+'\n')
+            subject+group+', '+datetime.datetime.today().strftime('%m-%d-%Y')+'\n')
 
 
 def readData():
@@ -333,8 +335,8 @@ while True:
 
         # Turn on the screwdriver if they are on the right step
         # if currentStep in ['2.1.1', '2.2.1', '7.2.4', '7.3.1']:
-            # print('Screwdriver blinking')
-            # client.publish('test', '1')
+        # print('Screwdriver blinking')
+        # client.publish('test', '1')
 
         # Retrieve laser requests from server and log requests
         # Blink lasers if there is a new request

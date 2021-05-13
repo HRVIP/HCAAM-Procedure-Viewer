@@ -456,15 +456,15 @@ function buildProcedure(steps, parent, depth) {
   });
 }
 
-// Grab the subject ID for mapping.
-let subject;
+// Grab the group for mapping.
+let group;
 $.ajax({
   type: 'GET',
-  url: '/subject',
+  url: '/group',
   dataType: 'json',
 }).done(function(req, res) {
-  subject = req;
-  console.log(subject);
+  group = req;
+  console.log(group);
 });
 
 buildProcedure(proc['PROCEDURE'], 'expList', 0);
