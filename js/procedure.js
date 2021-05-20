@@ -22,12 +22,12 @@ const proc = {
       'number': '1.3.',
       'text': 'Turn Fuel Breather Valve Lever → OFF (Clearly state \'Fuel Breather Valve Lever off\')',
       'image': 'img/figures/BreatherValveIndicator.PNG',
-      'baseImage': 'img/baseFigures/Step1.3.png',
     },
     {
       'number': '1.4.',
       'text': 'Remove the Spark Plug Cover on top of the generator by firmly pulling upwards.',
       'image': 'img/figures/SparkCover_Removal.PNG',
+      'baseImage': 'img/baseFigures/Step1.3.png',
       'sensors': [NaN, 1, NaN, NaN, NaN],
     },
     {
@@ -52,17 +52,17 @@ const proc = {
       'number': '2.1.',
       'text': 'Loosen the Maintenance Cover Screw with a Flat Head Screwdriver.',
       'image': 'img/figures/MaintenanceScrew_Location.PNG',
+      'baseImage': 'img/baseFigures/Step2.2.png',
     },
     {
       'number': '2.2.',
       'text': 'Lower the Maintenance Cover.',
       'image': 'img/figures/MaintenanceCover_Removal.PNG',
-      'baseImage': 'img/baseFigures/Step2.2.png',
       'sensors': [1, NaN, NaN, NaN, NaN],
     },
     {
       'number': '2.3.',
-      'text': 'Use a Flat Head Screwdriver to remove the Air Cleaner Cover Screw. Note that the Maintenance Cover is not shown in the image.',
+      'text': 'Use a Flat Head Screwdriver to remove the Air Cleaner Cover Screw.',
       'image': 'img/figures/AirScrew_Location.PNG',
       'lasers': [0, 0, 1, 0],
     },
@@ -75,18 +75,18 @@ const proc = {
       'number': '2.5.',
       'text': 'Pull out both of the Air Filters by hand: the Main Filter and the Outer Filter. Note that the filters might be greasy; there are rags if necessary.',
       'image': 'img/figures/AirFilters_Labeled.PNG',
-      'baseImage': 'img/baseFigures/Step2.5.png',
     },
     {
       'number': '2.6.',
       'caution': 'CAUTION: Pry the Breather Tube off gently to avoid damaging it.',
-      'text': 'Pull the Breather Tube off of the Air Cleaner Case.',
+      'text': 'Pull the Breather Tube off of the Air Cleaner Case. See next step for more detailed information.',
       'image': 'img/figures/BreatherTube_Indicator.PNG',
     },
     {
       'number': '2.6.1',
-      'text': 'Wrap the Breather Tube in a rag and grip the rag and Breather Tube with the Pliers. Gently tug down and away from the Air Cleaner Case with the Pliers while using a Flat Head Screwdriver to pry down the end of the Breather Tube.',
+      'text': 'VIDEO: See below for video demonatration. Wrap the Breather Tube in a rag and grip the rag and Breather Tube with the Pliers. Gently tug down and away from the Air Cleaner Case with the Pliers while using a Flat Head Screwdriver to pry down the end of the Breather Tube.',
       'image': 'img/figures/BreatherTube_Removal.PNG',
+      'baseImage': 'img/baseFigures/Step2.5.png',
     },
     {
       'video': 'vid/Breather_Removal.mp4',
@@ -125,7 +125,7 @@ const proc = {
     {
       'number': '3.2.',
       'caution': 'CAUTION: Pry the Carburetor Fuel Tube off gently to avoid damaging it.',
-      'text': 'Disengage the tension clamp on the Carburetor Fuel Tube by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp off of the fitting and up the tube.',
+      'text': 'VIDEO: See below for video demonstration. Disengage the tension clamp on the Carburetor Fuel Tube by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp off of the fitting and up the tube.',
       'image': 'img/figures/TensionClamp_Location.PNG',
     },
     {
@@ -149,7 +149,7 @@ const proc = {
     },
     {
       'number': '3.6.',
-      'text': 'Remove the Right and Left Hand Vent Tubes from the Generator.',
+      'text': 'Remove the Right and Left Hand Vent Tubes from the Generator. See next steps for more details.',
       'image': 'img/figures/VentTubes_Labeled1.PNG',
       'baseImage': 'img/baseFigures/Step3.6.png',
     },
@@ -178,7 +178,7 @@ const proc = {
     },
     {
       'number': '3.7.1.',
-      'text': 'Rest the Carburetor upside down as shown in the figure.',
+      'text': 'Rest the Carburetor upside down.',
       'image': 'img/figures/Carb_Placement.PNG',
       'sensors': [NaN, NaN, NaN, NaN, 1],
     },
@@ -218,7 +218,7 @@ const proc = {
     },
     {
       'number': '4.6.',
-      'text': 'Inspect the Float Valve Tip for wear.',
+      'text': 'Inspect the Float Valve Tip for wear. For more details see next step.',
       'image': 'img/figures/FloatValve_Inspect.PNG',
       'baseImage': 'img/baseFigures/Step4.6.png',
     },
@@ -276,12 +276,12 @@ const proc = {
       'number': '6.2.',
       'text': 'Insert the connection point of the Vent Tubes into the Generator housing through the right hand hole on the bottom of the casing.',
       'image': 'img/figures/VentTubes_Replace.PNG',
-      'baseImage': 'img/baseFigures/Step6.2.png',
     },
     {
       'number': '6.3.',
-      'text': 'Put the Vent Tubes back into position corresponding to the following figure.',
+      'text': 'Put the Vent Tubes back into position corresponding to the following figure. Continue to next steps for more details.',
       'image': 'img/figures/VentTubesConfig1.PNG',
+      'baseImage': 'img/baseFigures/Step6.2.png',
     },
     {
       'number': '6.4.',
@@ -300,7 +300,7 @@ const proc = {
     },
     {
       'number': '6.7.',
-      'text': 'Loosen the tension clamp by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp back onto the fitting.',
+      'text': 'VIDEO: See below for video demonstration. Loosen the tension clamp on the Carburetor Fuel Tube by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp back onto the fitting.',
       'image': 'img/figures/TensionClamp_Location.PNG',
     },
     {
