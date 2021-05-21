@@ -4,7 +4,7 @@ const proc = {
     'type': 'header',
     'subtasks': [{
       'number': '1.1.',
-      'text': 'Turn Engine Switch → OFF (Clearly state \'Engine Switch off\')',
+      'text': 'Turn Engine Switch → OFF (Clearly state \'Engine Switch off\').',
       'image': 'img/figures/EngineSwitch.PNG',
       'baseImage': 'img/baseFigures/Step1.1.png',
       // flange nut left, flange nut right, air cleaner cover screw, center bolt
@@ -15,32 +15,31 @@ const proc = {
     },
     {
       'number': '1.2.',
-      'text': 'Unplug all power cords from the Control Panel (Clearly state \'Control Panel cleared\')',
+      'text': 'Unplug all power cords from the Control Panel (Clearly state \'Control Panel cleared\').',
       'image': 'img/figures/ControlPanel.PNG',
     },
     {
       'number': '1.3.',
-      'text': 'Turn Fuel Breather Valve Lever → OFF (Clearly state \'Fuel Breather Valve Lever off\')',
+      'text': 'Turn Fuel Breather Valve Lever → OFF (Clearly state \'Fuel Breather Valve Lever off\').',
       'image': 'img/figures/BreatherValveIndicator.PNG',
     },
     {
       'number': '1.4.',
       'text': 'Remove the Spark Plug Cover on top of the generator by firmly pulling upwards.',
       'image': 'img/figures/SparkCover_Removal.PNG',
-      'baseImage': 'img/baseFigures/Step1.3.png',
       'sensors': [NaN, 1, NaN, NaN, NaN],
     },
     {
       'number': '1.5.',
       'text': 'Remove the Spark Plug Cap by firmly pulling upwards.',
       'image': 'img/figures/SparkCap_Removal.PNG',
+      'baseImage': 'img/baseFigures/Step1.3.png',
       'sensors': [NaN, NaN, 1, NaN, NaN],
     },
     {
-      'number': '1.5.1.',
+      'number': '1.6.',
       'text': 'Rest the cap on the outside of the Generator and away from the Spark Plug.',
       'image': 'img/figures/SparkCap_Resting.PNG',
-      'baseImage': 'img/baseFigures/Step1.5.1.png',
     },
     ],
   },
@@ -52,7 +51,7 @@ const proc = {
       'number': '2.1.',
       'text': 'Loosen the Maintenance Cover Screw with a Flat Head Screwdriver.',
       'image': 'img/figures/MaintenanceScrew_Location.PNG',
-      'baseImage': 'img/baseFigures/Step2.2.png',
+      'baseImage': 'img/baseFigures/Step1.5.1.png',
     },
     {
       'number': '2.2.',
@@ -64,6 +63,7 @@ const proc = {
       'number': '2.3.',
       'text': 'Use a Flat Head Screwdriver to remove the Air Cleaner Cover Screw.',
       'image': 'img/figures/AirScrew_Location.PNG',
+      'baseImage': 'img/baseFigures/Step2.2.png',
       'lasers': [0, 0, 1, 0],
     },
     {
@@ -84,13 +84,14 @@ const proc = {
     },
     {
       'number': '2.6.1',
-      'text': 'VIDEO: See below for video demonatration. Wrap the Breather Tube in a rag and grip the rag and Breather Tube with the Pliers. Gently tug down and away from the Air Cleaner Case with the Pliers while using a Flat Head Screwdriver to pry down the end of the Breather Tube.',
+      'text': 'Wrap the Breather Tube in a rag and grip the rag and Breather Tube with the Pliers. Gently tug down and away from the Air Cleaner Case with the Pliers while using a Flat Head Screwdriver to pry down the end of the Breather Tube.',
+      'hasVideoHelp': true,
       'image': 'img/figures/BreatherTube_Removal.PNG',
       'baseImage': 'img/baseFigures/Step2.5.png',
     },
     {
       'video': 'vid/Breather_Removal.mp4',
-      // 'type': 'video',
+      'type': 'video',
     },
     {
       'number': '2.7.',
@@ -121,16 +122,18 @@ const proc = {
       'number': '3.1.',
       'text': 'Clamp the Carburetor Fuel Tube on the right end of the tube that is furthest from the Carburetor using the Hose Pinching Clamp.',
       'image': 'img/figures/FuelTube_Clamped.PNG',
+      'baseImage': 'img/figures/FuelTube_Clamped.PNG',
     },
     {
       'number': '3.2.',
       'caution': 'CAUTION: Pry the Carburetor Fuel Tube off gently to avoid damaging it.',
-      'text': 'VIDEO: See below for video demonstration. Disengage the tension clamp on the Carburetor Fuel Tube by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp off of the fitting and up the tube.',
+      'text': 'Disengage the tension clamp on the Carburetor Fuel Tube by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp off of the fitting and up the tube.',
       'image': 'img/figures/TensionClamp_Location.PNG',
+      'hasVideoHelp': true,
     },
     {
       'video': 'vid/TensionClamp_Removal.mp4',
-      // 'type': 'video',
+      'type': 'video',
     },
     {
       'number': '3.3.',
@@ -141,6 +144,7 @@ const proc = {
       'number': '3.4.',
       'text': 'Pull the bottom of the Carburetor Drain Tube up and out of the Generator housing.',
       'image': 'img/figures/DrainTube_Location.PNG',
+      'baseImage': 'img/figures/DrainTube_Location.PNG',
     },
     {
       'number': '3.5.',
@@ -149,7 +153,7 @@ const proc = {
     },
     {
       'number': '3.6.',
-      'text': 'Remove the Right and Left Hand Vent Tubes from the Generator. See next steps for more details.',
+      'text': 'Remove the Right and Left Hand Vent Tubes from the Generator. See the next three steps for more details.',
       'image': 'img/figures/VentTubes_Labeled1.PNG',
       'baseImage': 'img/baseFigures/Step3.6.png',
     },
@@ -157,13 +161,11 @@ const proc = {
       'number': '3.6.1.',
       'text': 'Pull the Right Hand Vent Tube downwards and out of its connection.',
       'image': 'img/figures/VentRight_Detached.PNG',
-      'baseImage': 'img/baseFigures/Step3.6.1.png',
     },
     {
       'number': '3.6.2.',
       'text': 'Use a Flat Head Screwdriver to pry the Left Hand Vent Tube off of the fitting on the Carburetor.',
       'image': 'img/figures/VentLeft_Detached.PNG',
-      'baseImage': 'img/baseFigures/Step3.6.2.png',
     },
     {
       'number': '3.6.3.',
@@ -177,7 +179,7 @@ const proc = {
       'image': 'img/figures/Carb_Removal.PNG',
     },
     {
-      'number': '3.7.1.',
+      'number': '3.8.',
       'text': 'Rest the Carburetor upside down.',
       'image': 'img/figures/Carb_Placement.PNG',
       'sensors': [NaN, NaN, NaN, NaN, 1],
@@ -207,7 +209,7 @@ const proc = {
     },
     {
       'number': '4.4.',
-      'text': 'Remove the Float Securing Pin by pulling it out with fingers or Needle Nose Pliers',
+      'text': 'Remove the Float Securing Pin by pulling it out with fingers or Needle Nose Pliers.',
       'image': 'img/figures/FloatPin_Location.PNG',
       'baseImage': 'img/baseFigures/Step4.4.png',
     },
@@ -281,7 +283,7 @@ const proc = {
       'number': '6.3.',
       'text': 'Put the Vent Tubes back into position corresponding to the following figure. Continue to next steps for more details.',
       'image': 'img/figures/VentTubesConfig1.PNG',
-      'baseImage': 'img/baseFigures/Step6.2.png',
+      'baseImage': 'img/figures/VentTubesConfig1.PNG',
     },
     {
       'number': '6.4.',
@@ -300,12 +302,13 @@ const proc = {
     },
     {
       'number': '6.7.',
-      'text': 'VIDEO: See below for video demonstration. Loosen the tension clamp on the Carburetor Fuel Tube by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp back onto the fitting.',
+      'text': 'Loosen the tension clamp on the Carburetor Fuel Tube by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp back onto the fitting.',
       'image': 'img/figures/TensionClamp_Location.PNG',
+      'hasVideoHelp': true,
     },
     {
       'video': 'vid/TensionClamp_Reattach.mp4',
-      // 'type': 'video',
+      'type': 'video',
     },
     {
       'number': '6.8.',
@@ -326,6 +329,7 @@ const proc = {
       'number': '6.11.',
       'text': 'Check that the layering of the Carburetor Drain Tube, the Right Hand Vent Tube, and Left Hand Vent Tube is correct.',
       'image': 'img/figures/TubeConfig.PNG',
+      'baseImage': 'img/figures/TubeConfig.PNG',
     },
     {
       'number': '6.12.',
@@ -429,6 +433,9 @@ function buildProcedure(group, steps, parent, depth) {
       hasBaseImage = step.baseImage !== undefined;
       // step.image = !hasImage ? '' : step.image;
 
+      // Does the following step contain a help video?
+      hasVideoHelp = step.hasVideoHelp !== undefined;
+
       // Is there an video?
       hasVideo = step.video !== undefined;
       // step.video = !hasVideo ? '' : step.video;
@@ -449,10 +456,20 @@ function buildProcedure(group, steps, parent, depth) {
         hasLasers = false;
         hasImage = false;
         hasVideo = false;
+        hasVideoHelp = false;
+
+        // If this step is just a video, ignore it.
+        if (step.type == 'video') {
+          return;
+        }
       }
 
       if (group == 'Enhanced') {
         hasBaseImage = false;
+      }
+
+      if (hasVideoHelp) {
+        step.text += ' See the following step for a video demonstration.';
       }
 
       if (hasCaution) {
