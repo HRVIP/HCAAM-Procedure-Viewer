@@ -1,45 +1,55 @@
+// Step Template
+// flange nut left, flange nut right, air cleaner cover screw, center bolt
+// 'lasers': [0, 0, 0, 0],
+// light 1 (front cover), light 2 (spark plug cover), light 3 (spark plug cap), hall effect (air cleaner case), accelerometer (float chamber)
+// sensor states are NaN, 0, 1
+// 'sensors': [0, 0, 0, 0, 0]
+
 const proc = {
   'PROCEDURE': [{
     'text': '1.  ADDRESS GENERATOR SAFETY PRECAUTIONS',
     'type': 'header',
     'subtasks': [{
       'number': '1.1.',
-      'text': 'Turn Engine Switch → OFF (Clearly state \'Engine Switch off\').',
-      'image': 'img/figures/EngineSwitch.PNG',
-      'baseImage': 'img/baseFigures/Step1.1.png',
-      // flange nut left, flange nut right, air cleaner cover screw, center bolt
-      // 'lasers': [0, 0, 0, 0],
-      // light 1 (front cover), light 2 (spark plug cover), light 3 (spark plug cap), hall effect (air cleaner case), accelerometer (float chamber)
-      // sensor states are NaN, 0, 1
-      // 'sensors': [0, 0, 0, 0, 0]
+      'text': 'Write down the current time on the worksheet.',
     },
     {
       'number': '1.2.',
+      'text': 'Turn Engine Switch → OFF (Clearly state \'Engine Switch off\').',
+      'image': 'img/figures/EngineSwitch.PNG',
+      'baseImage': 'img/baseFigures/Step1.1.png',
+    },
+    {
+      'number': '1.3.',
       'text': 'Unplug all power cords from the Control Panel (Clearly state \'Control Panel cleared\').',
       'image': 'img/figures/ControlPanel.PNG',
     },
     {
-      'number': '1.3.',
+      'number': '1.4.',
       'text': 'Turn Fuel Breather Valve Lever → OFF (Clearly state \'Fuel Breather Valve Lever off\').',
       'image': 'img/figures/BreatherValveIndicator.PNG',
     },
     {
-      'number': '1.4.',
+      'number': '1.5.',
       'text': 'Remove the Spark Plug Cover on top of the generator by firmly pulling upwards.',
       'image': 'img/figures/SparkCover_Removal.PNG',
       'sensors': [NaN, 1, NaN, NaN, NaN],
     },
     {
-      'number': '1.5.',
+      'number': '1.6.',
       'text': 'Remove the Spark Plug Cap by firmly pulling upwards.',
       'image': 'img/figures/SparkCap_Removal.PNG',
       'baseImage': 'img/baseFigures/Step1.3.png',
       'sensors': [NaN, NaN, 1, NaN, NaN],
     },
     {
-      'number': '1.6.',
+      'number': '1.7.',
       'text': 'Rest the cap on the outside of the Generator and away from the Spark Plug.',
       'image': 'img/figures/SparkCap_Resting.PNG',
+    },
+    {
+      'number': '1.8.',
+      'text': 'Write down the current time on the worksheet.',
     },
     ],
   },
@@ -111,6 +121,10 @@ const proc = {
       'text': 'Slide the Air Intake Joint Gasket off of the bolts attached to the Carburetor.',
       'image': 'img/figures/AirGasket_Removal.PNG',
       'baseImage': 'img/baseFigures/Step2.9.png',
+    },
+    {
+      'number': '2.10.',
+      'text': 'Write down the current time on the worksheet.',
     },
     ],
   },
@@ -184,6 +198,10 @@ const proc = {
       'image': 'img/figures/Carb_Placement.PNG',
       'sensors': [NaN, NaN, NaN, NaN, 1],
     },
+    {
+      'number': '3.9.',
+      'text': 'Write down the current time on the worksheet.',
+    },
     ],
   },
 
@@ -230,6 +248,10 @@ const proc = {
       'image': 'img/figures/FloatSpring_Location.PNG',
       'baseImage': 'img/baseFigures/Step4.6.1.png',
     },
+    {
+      'number': '4.7.',
+      'text': 'Write down the current time on the worksheet.',
+    },
     ],
   },
 
@@ -261,6 +283,10 @@ const proc = {
       'number': '5.5.',
       'text': 'Use the Ratcheting Socket Wrench and 10 mm Hex Socket to secure the Float Chamber to the Carburetor assembly with the 10mm Bolt and Washer.',
       'image': 'img/figures/FloatChamberBolt_Location.PNG',
+    },
+    {
+      'number': '5.6.',
+      'text': 'Write down the current time on the worksheet.',
     },
     ],
   },
@@ -335,6 +361,10 @@ const proc = {
       'number': '6.12.',
       'text': 'Inspect the bottom inside of the Generator casing for gasoline or tools; clean if necessary.',
     },
+    {
+      'number': '6.13.',
+      'text': 'Write down the current time on the worksheet.',
+    },
     ],
   },
 
@@ -396,6 +426,10 @@ const proc = {
       'text': 'Replace the Spark Plug Cover.',
       'image': 'img/figures/SparkCover_Replace.PNG',
       'sensors': [NaN, 0, NaN, NaN, NaN],
+    },
+    {
+      'number': '7.11.',
+      'text': 'Write down the current time on the worksheet.',
     },
     ],
   },
