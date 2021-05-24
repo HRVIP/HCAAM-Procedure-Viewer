@@ -53,7 +53,7 @@ div.caution {
 #listContainer {
     display: flex;
     margin: auto;
-    padding: 10px;
+    max-width: 1000px;
 }
 
 .listControl {
@@ -62,7 +62,7 @@ div.caution {
     top: 0;
     align-self: flex-start;
     flex: 1;
-    padding: 10px;
+    padding: 10px 10px 0px 0px;
 }
 
 .listControl>a {
@@ -83,7 +83,7 @@ div.caution {
 }
 
 .listControl>a+a {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .info {
