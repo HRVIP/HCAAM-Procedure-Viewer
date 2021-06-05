@@ -1,5 +1,5 @@
 # Kelden Ben-Ora HRVIP UC Davis
-# 8.20.2020
+# 6.5.2021
 
 import datetime
 import json
@@ -13,7 +13,6 @@ import requests
 import board
 import busio
 import digitalio
-# import paho.mqtt.client as mqtt
 import smbus
 
 # current ip address
@@ -24,8 +23,6 @@ bus.write_byte_data(0x18, 0x20, 0x27)
 bus.write_byte_data(0x18, 0x23, 0x00)
 i2c = busio.I2C(board.SCL, board.SDA)
 
-# client = mqtt.Client()
-# client.connect("localhost", 1883, 60)
 
 ######################
 # Locations of sensors and lasers on rpi pins
@@ -195,6 +192,8 @@ def newDataFile():
     # subject = requests.get(ip + '/subject').json()
     # group = requests.get(ip + '/group').json()
     # print("Trial number", fn)
+    if not os.path.exists(directory):
+        os.mkdir(directory)
     global f
     f = open((directory+fn), 'w')
     print("Created new file")
