@@ -263,7 +263,9 @@ function buildInteractivity() {
             hiddenElement.href = srvurl + '/trials/' + fn;
             hiddenElement.target = '_blank';
             hiddenElement.download = fn;
-            hiddenElement.click();
+            setTimeout(function() {
+              hiddenElement.click();
+            }, 1000);
           },
         });
       },
