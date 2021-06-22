@@ -71,7 +71,7 @@ const proc = {
     },
     {
       'number': '2.3.',
-      'text': 'Use a Flat Head Screwdriver to remove the Air Cleaner Cover Screw.',
+      'text': 'Use a Flat Head Screwdriver to loosen the Air Cleaner Cover Screw.',
       'image': 'img/figures/AirScrew_Location.PNG',
       'baseImage': 'img/baseFigures/Step2.2.png',
       'lasers': [0, 0, 1, 0],
