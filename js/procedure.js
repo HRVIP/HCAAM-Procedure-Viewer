@@ -501,6 +501,18 @@ function buildProcedure(group, steps, parent, depth) {
       if (group == 'Enhanced') {
         hasBaseImage = false;
       }
+      
+      if (group == 'Visuals') {
+        hasSensors = false;
+        hasLasers = false;
+        hasBaseImage = false;
+      }
+      
+      if (group == 'Feedback') {
+        hasImage = false;
+        hasVideo = false;
+        hasVideoHelp = false;
+      }
 
       if (hasVideoHelp) {
         step.text += ' See the following step for a video demonstration.';
