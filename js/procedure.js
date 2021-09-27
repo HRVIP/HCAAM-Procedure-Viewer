@@ -21,7 +21,7 @@ const proc = {
     },
     {
       'number': '1.3.',
-      'text': 'Unplug all power cords from the Control Panel (Clearly state \'Control Panel cleared\').',
+      'text': 'Unplug all power cords from the Control Panel (Clearly state \'Control Panel cleared\'). NOTE: DO NOT UNPLUG THE RASPBERRY PI.',
       'image': 'img/figures/ControlPanel.PNG',
     },
     {
