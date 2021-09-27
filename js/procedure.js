@@ -143,6 +143,7 @@ const proc = {
       'caution': 'CAUTION: Pry the Carburetor Fuel Tube off gently to avoid damaging it.',
       'text': 'Disengage the tension clamp on the Carburetor Fuel Tube by pushing both of the tabs on the clamp toward one another using Pliers. Hold the tabs with the Pliers while sliding the clamp off of the fitting and up the tube.',
       'image': 'img/figures/TensionClamp_Location.PNG',
+      'baseImage': 'img/baseFigures/Step3.2.png',
       'hasVideoHelp': true,
     },
     {
@@ -262,6 +263,7 @@ const proc = {
       'number': '5.1.',
       'text': 'Replace the Float and align the joint holes on the Float with the joint holes on the Carburetor assembly.',
       'image': 'img/figures/Float_Replace.PNG',
+      'baseImage': 'img/baseFigures/Step5.1.png',
     },
     {
       'number': '5.2.',
@@ -325,6 +327,7 @@ const proc = {
       'number': '6.6.',
       'text': 'Replace the Carburetor Fuel Tube by pushing it onto the Carburetor fitting.',
       'image': 'img/figures/FuelTube_Detached.PNG',
+      'baseImage': 'img/baseFigures/Step6.6.png',
     },
     {
       'number': '6.7.',
