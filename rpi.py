@@ -181,12 +181,13 @@ def newDataFile():
     # fn = str(max(files)+1)
     # fn = fn + '.csv'
 
+    date = requests.get(ip + '/date').json()
     subject = requests.get(ip + '/subject').json()
     group = requests.get(ip + '/group').json()
-    d = datetime.datetime.today()
-    date = d.strftime('%m-%d-%Y')
-    t = d.strftime('_%H-%M')
-    fn = date + t + str(subject) + '_' + str(group) + '.csv'
+    # d = datetime.datetime.today()
+    # date = d.strftime('%m-%d-%Y')
+    # t = d.strftime('_%H-%M')
+    fn = str(date) + '_' + str(subject) + '_' + str(group) + '.csv'
     # Tell the server what the current trial file is called
     r = requests.post(ip + '/fileName', {'file': fn})
     # subject = requests.get(ip + '/subject').json()
@@ -198,7 +199,7 @@ def newDataFile():
     f = open((directory+fn), 'w')
     print("Created new file")
     f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer, ' +
-            subject+group+', '+datetime.datetime.today().strftime('%m-%d-%Y')+'\n')
+            subject+group+', '+date+'\n')
 
 
 def readData():

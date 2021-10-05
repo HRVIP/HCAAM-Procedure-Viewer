@@ -13,6 +13,7 @@
   <form action="/subject" method='post' id='subjectID'
     style='top: 50%; left: 50%; position: absolute; transform: translate(-50%, -50%);'>
     <label for="ID">Configuration:</label>
+    <input name='Date' id="Date" disabled style='width: 100px'>
     <select name="ID" id="ID">
       <option value="Select">Select</option>
       <option value="CDR">CDR</option>
@@ -34,6 +35,15 @@
   </form>
 
   <script>
+    // Add date to form
+    Date.prototype.toDateInputValue = (function () {
+      var local = new Date(this);
+      local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+      return local.toJSON().slice(0, 10);
+    });
+
+    $('#Date').val(new Date().toDateInputValue());
+
     var form = document.querySelector('form');
     form.addEventListener('submit', event => {
       event.preventDefault();
@@ -42,6 +52,12 @@
         alert("Please select configuration options.");
       } else {
         $.when($.ajax({
+          'url': '/date',
+          'type': 'POST',
+          'data': {
+            'date': document.getElementById("Date").value
+          }
+        }), $.ajax({
           'url': '/subject',
           'type': 'POST',
           'data': {
@@ -53,7 +69,7 @@
           'data': {
             'group': data.get('Group')
           }
-        })).then(function(resp1, resp2) {
+        })).then(function (resp1, resp2, resp3) {
           window.location.replace('http://' + window.location.hostname + ':3000/start');
         });
       }

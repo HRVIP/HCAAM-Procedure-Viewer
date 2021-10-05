@@ -116,6 +116,19 @@ app.route('/fileName')
       res.send(fileName);
     });
 
+let date;
+app.route('/date')
+// Store the date as indicated from login form
+    .post(function(req, res) {
+      date = req.body.id;
+      res.setHeader('Content-type', 'text/plain');
+      res.send('Date received');
+    })
+// Send date to rpi to store in trial data file
+    .get(function(req, res) {
+      res.json(date);
+    });
+
 let subject;
 app.route('/subject')
 // Store subject ID as indicated from login form
