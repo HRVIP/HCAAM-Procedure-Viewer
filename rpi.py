@@ -1,5 +1,5 @@
-# Kelden Ben-Ora HRVIP UC Davis
-# 6.5.2021
+# Kelden Ben-Ora, Katie Homer HRVIP UC Davis
+# 5-11-23
 
 import datetime
 import json
@@ -15,6 +15,10 @@ import busio
 import digitalio
 import smbus
 
+import RPi.GPIO as GPIO
+from time import sleep
+
+
 # current ip address
 ip = 'http://' + (socket.gethostbyaddr(socket.gethostname())[2])[0] + ':3000'
 # interface and setup for the accelerometer
@@ -22,6 +26,19 @@ bus = smbus.SMBus(1)
 bus.write_byte_data(0x18, 0x20, 0x27)
 bus.write_byte_data(0x18, 0x23, 0x00)
 i2c = busio.I2C(board.SCL, board.SDA)
+
+# Haptics Setup
+GPIO.setmode(GPIO.BCM)
+
+Motor1A = 24
+Motor1B = 23
+Motor1E = 25
+
+GPIO.setup(Motor1A, GPIO.OUT)
+GPIO.setup(Motor1B, GPIO.OUT)
+GPIO.setup(Motor1E, GPIO.OUT)
+# print("Setup Complete")
+
 
 
 ######################
@@ -181,13 +198,12 @@ def newDataFile():
     # fn = str(max(files)+1)
     # fn = fn + '.csv'
 
-    date = requests.get(ip + '/date').json()
     subject = requests.get(ip + '/subject').json()
     group = requests.get(ip + '/group').json()
-    # d = datetime.datetime.today()
-    # date = d.strftime('%m-%d-%Y')
-    # t = d.strftime('_%H-%M')
-    fn = str(date) + '_' + str(subject) + '_' + str(group) + '.csv'
+    d = datetime.datetime.today()
+    date = d.strftime('%m-%d-%Y')
+    t = d.strftime('_%H-%M')
+    fn = date + t + str(subject) + '_' + str(group) + '.csv'
     # Tell the server what the current trial file is called
     r = requests.post(ip + '/fileName', {'file': fn})
     # subject = requests.get(ip + '/subject').json()
@@ -199,7 +215,7 @@ def newDataFile():
     f = open((directory+fn), 'w')
     print("Created new file")
     f.write('Time, Time since last event, Event, Current Step, Lasers, Hall Effect Sensor, Light Sensors, Accelerometer, ' +
-            subject+group+', '+date+'\n')
+            subject+group+', '+datetime.datetime.today().strftime('%m-%d-%Y')+'\n')
 
 
 def readData():
@@ -357,6 +373,163 @@ while True:
             temp = time.time()
             dataLog(dt, newEvent, newCurrentStep, np.array(lasers), sensors['hall1'],
                     np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+            
+            # Checking photoresistor Steps
+            if currentStep == '1.5' and newCurrentStep == '1.6':
+                if sensors['light2'] == 0:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+            
+            # Checking photoresistor Steps
+            if currentStep == '1.6' and newCurrentStep == '1.7':
+                if sensors['light3'] == 0:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+                    # Checking photoresistor Steps
+                    
+            if currentStep == '2.2' and newCurrentStep == '2.3':
+                if sensors['light1'] == 0:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+                    
+            # Warning steps  
+            if newCurrentStep == '2.6' or newCurrentStep == '3.2' or newCurrentStep == '3.7':
+                    for i in range (1): # Single Buzz Pattern
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(1)
+                    GPIO.output(Motor1E, GPIO.LOW)
+                    dataLog(0, 'Caution haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+                    
+            if currentStep == '2.8' and newCurrentStep == '2.9':
+                if sensors['hall1'] == 0:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+            
+            if currentStep == '3.8' and newCurrentStep == '3.9':
+                if sensors['accel1'] == 0:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+              
+            if currentStep == '6.1' and newCurrentStep == '6.2':
+                if sensors['accel1'] == 1:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+            
+            if currentStep == '7.2' and newCurrentStep == '7.3':
+                if sensors['hall1'] == 1:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+            
+            if currentStep == '7.8' and newCurrentStep == '7.9':
+                if sensors['light1'] == 1:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+                    
+            # Checking photoresistor Steps
+            if currentStep == '7.9' and newCurrentStep == '7.10':
+                if sensors['light3'] == 1:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+                    
+            # Checking photoresistor Steps
+            if currentStep == '7.10' and newCurrentStep == '7.11':
+                if sensors['light2'] == 1:
+                    for i in range(5): # Pulsing Buzz Pattern
+                        #print ("Cycle #: " + str(i))
+                        GPIO.output(Motor1A, GPIO.HIGH)
+                        GPIO.output(Motor1B, GPIO.LOW)
+                        GPIO.output(Motor1E, GPIO.HIGH)
+                        sleep(.2)
+                        GPIO.output(Motor1E, GPIO.LOW)
+                        sleep(.1)
+                    GPIO.output(Motor1E,GPIO.LOW)
+                    dataLog(0, 'Incomplete haptic', newCurrentStep, np.array(lasers), sensors['hall1'],
+                            np.array([sensors['light1'], sensors['light2'], sensors['light3']]), sensors['accel1'])
+            
         currentStep = newCurrentStep
         event = newEvent
 
