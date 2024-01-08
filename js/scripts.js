@@ -184,6 +184,8 @@ function buildInteractivity() {
   $currentElement.toggleClass('selected');
 
   const down = function() {
+    $(document).unbind('scroll');
+    $('body').css({'overflow':'visible'});
     $('.info').css('border', '');
     $allElements = $('li:not(:has(ul))');
 
@@ -212,9 +214,13 @@ function buildInteractivity() {
     },
     100,
     );
+    $('body').css({'overflow':'hidden'});
+    $(document).bind('scroll');
   };
 
   const up = function() {
+    $(document).unbind('scroll');
+    $('body').css({'overflow':'visible'});
     $('.info').css('border', '');
     $allElements = $('li:not(:has(ul))');
 
@@ -243,6 +249,8 @@ function buildInteractivity() {
     },
     100,
     );
+    $('body').css({'overflow':'hidden'});
+    $(document).bind('scroll');
   };
 
   // make end function global
@@ -360,4 +368,6 @@ function buildInteractivity() {
 $(document).ready(function() {
   // Load the procedure
   $.getScript('js/procedure.js');
+  $('body').css({'overflow':'hidden'});
+  $(document).bind('scroll')
 });
